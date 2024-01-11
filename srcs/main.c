@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <sys/time.h>
-#include <ncurses.h>
+#include "tetris.h"
 
 #define R 20
 #define C 15
