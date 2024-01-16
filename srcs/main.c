@@ -1,7 +1,6 @@
 #include "tetris.h"
 
 char Table[ROWS][COLUMNS] = {0};
-int final = 0;
 bool GameOn = true;
 suseconds_t timer = 400000;
 int decrease = 1000;
@@ -35,16 +34,12 @@ void set_timeout(int time) {
 int main() {
     srand(time(0));
 	Struct *current;
-    final = 0;
+    int final = 0;
     int c;
     initscr();
 	gettimeofday(&before_now, NULL);
 	set_timeout(1);
-	printf("hi\n");
 	Struct *new_shape = generateTetromino();
-	printf("hi\n");
-    // free_array(current);
-	printf("hi\n");
 	current = new_shape;
 	if(!isGameActive(current)){
 		GameOn = false;
