@@ -1,6 +1,9 @@
 NAME = tetris
 
 SRC = main.c \
+		alloc.c \
+		mino.c \
+		game.c \
 
 
 SRCDIR = srcs
