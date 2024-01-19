@@ -23,7 +23,7 @@ int isGameActive(Struct *shape){
 }
 
 int hasToUpdate(){
-	return ((suseconds_t)(now.tv_sec*1000000 + now.tv_usec) -((suseconds_t)before_now.tv_sec*1000000 + before_now.tv_usec)) > timer;
+	return ((suseconds_t)(now.tv_sec * 1000000 + now.tv_usec) - ((suseconds_t)before_now.tv_sec * 1000000 + before_now.tv_usec)) > timer;
 }
 
 void set_timeout(int time) {
@@ -58,27 +58,27 @@ int main() {
 						for(i = 0; i < current->width ;i++){
 							for(j = 0; j < current->width ; j++){
 								if(current->array[i][j])
-									Table[current->row+i][current->col+j] = current->array[i][j];
+									Table[current->row + i][current->col + j] = current->array[i][j];
 							}
 						}
 						int n, m, sum, count=0;
-						for(n=0;n<ROWS;n++){
+						for(n = 0; n < ROWS; n++){
 							sum = 0;
-							for(m=0;m< COLUMNS;m++) {
-								sum+=Table[n][m];
+							for(m = 0; m < COLUMNS; m++) {
+								sum += Table[n][m];
 							}
-							if(sum==COLUMNS){
+							if(sum == COLUMNS){
 								count++;
 								int l, k;
-								for(k = n;k >=1;k--)
-									for(l=0;l<COLUMNS;l++)
-										Table[k][l]=Table[k-1][l];
-								for(l=0;l<COLUMNS;l++)
-									Table[k][l]=0;
-								timer-=decrease--;
+								for(k = n; k >= 1; k--)
+									for(l = 0; l < COLUMNS; l++)
+										Table[k][l] = Table[k - 1][l];
+								for(l = 0; l < COLUMNS; l++)
+									Table[k][l] = 0;
+								timer -= decrease--;
 							}
 						}
-						final += 100*count;
+						final += 100 * count;
 						Struct *new_shape = generateTetromino();
 						free_array(current);
 						current = new_shape;
@@ -116,27 +116,27 @@ int main() {
 						current->row++;
 					else {
 						int i, j;
-						for(i = 0; i < current->width ;i++){
-							for(j = 0; j < current->width ; j++){
+						for(i = 0; i < current->width; i++){
+							for(j = 0; j < current->width; j++){
 								if(current->array[i][j])
-									Table[current->row+i][current->col+j] = current->array[i][j];
+									Table[current->row + i][current->col + j] = current->array[i][j];
 							}
 						}
 						int n, m, sum, count=0;
-						for(n=0;n<ROWS;n++){
+						for(n = 0; n < ROWS; n++){
 							sum = 0;
-							for(m=0;m< COLUMNS;m++) {
-								sum+=Table[n][m];
+							for(m = 0; m < COLUMNS; m++) {
+								sum += Table[n][m];
 							}
-							if(sum==COLUMNS){
+							if(sum == COLUMNS){
 								count++;
 								int l, k;
-								for(k = n;k >=1;k--)
-									for(l=0;l<COLUMNS;l++)
-										Table[k][l]=Table[k-1][l];
-								for(l=0;l<COLUMNS;l++)
-									Table[k][l]=0;
-								timer-=decrease--;
+								for(k = n; k >= 1; k--)
+									for(l = 0; l < COLUMNS; l++)
+										Table[k][l] = Table[k - 1][l];
+								for(l = 0; l < COLUMNS; l++)
+									Table[k][l] = 0;
+								timer -= decrease--;
 							}
 						}
 						Struct *new_shape = generateTetromino();
