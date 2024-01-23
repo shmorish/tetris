@@ -16,6 +16,19 @@ t_tetris *init_tetris(void)
 	return	tetris;
 }
 
+int do_tetris(t_tetris *tetris)
+{
+	int final_score;
+
+	final_score = 0;
+	while (1)
+	{
+		print_map(tetris->map);
+		move_tetris(tetris);
+	}
+	return (final_score);
+}
+
 int main(void)
 {
 	t_tetris *tetris;

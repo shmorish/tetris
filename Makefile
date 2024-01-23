@@ -1,12 +1,16 @@
 NAME = tetris
 
-SRC = main.c \
-		alloc.c \
-		mino.c \
-		game.c \
+ifeq ($(MAKECMDGOALS), before)
+	SRC = main.c \
+			alloc.c \
+			mino.c \
+			game.c
+	SRCDIR = srcs_before
+else
+	SRC = tetris.c
+	SRCDIR = srcs
+endif
 
-
-SRCDIR = srcs
 SRCS = $(addprefix $(SRCDIR)/, $(SRC))
 
 OBJDIR = objs
@@ -20,6 +24,7 @@ RM = rm -rf
 INC = -I./includes/
 
 LIBFT = libft/libft.a
+
 
 ifeq ($(MAKECMDGOALS), debug)
 	CFLAGS += -DDEBUG
@@ -72,6 +77,8 @@ debug : re
 
 address : re
 
-.PHONY : all clean fclean re debug address
+before : all
+
+.PHONY : all clean fclean re debug address before
 
 -include $(DEPS)

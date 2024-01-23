@@ -84,7 +84,7 @@ int main() {
 								timer -= decrease--;
 							}
 						}
-						final += 100 * count;
+						final += 1500 * count;
 						Struct *new_shape = generateTetromino();
 						free_array(current);
 						current = new_shape;
