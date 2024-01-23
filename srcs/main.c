@@ -32,7 +32,8 @@ void set_timeout(int time) {
 }
 
 int main() {
-    srand(time(0));
+    /* 初期化init_game() */
+	srand(time(0));
 	Struct *current;
     int final = 0;
     int c;
