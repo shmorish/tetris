@@ -36,38 +36,43 @@ int main() {
 	Struct *current;
     int final = 0;
     int c;
-    initscr();
+    initscr(); // ウィンドウの初期化
 	gettimeofday(&before_now, NULL);
 	set_timeout(1);
 	Struct *new_shape = generateTetromino();
 	current = new_shape;
-	if(!isGameActive(current)){
+	if(!isGameActive(current))
 		GameOn = false;
-	}
     print_game(final, current, Table);
-	while(GameOn){
-		if ((c = getch()) != ERR) {
+	gettimeofday(&now, NULL);
+	while(GameOn)
+	{
+		if ((c = getch()) != ERR || hasToUpdate())
+		{
 			Struct *temp = duplicateStruct(*current);
-			switch(c){
+			switch(c)
+			{
 				case 's':
 					temp->row++;  //move down
 					if(isGameActive(temp))
 						current->row++;
-					else {
-						int i, j;
-						for(i = 0; i < current->width ;i++){
-							for(j = 0; j < current->width ; j++){
+					else
+					{
+						for(int i = 0; i < current->width ;i++){
+							for(int j = 0; j < current->width ; j++)
+							{
 								if(current->array[i][j])
 									Table[current->row + i][current->col + j] = current->array[i][j];
 							}
 						}
-						int n, m, sum, count=0;
-						for(n = 0; n < ROWS; n++){
+						int sum, count = 0;
+						for(int n = 0; n < ROWS; n++)
+						{
 							sum = 0;
-							for(m = 0; m < COLUMNS; m++) {
+							for(int m = 0; m < COLUMNS; m++)
 								sum += Table[n][m];
-							}
-							if(sum == COLUMNS){
+							if(sum == COLUMNS)
+							{
 								count++;
 								int l, k;
 								for(k = n; k >= 1; k--)
@@ -82,9 +87,8 @@ int main() {
 						Struct *new_shape = generateTetromino();
 						free_array(current);
 						current = new_shape;
-						if(!isGameActive(current)){
+						if(!isGameActive(current))
 							GameOn = false;
-						}
 					}
 					break;
 				case 'd': //move right
@@ -105,30 +109,34 @@ int main() {
 			}
 			free_array(temp);
 			print_game(final, current, Table);
+			gettimeofday(&before_now, NULL);
 		}
 		gettimeofday(&now, NULL);
-		if (hasToUpdate()) {
+		if (hasToUpdate())
+		{
 			Struct *temp = duplicateStruct(*current);
-			switch('s'){
+			switch('s')
+			{
 				case 's':
 					temp->row++;
 					if(isGameActive(temp))
 						current->row++;
-					else {
-						int i, j;
-						for(i = 0; i < current->width; i++){
-							for(j = 0; j < current->width; j++){
+					else
+					{
+						for(int i = 0; i < current->width; i++){
+							for(int j = 0; j < current->width; j++){
 								if(current->array[i][j])
 									Table[current->row + i][current->col + j] = current->array[i][j];
 							}
 						}
-						int n, m, sum, count=0;
-						for(n = 0; n < ROWS; n++){
+						int sum, count = 0;
+						for(int n = 0; n < ROWS; n++){
 							sum = 0;
-							for(m = 0; m < COLUMNS; m++) {
+							for(int m = 0; m < COLUMNS; m++) {
 								sum += Table[n][m];
 							}
-							if(sum == COLUMNS){
+							if(sum == COLUMNS)
+							{
 								count++;
 								int l, k;
 								for(k = n; k >= 1; k--)
@@ -142,25 +150,9 @@ int main() {
 						Struct *new_shape = generateTetromino();
 						free_array(current);
 						current = new_shape;
-						if(!isGameActive(current)){
+						if(!isGameActive(current))
 							GameOn = false;
-						}
 					}
-					break;
-				case 'd':
-					temp->col++;
-					if(isGameActive(temp))
-						current->col++;
-					break;
-				case 'a':
-					temp->col--;
-					if(isGameActive(temp))
-						current->col--;
-					break;
-				case 'w':
-					rotate_Tetromino(temp);
-					if(isGameActive(temp))
-						rotate_Tetromino(current);
 					break;
 			}
 			free_array(temp);
@@ -169,8 +161,11 @@ int main() {
 		}
 	}
 	free_array(current);
-	endwin();
+	endwin(); // ncursesモードを終了
 	print_game_over(final, Table);
     return 0;
 }
 
+// __attribute__((destructor)) void end(){
+// 	system("leaks -q tetris");
+// }
