@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "tetris_before.h"
 
 const Struct Tetromino[7] = {
     {

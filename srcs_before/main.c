@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "tetris_before.h"
 
 char Table[ROWS][COLUMNS] = {0};
 bool GameOn = true;
@@ -27,7 +27,7 @@ int hasToUpdate(){
 }
 
 void set_timeout(int time) {
-	time = 1;
+	// time = 1;
 	timeout(1);
 }
 

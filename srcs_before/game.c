@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "tetris_before.h"
 
 void print_game(int score, Struct *current, char Table[ROWS][COLUMNS])
 {
@@ -7,6 +7,7 @@ void print_game(int score, Struct *current, char Table[ROWS][COLUMNS])
 	char str[] = "42 Tetris";
 	for(i = 0; i < current->width; i++){
 		for(j = 0; j < current->width; j++){
+			fprintf(stderr, "%d ", current->array[i][j]);
 			if(current->array[i][j])
 				Buffer[current->row + i][current->col + j] = current->array[i][j];
 		}

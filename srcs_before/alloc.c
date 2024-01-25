@@ -1,6 +1,4 @@
-#include "tetris.h"
-
-
+#include "tetris_before.h"
 
 void *xmalloc(size_t size)
 {
