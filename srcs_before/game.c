@@ -14,7 +14,7 @@ void print_game(int score, Struct *current, char Table[ROWS][COLUMNS])
 	}
 	clear();
 	for(i = 0; i < COLUMNS - strlen(str) / 2 - 1; i++)
-		printw(" ");
+		printw(" ");	// curses 版の printf()．
 	printw("%s\n", str);
 	for(i = 0; i < ROWS; i++){
 		for(j = 0; j < COLUMNS; j++){
