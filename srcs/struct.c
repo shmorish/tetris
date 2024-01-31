@@ -1,6 +1,5 @@
 #include "tetris.h"
 
-static void	*xcalloc(size_t size);
 static char	**init_map(void);
 
 t_tetris *init_struct(void)
@@ -8,11 +7,30 @@ t_tetris *init_struct(void)
 	t_tetris *tetris;
 
 	tetris = (t_tetris *)xcalloc(sizeof(t_tetris));
-	tetris->map = init_map();
-	tetris->tmp_map = init_map();
-	tetris->row = 0;
-	tetris->col = 0;
+	tetris->mino_data = NULL;
+	tetris->tmp_mino_data = NULL;
+
+	tetris->mino_size = 0;
+	tetris->current_row = 0;
+	tetris->current_col = 0;
+	tetris->time_to_execute = 400000;
+	tetris->table = init_table();
 	return	tetris;
+}
+
+void	free_double_char(char **str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != NULL)
+	{
+		free(str[i]);
+		str[i] = NULL;
+		i++;
+	}
+	free(str);
+	str = NULL;
 }
 
 void	destroy_struct(t_tetris *tetris)
@@ -20,14 +38,9 @@ void	destroy_struct(t_tetris *tetris)
 	int i;
 
 	i = 0;
-	while (i < ROWS)
-	{
-		free(tetris->map[i]);
-		tetris->map[i] = NULL;
-		i++;
-	}
-	free(tetris->map);
-	tetris->map = NULL;
+	free_double_char(tetris->mino_data);
+	free_double_char(tetris->tmp_mino_data);
+	free_double_char(tetris->table);
 	free(tetris);
 	tetris = NULL;
 }
@@ -39,9 +52,9 @@ void	map_dup(t_tetris *tetris)
 	i = 0;
 	while (i < ROWS)
 	{
-		free(tetris->tmp_map[i]);
-		tetris->tmp_map[i] = strdup(tetris->map[i]);
-		if (!tetris->tmp_map[i])
+		free(tetris->tmp_mino_data[i]);
+		tetris->tmp_mino_data[i] = strdup(tetris->mino_data[i]);
+		if (!tetris->tmp_mino_data[i])
 		{
 			perror("strdup");
 			exit(EXIT_FAILURE);
@@ -50,7 +63,7 @@ void	map_dup(t_tetris *tetris)
 	}
 }
 
-static void	*xcalloc(size_t size)
+void	*xcalloc(size_t size)
 {
 	void *ptr;
 
@@ -63,17 +76,17 @@ static void	*xcalloc(size_t size)
 	return (ptr);
 }
 
-static char	**init_map(void)
+static char	**init_table(void)
 {
-	char **map;
+	char **table;
 	int i;
 
-	map = (char **)xcalloc(sizeof(char *) * (ROWS + 1));
+	table = (char **)xcalloc(sizeof(char *) * (ROWS + 1));
 	i = 0;
 	while (i < ROWS)
 	{
-		map[i] = (char *)xcalloc(sizeof(char) * (COLUMNS + 1));
+		table[i] = (char *)xcalloc(sizeof(char) * (COLUMNS + 1));
 		i++;
 	}
-	return (map);
+	return (table);
 }

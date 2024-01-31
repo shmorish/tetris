@@ -14,24 +14,39 @@
 
 #define GAME_TITLE "42 Tetris"
 
+#define GAME_OVER 0
+#define GAME_ON 1
+
 typedef struct s_tetris
 {
-	char **map;
-	char **tmp_map;
-	int row;
-	int col;
+	// mino data
+	char **mino_data;
+	char **tmp_mino_data;
+	int mino_size;
+	int current_row;
+	int current_col;
+
+	// game data
+	suseconds_t time_to_execute;
+	char **table;
+	int score;
 }	t_tetris;
 
 // struct.c
 t_tetris *init_struct(void);
 void	destroy_struct(t_tetris *tetris);
 void	map_dup(t_tetris *tetris);
+void	*xcalloc(size_t size);
+void	free_double_char(char **str);
 
 // init_game.c
 void	init_game(void);
-void	end_game(t_tetris *tetris, int final_score);
+void	end_game(t_tetris *tetris);
 
 // do_tetris.c
-int do_tetris(t_tetris *tetris);
+void	do_tetris(t_tetris *tetris);
+
+// print_game.c
+int	switch_print(int key_input, const char * restrict format, ...);
 
 #endif

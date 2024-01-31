@@ -2,8 +2,7 @@
 
 int main(void)
 {
-	t_tetris *tetris;
-	int final_score;
+	t_tetris	*tetris;
 
 	/* 初期化する
 	・開始時間を取得する
@@ -20,9 +19,9 @@ int main(void)
 		・時間経過でものを落とす
 	}
 	*/
-	final_score = do_tetris(tetris);
+	do_tetris(tetris);
 	/* ゲームを終了する */
-	end_game(tetris, final_score);
+	end_game(tetris);
 	destroy_struct(tetris);
 	return 0;
 }

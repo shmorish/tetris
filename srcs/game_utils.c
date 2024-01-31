@@ -21,9 +21,8 @@ void	init_game(void)
 	srand(0);
 }
 
-void	end_game(t_tetris *tetris, int final_score)
+void	end_game(t_tetris *tetris)
 {
 	endwin();
-	printf("\nGame over!\n");
-	printf("\nScore: %d\n", final_score);
+	print_table('f', tetris->table, tetris->score);
 }
