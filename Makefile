@@ -7,7 +7,10 @@ ifeq ($(MAKECMDGOALS), before)
 			game.c
 	SRCDIR = srcs_before
 else
-	SRC = tetris.c
+	SRC = tetris.c \
+			struct.c \
+			game_utils.c \
+			do_tetris.c
 	SRCDIR = srcs
 endif
 

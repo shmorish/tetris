@@ -1,14 +1,5 @@
 #include "tetris.h"
 
-t_tetris *init_tetris(void)
-{
-	t_tetris *tetris;
-
-	tetris->map = init_map();
-
-	return	tetris;
-}
-
 int main(void)
 {
 	t_tetris *tetris;
@@ -18,8 +9,8 @@ int main(void)
 	・開始時間を取得する
 	・空盤面を生成する
 	*/
-	tetris = init_tetris();
-
+	tetris = init_struct();
+	init_game();
 	/* ゲームを実行する
 	繰り返す
 	{
@@ -30,7 +21,17 @@ int main(void)
 	}
 	*/
 	final_score = do_tetris(tetris);
-
 	/* ゲームを終了する */
-	end_tetris(tetris, final_score);
+	end_game(tetris, final_score);
+	destroy_struct(tetris);
+	return 0;
 }
+
+#ifdef DEBUG
+
+__attribute__((destructor)) void end(void)
+{
+	system("leaks -q tetris");
+}
+
+#endif
