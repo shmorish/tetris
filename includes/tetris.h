@@ -7,10 +7,10 @@
 # define ROWS 20
 # define COLUMNS 15
 
-# define KEY_UP 'w'
-# define KEY_LEFT 'a'
-# define KEY_DOWN 's'
-# define KEY_RIGHT 'd'
+# define W_KEY 'w'
+# define A_KEY 'a'
+# define S_KEY 's'
+# define D_KEY 'd'
 
 #define GAME_TITLE "42 Tetris"
 
@@ -36,21 +36,36 @@ typedef struct s_tetris
 	int score;
 }	t_tetris;
 
-// struct.c
-t_tetris *init_struct(void);
-void	destroy_struct(t_tetris *tetris);
-void	map_dup(t_tetris *tetris);
-void	*xcalloc(size_t size);
-void	free_array(char **str);
+// actions.c
+bool	possible_to_move(t_tetris *tetris, int row, int col);
+void	rotate_mino(t_tetris *tetris);
+void	move_mino(t_tetris *tetris, int direction);
+void	move_down(t_tetris *tetris);
 
-// init_game.c
+// do_tetris.c
+void do_tetris(t_tetris *tetris);
+
+// game_utils.c
 void	init_game(void);
 void	end_game(t_tetris *tetris);
 
-// do_tetris.c
-void	do_tetris(t_tetris *tetris);
+// mino.c
+void    generate_mino(t_tetris *tetris);
 
-// print_game.c
-int	switch_print(int key_input, const char * restrict format, ...);
+// print_table.c
+int		switch_print(int situation, const char * restrict format, ...);
+void	print_title(void);
+void	print_table(int situation, char **table, int score);
+
+// struct.c
+t_tetris *init_struct(void);
+void	free_array(char **str);
+void	destroy_struct(t_tetris *tetris);
+void	dup_mino_data(t_tetris *tetris);
+void	*xcalloc(size_t size);
+
+// time.c
+void	update_exec_time(void);
+int		time_elapses(t_tetris *tetris);
 
 #endif

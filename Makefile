@@ -1,9 +1,14 @@
 NAME = tetris
 
-SRC = tetris.c \
-		struct.c \
-		game_utils.c \
-		do_tetris.c
+SRC = actions.c \
+	do_tetris.c \
+	game_utils.c \
+	mino.c \
+	print_table.c \
+	struct.c \
+	tetris.c \
+	time.c \
+
 SRCDIR = srcs
 
 ifeq ($(MAKECMDGOALS), before)

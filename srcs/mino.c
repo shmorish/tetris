@@ -1,52 +1,109 @@
 # include "tetris.h"
 
-typedef enum e_color {
-	UNKNOWN,// 未定義
-	GREEN,	// S mino
-	RED,	// Z mino
-	PURPLE,	// T mino
-	BLUE,	// J mino
-	ORANGE,	// L mino
-	YELLOW,	// O mino
-	CYAN	// I mino
-} e_color;
-
-typedef struct {
-    char	**array;
-    int		width;
-    e_color	color;
-} Tetromino;
-
-char	**createArray(int rows, int cols, char blocks[rows][cols])
+typedef struct s_struct
 {
-    char **array = xcalloc(rows * sizeof(char*));
-    for (int i = 0; i < rows; i++) {
-        array[i] = xcalloc(cols * sizeof(char));
-        for (int j = 0; j < cols; j++) {
-            array[i][j] = blocks[i][j];
+    char **array;
+    int width;
+}   t_mino;
+
+static const t_mino Tetromino[7] = {
+    {
+		// S mino
+		// green
+        .array = (char *[]) {
+            (char []){0, 1, 1},
+            (char []){1, 1, 0},
+            (char []){0, 0, 0}
+        },
+        .width = 3
+    },
+	{
+		// Z mino
+		// red
+		.array = (char *[]) {
+			(char []){1, 1, 0},
+			(char []){0, 1, 1},
+			(char []){0, 0, 0}
+		},
+		.width = 3
+	},
+	{
+		// T mino
+		// purple
+		.array = (char *[]) {
+			(char []){0, 1, 0},
+			(char []){1, 1, 1},
+			(char []){0, 0, 0}
+		},
+		.width = 3
+	},
+	{
+		// J mino
+		// blue
+		.array = (char *[]) {
+			(char []){1, 0, 0},
+			(char []){1, 1, 1},
+			(char []){0, 0, 0}
+		},
+		.width = 3
+	},
+	{
+		// L mino
+		// orange
+		.array = (char *[]) {
+			(char []){0, 0, 1},
+			(char []){1, 1, 1},
+			(char []){0, 0, 0}
+		},
+		.width = 3
+	},
+	{
+		// O mino
+		// yellow
+		.array = (char *[]) {
+			(char []){1, 1},
+			(char []){1, 1}
+		},
+		.width = 2
+	},
+	{
+		// I mino
+		// cyan
+		.array = (char *[]) {
+			(char []){0, 0, 0, 0},
+			(char []){1, 1, 1, 1},
+			(char []){0, 0, 0, 0},
+			(char []){0, 0, 0, 0}
+		},
+		.width = 4
+	}
+};
+
+char   **mino_alloc(char **mino, int size)
+{
+    char **array;
+    int i;
+
+    array = (char **)xcalloc(sizeof(char *) * (size + 1));
+    i = 0;
+    while (i < size)
+    {
+        array[i] = strdup(mino[i]);
+        if (!array[i])
+        {
+            perror("strdup");
+            exit(EXIT_FAILURE);
         }
+        i++;
     }
-    return array;
+    return (array);
 }
 
-Tetromino createTetromino(char blocks[][4], int width, e_color color)
+void    generate_mino(t_tetris *tetris)
 {
-    int rows = sizeof(blocks) / sizeof(blocks[0]);
-    int cols = sizeof(blocks[0]) / sizeof(char);
-    return (Tetromino){.array = createArray(rows, cols, blocks), .width = width, .color = color};
+    int index = rand() % 7;
+    tetris->mino_size = Tetromino[index].width;
+    tetris->mino_data = mino_alloc(Tetromino[index].array, tetris->mino_size);
+    tetris->current_row = 0;
+    tetris->current_col = rand() % (COLUMNS - tetris->mino_size + 1);
 }
-
-// int main() {
-//     Tetromino tetrominos[7] = {
-//         createTetromino((char[][4]){{0, 1, 1, 0}, {1, 1, 0, 0}}, 3, COLOR_GREEN),
-//         createTetromino((char[][4]){{1, 1, 0, 0}, {0, 1, 1, 0}}, 3, COLOR_RED),
-//         // ... 他のテトリミノも同様に初期化 ...
-//     };
-
-//     // 使用後、確保したメモリを解放
-//     for (int i = 0; i < 7; i++) {
-//         freeArray(tetrominos[i].array, tetrominos[i].width);
-//     }
-
-//     return 0;
-// }

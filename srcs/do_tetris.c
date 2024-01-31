@@ -4,19 +4,20 @@ void do_tetris(t_tetris *tetris)
 {
 	int	key_input;
 
-	while (1)
+	generate_mino(tetris);
+	while (possible_to_move(tetris, tetris->current_row, tetris->current_col))
 	{
 		key_input = getch();
 		if (key_input != ERR)
 		{
 			dup_mino_data(tetris);
-			if (key_input == KEY_UP)
-				rotate_tetris(tetris);
-			else if (key_input == KEY_DOWN)
+			if (key_input == W_KEY)
+				rotate_mino(tetris);
+			else if (key_input == S_KEY)
 				move_down(tetris);
-			else if (key_input == KEY_LEFT)
+			else if (key_input == A_KEY)
 				move_mino(tetris, -1);
-			else if (key_input == KEY_RIGHT)
+			else if (key_input == D_KEY)
 				move_mino(tetris, 1);
 			print_table(GAME_ON, tetris->table, tetris->score);
 		}
@@ -26,7 +27,5 @@ void do_tetris(t_tetris *tetris)
 			print_table(GAME_ON, tetris->table, tetris->score);
 			update_exec_time();
 		}
-		// if (is_gameover(tetris))
-		break ;
 	}
 }

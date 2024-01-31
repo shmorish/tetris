@@ -2,7 +2,7 @@
 
 static int decrease_time = 1000;
 
-static bool	possible_to_move(t_tetris *tetris, int row, int col)
+bool	possible_to_move(t_tetris *tetris, int row, int col)
 {
 	char **array = tetris->tmp_mino_data;
 
@@ -19,7 +19,7 @@ static bool	possible_to_move(t_tetris *tetris, int row, int col)
 	return true;
 }
 
-void rotate(t_tetris *tetris, int dimension)
+static void rotate(t_tetris *tetris, int dimension)
 {
     for (int i = 0; i < dimension; i++) {
         for (int j = 0; j < dimension; j++) {
@@ -32,9 +32,13 @@ void rotate(t_tetris *tetris, int dimension)
 
 void	rotate_mino(t_tetris *tetris)
 {
-	rotate(tetris->tmp_mino_data, tetris->mino_size);
+	rotate(tetris, tetris->mino_size);
 	if (possible_to_move(tetris, tetris->current_row, tetris->current_col))
-		rotate(tetris->mino_data, tetris->mino_size);
+	{
+		free_array(tetris->mino_data);
+		tetris->mino_data = tetris->tmp_mino_data;
+		tetris->tmp_mino_data = NULL;
+	}
 }
 
 void	move_mino(t_tetris *tetris, int direction)

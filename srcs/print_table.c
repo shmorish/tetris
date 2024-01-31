@@ -1,13 +1,22 @@
 #include "tetris.h"
 
-int	switch_print(int situation, const char * restrict format, ...)
-{
-	if (situation == GAME_ON)
-		return (printw(format));
-	else if (situation == GAME_OVER)
-		return (printf(format));
-	strerror("invalid situation");
-	return (ERR);
+
+int switch_print(int situation, const char * restrict format, ...) {
+    va_list args;
+    int result = 0;
+
+    va_start(args, format);
+    if (situation == GAME_ON) {
+        vwprintw(stdscr, format, args);
+        refresh();
+    } else if (situation == GAME_OVER) {
+        result = vprintf(format, args);
+    } else {
+        perror("invalid situation");
+        result = ERR;
+    }
+    va_end(args);
+    return result;
 }
 
 void	print_title(void)

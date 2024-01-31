@@ -1,6 +1,6 @@
 #include "tetris.h"
 
-static char	**init_map(void);
+static char	**init_table(void);
 
 t_tetris *init_struct(void)
 {
@@ -22,6 +22,8 @@ t_tetris *init_struct(void)
 
 void	free_array(char **str)
 {
+	if (!str)
+		return ;
 	for (int i = 0; str[i] != NULL; i++)
 	{
 		free(str[i]);
@@ -44,12 +46,14 @@ void	destroy_struct(t_tetris *tetris)
 	tetris = NULL;
 }
 
-void	map_dup(t_tetris *tetris)
+void	dup_mino_data(t_tetris *tetris)
 {
 	int i;
 
 	i = 0;
-	while (i < ROWS)
+	free_array(tetris->tmp_mino_data);
+	tetris->tmp_mino_data = (char **)xcalloc(sizeof(char *) * (tetris->mino_size + 1));
+	while (i < tetris->mino_size)
 	{
 		free(tetris->tmp_mino_data[i]);
 		tetris->tmp_mino_data[i] = strdup(tetris->mino_data[i]);
