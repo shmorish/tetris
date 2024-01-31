@@ -1,13 +1,14 @@
 # include "tetris.h"
 
-typedef enum e_color{
-	GREEN,
-	RED,
-	PURPLE,
-	BLUE,
-	ORANGE,
-	YELLOW,
-	CYAN
+typedef enum e_color {
+	UNKNOWN,// 未定義
+	GREEN,	// S mino
+	RED,	// Z mino
+	PURPLE,	// T mino
+	BLUE,	// J mino
+	ORANGE,	// L mino
+	YELLOW,	// O mino
+	CYAN	// I mino
 } e_color;
 
 typedef struct {
@@ -26,13 +27,6 @@ char	**createArray(int rows, int cols, char blocks[rows][cols])
         }
     }
     return array;
-}
-
-void freeArray(char** array, int rows) {
-    for (int i = 0; i < rows; i++) {
-        free(array[i]);
-    }
-    free(array);
 }
 
 Tetromino createTetromino(char blocks[][4], int width, e_color color)

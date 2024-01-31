@@ -15,19 +15,17 @@ t_tetris *init_struct(void)
 	tetris->current_col = 0;
 	tetris->time_to_execute = 400000;
 	tetris->table = init_table();
+	tetris->tmp_table = init_table();
+	tetris->score = 0;
 	return	tetris;
 }
 
-void	free_double_char(char **str)
+void	free_array(char **str)
 {
-	int i;
-
-	i = 0;
-	while (str[i] != NULL)
+	for (int i = 0; str[i] != NULL; i++)
 	{
 		free(str[i]);
 		str[i] = NULL;
-		i++;
 	}
 	free(str);
 	str = NULL;
@@ -38,9 +36,10 @@ void	destroy_struct(t_tetris *tetris)
 	int i;
 
 	i = 0;
-	free_double_char(tetris->mino_data);
-	free_double_char(tetris->tmp_mino_data);
-	free_double_char(tetris->table);
+	free_array(tetris->mino_data);
+	free_array(tetris->tmp_mino_data);
+	free_array(tetris->table);
+	free_array(tetris->tmp_table);
 	free(tetris);
 	tetris = NULL;
 }

@@ -1,17 +1,17 @@
 NAME = tetris
 
+SRC = tetris.c \
+		struct.c \
+		game_utils.c \
+		do_tetris.c
+SRCDIR = srcs
+
 ifeq ($(MAKECMDGOALS), before)
 	SRC = main.c \
 			alloc.c \
 			mino.c \
 			game.c
 	SRCDIR = srcs_before
-else
-	SRC = tetris.c \
-			struct.c \
-			game_utils.c \
-			do_tetris.c
-	SRCDIR = srcs
 endif
 
 SRCS = $(addprefix $(SRCDIR)/, $(SRC))

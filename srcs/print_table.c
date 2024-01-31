@@ -26,9 +26,9 @@ void	print_table(int situation, char **table, int score)
 		print_title();
 	for (int i = 0; i < ROWS; i++) {
 		for (int j = 0; j < COLUMNS; j++) {
-			printf("%c ", table[i][j]);
+			switch_print(situation, "%c ", table[i][j] ? MAP_FULL : MAP_EMPTY);
 		}
-		printf("\n");
+		switch_print(situation, "\n");
 	}
 	if (situation == GAME_OVER)
 		switch_print(situation, "\nGame over!\n");

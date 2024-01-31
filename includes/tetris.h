@@ -17,6 +17,9 @@
 #define GAME_OVER 0
 #define GAME_ON 1
 
+#define MAP_EMPTY '.'
+#define MAP_FULL '#'
+
 typedef struct s_tetris
 {
 	// mino data
@@ -29,6 +32,7 @@ typedef struct s_tetris
 	// game data
 	suseconds_t time_to_execute;
 	char **table;
+	char **tmp_table;
 	int score;
 }	t_tetris;
 
@@ -37,7 +41,7 @@ t_tetris *init_struct(void);
 void	destroy_struct(t_tetris *tetris);
 void	map_dup(t_tetris *tetris);
 void	*xcalloc(size_t size);
-void	free_double_char(char **str);
+void	free_array(char **str);
 
 // init_game.c
 void	init_game(void);
