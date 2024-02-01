@@ -1,8 +1,12 @@
 #ifndef TETRIS_H
 # define TETRIS_H
 
-# include <libc.h>
-#include <ncurses.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <stdbool.h>
+# include <sys/time.h>
+# include <ncurses.h>
 
 # define ROWS 20
 # define COLUMNS 15
