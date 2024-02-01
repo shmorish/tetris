@@ -96,6 +96,7 @@ char   **mino_alloc(char **mino, int size)
         }
         i++;
     }
+	array[i] = NULL;
     return (array);
 }
 
