@@ -36,6 +36,7 @@ t_tetris	*dup_mino_data(t_tetris *tetris)
 	tmp->current_row = tetris->current_row;
 	tmp->current_col = tetris->current_col;
 	tmp->time_to_execute = tetris->time_to_execute;
+	free_array(tmp->table);
 	tmp->table = mino_alloc(tetris->table, ROWS);
 	tmp->score = tetris->score;
 	tmp->game_on = tetris->game_on;

@@ -16,7 +16,10 @@ int main(void)
 
 __attribute__((destructor)) void end(void)
 {
+	int error_fd = open("error.log", O_WRONLY | O_CREAT | O_APPEND, 0644);
+	dup2(error_fd, STDOUT_FILENO);
 	system("leaks -q tetris");
+	close(error_fd);
 }
 
 #endif
