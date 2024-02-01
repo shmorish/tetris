@@ -1,8 +1,8 @@
 #include "tetris_before.h"
 
-char Table[ROWS][COLUMNS] = {0};
-bool GameOn = true;
-suseconds_t timer = 400000;
+char Table[ROWS][COLUMNS] = {0};	//	盤面
+bool GameOn = true;			//	ゲームオーバーかどうか（ゲームを終了するかどうか）を範囲するためのフラグ
+suseconds_t timer = 400000;	//	盤面の更新にかかる時間（変える予定がないから定数で良いのでは？）
 int decrease = 1000;
 
 
@@ -22,7 +22,9 @@ int isGameActive(Struct *shape){
 	return true;
 }
 
-int hasToUpdate(){
+// 盤面を更新する時間が経ったか
+int hasToUpdate()
+{
 	return ((suseconds_t)(now.tv_sec * 1000000 + now.tv_usec) - ((suseconds_t)before_now.tv_sec * 1000000 + before_now.tv_usec)) > timer;
 }
 
@@ -32,22 +34,40 @@ void set_timeout(int time) {
 }
 
 int main() {
-    /* 初期化init_game() */
+    /* 初期化する */
+
+	// 乱数生成のタネを作る
 	srand(time(0));
+	// 構造体をつくる
 	Struct *current;
-    int final = 0;
-    int c;
-    initscr(); // ウィンドウの初期化
+    // ファイナルスコアの変数を初期化する
+	int final = 0;
+    // ウィンドウを初期化する
+	initscr();
+	// 現在時刻を取得する
 	gettimeofday(&before_now, NULL);
+	// キー入力待ち時間（普通は 1 ms 以上）を設定する．
 	set_timeout(1);
+
+
+	/* ゲームを実行する */
+	// ミノを生成する
 	Struct *new_shape = generateTetromino();
 	current = new_shape;
+
+	// ゲームオーバーでないかを確認する
 	if(!isGameActive(current))
 		GameOn = false;
-    print_game(final, current, Table);
+    // 空盤面を生成する
+	print_game(final, current, Table);
+
+	// 現在時刻を取得する
 	gettimeofday(&now, NULL);
+	// 入力文字の変数を宣言する（━▶︎ゲームを実行する）
+	int c;
 	while(GameOn)
 	{
+		// 入力された文字列が正常である，または変更が必要
 		if ((c = getch()) != ERR || hasToUpdate())
 		{
 			Struct *temp = duplicateStruct(*current);
