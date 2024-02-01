@@ -31,6 +31,7 @@ void	print_title(void)
 void	print_table(int situation, t_tetris *tetris, int score)
 {
 	char Buffer[ROWS][COLUMNS];
+
 	memset(Buffer, 0, sizeof(char **));
 	if (situation == GAME_ON)
 	{

@@ -84,7 +84,7 @@ char   **mino_alloc(char **mino, int size)
     char **array;
     int i;
 
-    array = (char **)xcalloc(sizeof(char *) * (size + 1));
+    array = (char **)xcalloc(sizeof(char *), size + 1);
     i = 0;
     while (i < size)
     {

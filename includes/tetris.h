@@ -62,7 +62,7 @@ t_tetris *init_struct(void);
 void	free_array(char **str);
 void	destroy_struct(t_tetris *tetris);
 void	dup_mino_data(t_tetris *tetris);
-void	*xcalloc(size_t size);
+void	*xcalloc(size_t count, size_t size);
 
 // time.c
 void	update_exec_time(void);
