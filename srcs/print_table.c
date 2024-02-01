@@ -1,26 +1,27 @@
 #include "tetris.h"
 
-int switch_print(int situation, const char * restrict format, ...) {
-    va_list args;
-    int result = 0;
+static int	switch_print(int situation, const char * restrict format, ...)
+{
+	va_list	args;
+	int		result = 0;
 
-    va_start(args, format);
-    if (situation == GAME_ON) {
-        vwprintw(stdscr, format, args);
-        refresh();
-    } else if (situation == GAME_OVER) {
-        result = vprintf(format, args);
-    } else {
-        perror("invalid situation");
-        result = ERR;
-    }
-    va_end(args);
-    return result;
+	va_start(args, format);
+	if (situation == GAME_ON)
+		vwprintw(stdscr, format, args);
+	else if (situation == GAME_OVER)
+		result = vprintf(format, args);
+	else
+	{
+		perror("invalid situation");
+		result = ERR;
+	}
+	va_end(args);
+	return (result);
 }
 
-void	print_title(void)
+static void	print_title(void)
 {
-	int title_len = strlen(GAME_TITLE);
+	int	title_len = strlen(GAME_TITLE);
 
 	clear();
 	for (int i = 0; i < COLUMNS - title_len / 2 - 1; i++)
@@ -30,9 +31,8 @@ void	print_title(void)
 
 void	print_table(int situation, t_tetris *tetris, int score)
 {
-	char Buffer[ROWS][COLUMNS] = {};
+	char	Buffer[ROWS][COLUMNS] = {};
 
-	// memset(Buffer, 0, sizeof(char **));
 	if (situation == GAME_ON)
 	{
 		for(int i = 0; i < tetris->mino_size; i++) {

@@ -2,9 +2,9 @@
 
 static char	**init_table(void);
 
-t_tetris *init_struct(void)
+t_tetris	*init_struct(void)
 {
-	t_tetris *tetris;
+	t_tetris	*tetris;
 
 	tetris = (t_tetris *)xcalloc(sizeof(t_tetris), 1);
 	tetris->mino_data = NULL;
@@ -15,7 +15,7 @@ t_tetris *init_struct(void)
 	tetris->table = init_table();
 	tetris->score = 0;
 	tetris->game_on = true;
-	return	tetris;
+	return (tetris);
 }
 
 void	destroy_struct(t_tetris *tetris)
@@ -28,7 +28,7 @@ void	destroy_struct(t_tetris *tetris)
 
 t_tetris	*dup_mino_data(t_tetris *tetris)
 {
-	t_tetris *tmp;
+	t_tetris	*tmp;
 
 	tmp = init_struct();
 	tmp->mino_data = mino_alloc(tetris->mino_data, tetris->mino_size);
@@ -39,13 +39,13 @@ t_tetris	*dup_mino_data(t_tetris *tetris)
 	tmp->table = mino_alloc(tetris->table, ROWS);
 	tmp->score = tetris->score;
 	tmp->game_on = tetris->game_on;
-	return tmp;
+	return (tmp);
 }
 
 static char	**init_table(void)
 {
-	char **table;
-	int i;
+	int		i;
+	char	**table;
 
 	table = (char **)xcalloc(sizeof(char *), ROWS + 1);
 	i = 0;

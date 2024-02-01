@@ -17,8 +17,7 @@ void	init_game(void)
 	timeout(1);
 	keypad(stdscr, TRUE);
 	nodelay(stdscr, TRUE);
-	// srand(time(0)); // と何が違うのか。。。
-	srand(0);
+	srand(time(0));
 }
 
 void	end_game(t_tetris *tetris)

@@ -104,7 +104,6 @@ char   **mino_alloc(char **mino, int size)
 void    generate_mino(t_tetris *tetris)
 {
 	int index = rand() % 7;
-	// int index = 6;
     tetris->mino_size = Tetromino[index].width;
 	tetris->mino_data = mino_alloc(Tetromino[index].array, tetris->mino_size);
 	tetris->current_row = 0;

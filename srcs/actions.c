@@ -89,7 +89,8 @@ static int clear_complete_rows(t_tetris *tetris) {
                 tetris->time_to_execute -= decrease_time;
                 decrease_time--;
             }
-            n--; // 再検証を行うためにインデックスをデクリメント
+            // 再検証を行うためにインデックスをデクリメント
+            n--;
         }
     }
     return count * 1500;
