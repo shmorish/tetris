@@ -55,7 +55,7 @@ void    generate_mino(t_tetris *tetris);
 // print_table.c
 int		switch_print(int situation, const char * restrict format, ...);
 void	print_title(void);
-void	print_table(int situation, char **table, int score);
+void	print_table(int situation, t_tetris *tetris, int score);
 
 // struct.c
 t_tetris *init_struct(void);

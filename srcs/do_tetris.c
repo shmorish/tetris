@@ -5,6 +5,7 @@ void do_tetris(t_tetris *tetris)
 	int	key_input;
 
 	generate_mino(tetris);
+	print_table(GAME_ON, tetris, tetris->score);
 	while (possible_to_move(tetris, tetris->current_row, tetris->current_col))
 	{
 		key_input = getch();
@@ -19,12 +20,12 @@ void do_tetris(t_tetris *tetris)
 				move_mino(tetris, -1);
 			else if (key_input == D_KEY)
 				move_mino(tetris, 1);
-			print_table(GAME_ON, tetris->table, tetris->score);
+			print_table(GAME_ON, tetris, tetris->score);
 		}
 		if (time_elapses(tetris))
 		{
 			move_down(tetris);
-			print_table(GAME_ON, tetris->table, tetris->score);
+			print_table(GAME_ON, tetris, tetris->score);
 			update_exec_time();
 		}
 	}
