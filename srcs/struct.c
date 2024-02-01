@@ -20,19 +20,6 @@ t_tetris *init_struct(void)
 	return	tetris;
 }
 
-void	free_array(char **str)
-{
-	if (!str)
-		return ;
-	for (int i = 0; str[i] != NULL; i++)
-	{
-		free(str[i]);
-		str[i] = NULL;
-	}
-	free(str);
-	str = NULL;
-}
-
 void	destroy_struct(t_tetris *tetris)
 {
 	free_array(tetris->mino_data);
@@ -53,7 +40,7 @@ void	dup_mino_data(t_tetris *tetris)
 	while (i < tetris->mino_size)
 	{
 		free(tetris->tmp_mino_data[i]);
-		tetris->tmp_mino_data[i] = strdup(tetris->mino_data[i]);
+		tetris->tmp_mino_data[i] = memdup(tetris->mino_data[i], tetris->mino_size);
 		if (!tetris->tmp_mino_data[i])
 		{
 			perror("strdup");
@@ -62,19 +49,6 @@ void	dup_mino_data(t_tetris *tetris)
 		i++;
 	}
 	tetris->tmp_mino_data[i] = NULL;
-}
-
-void	*xcalloc(size_t count, size_t size)
-{
-	void *ptr;
-
-	ptr = calloc(count, size);
-	if (!ptr)
-	{
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
-	return (ptr);
 }
 
 static char	**init_table(void)

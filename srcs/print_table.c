@@ -30,16 +30,18 @@ void	print_title(void)
 
 void	print_table(int situation, t_tetris *tetris, int score)
 {
-	char Buffer[ROWS][COLUMNS];
+	char Buffer[ROWS][COLUMNS] = {};
 
-	memset(Buffer, 0, sizeof(char **));
+	// memset(Buffer, 0, sizeof(char **));
 	if (situation == GAME_ON)
 	{
 		for(int i = 0; i < tetris->mino_size; i++) {
 			for(int j = 0; j < tetris->mino_size; j++) {
+				dprintf(5, "hi!\n");
 				if(tetris->mino_data[i][j])
 					Buffer[tetris->current_row + i][tetris->current_col + j] = tetris->mino_data[i][j];
 			}
+			dprintf(5, "-------------\n");
 		}
 		print_title();
 	}

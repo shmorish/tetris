@@ -47,6 +47,8 @@ tetris
 *.idb
 *.pdb
 *log
+*out
+
 # Kernel Module Compile Results
 *.mod*
 *.cmd
