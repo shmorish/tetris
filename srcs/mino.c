@@ -88,9 +88,7 @@ char   **mino_alloc(char **mino, int size)
     i = 0;
     while (i < size)
     {
-		dprintf(5, "he %d\n", i);
 		array[i] = memdup(mino[i], size);
-		dprintf(5, "here %d\n", i);
         if (!array[i])
         {
             perror("strdup");
@@ -105,13 +103,10 @@ char   **mino_alloc(char **mino, int size)
 
 void    generate_mino(t_tetris *tetris)
 {
-	// int index = rand() % 7;
-	int index = 6;
+	int index = rand() % 7;
+	// int index = 6;
     tetris->mino_size = Tetromino[index].width;
-	dprintf(5, "begin\n");
 	tetris->mino_data = mino_alloc(Tetromino[index].array, tetris->mino_size);
-	dprintf(5, "end\n");
 	tetris->current_row = 0;
     tetris->current_col = rand() % (COLUMNS - tetris->mino_size + 1);
-
 }

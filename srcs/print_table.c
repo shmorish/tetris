@@ -37,11 +37,9 @@ void	print_table(int situation, t_tetris *tetris, int score)
 	{
 		for(int i = 0; i < tetris->mino_size; i++) {
 			for(int j = 0; j < tetris->mino_size; j++) {
-				dprintf(5, "hi!\n");
 				if(tetris->mino_data[i][j])
 					Buffer[tetris->current_row + i][tetris->current_col + j] = tetris->mino_data[i][j];
 			}
-			dprintf(5, "-------------\n");
 		}
 		print_title();
 	}

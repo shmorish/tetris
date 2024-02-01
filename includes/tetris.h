@@ -24,7 +24,6 @@ typedef struct s_tetris
 {
 	// mino data
 	char **mino_data;
-	char **tmp_mino_data;
 	int mino_size;
 	int current_row;
 	int current_col;
@@ -32,15 +31,15 @@ typedef struct s_tetris
 	// game data
 	suseconds_t time_to_execute;
 	char **table;
-	char **tmp_table;
 	int score;
+	bool game_on;
 }	t_tetris;
 
 // actions.c
-bool	possible_to_move(t_tetris *tetris, int row, int col);
-void	rotate_mino(t_tetris *tetris);
-void	move_mino(t_tetris *tetris, int direction);
-void	move_down(t_tetris *tetris);
+bool	possible_to_move(t_tetris *tetris, char **array);
+void	rotate_mino(t_tetris *tetris, t_tetris *tmp);
+void	move_mino(t_tetris *tetris, t_tetris *tmp, int direction);
+void	move_down(t_tetris *tetris, t_tetris *tmp);
 
 // do_tetris.c
 void do_tetris(t_tetris *tetris);
@@ -51,6 +50,7 @@ void	end_game(t_tetris *tetris);
 
 // mino.c
 void    generate_mino(t_tetris *tetris);
+char   **mino_alloc(char **mino, int size);
 
 // print_table.c
 int		switch_print(int situation, const char * restrict format, ...);
@@ -58,9 +58,9 @@ void	print_title(void);
 void	print_table(int situation, t_tetris *tetris, int score);
 
 // struct.c
-t_tetris *init_struct(void);
-void	destroy_struct(t_tetris *tetris);
-void	dup_mino_data(t_tetris *tetris);
+t_tetris 	*init_struct(void);
+void		destroy_struct(t_tetris *tetris);
+t_tetris	*dup_mino_data(t_tetris *tetris);
 
 // utils.c
 void	*xcalloc(size_t count, size_t size);
