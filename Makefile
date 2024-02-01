@@ -8,6 +8,7 @@ SRC = actions.c \
 	struct.c \
 	tetris.c \
 	time.c \
+	utils.c \
 
 SRCDIR = srcs
 
@@ -25,7 +26,7 @@ OBJDIR = objs
 OBJS = $(subst $(SRCDIR), $(OBJDIR), $(SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 
-CFLAGS = -MP -MMD 
+CFLAGS = -MP -MMD
 # CFLAGS += -O3 -g3 -fsanitize=address
 CFLAGS += -Wall -Wextra -Werror
 RM = rm -rf

@@ -59,10 +59,13 @@ void	print_table(int situation, t_tetris *tetris, int score);
 
 // struct.c
 t_tetris *init_struct(void);
-void	free_array(char **str);
 void	destroy_struct(t_tetris *tetris);
 void	dup_mino_data(t_tetris *tetris);
+
+// utils.c
 void	*xcalloc(size_t count, size_t size);
+char	*memdup(const char *src, int size);
+void	free_array(char **str);
 
 // time.c
 void	update_exec_time(void);
