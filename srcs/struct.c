@@ -61,6 +61,7 @@ void	dup_mino_data(t_tetris *tetris)
 		}
 		i++;
 	}
+	tetris->tmp_mino_data[i] = NULL;
 }
 
 void	*xcalloc(size_t count, size_t size)
@@ -85,8 +86,9 @@ static char	**init_table(void)
 	i = 0;
 	while (i < ROWS)
 	{
-		table[i] = (char *)xcalloc(sizeof(char *), COLUMNS + 1);
+		table[i] = (char *)xcalloc(sizeof(char), COLUMNS + 1);
 		i++;
 	}
+	table[i] = NULL;
 	return (table);
 }
