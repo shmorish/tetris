@@ -1,40 +1,31 @@
 NAME = tetris
 
-SRC = actions.c \
+SRC_MAIN = main.c
+
+SRC_OTHER = actions.c \
 	do_tetris.c \
 	game_utils.c \
 	mino.c \
 	print_table.c \
 	struct.c \
-	tetris.c \
 	time.c \
 	utils.c \
 
+
 SRCDIR = srcs
-
-ifeq ($(MAKECMDGOALS), before)
-	SRC = main.c \
-			alloc.c \
-			mino.c \
-			game.c
-	SRCDIR = srcs_before
-endif
-
-SRCS = $(addprefix $(SRCDIR)/, $(SRC))
-
 OBJDIR = objs
-OBJS = $(subst $(SRCDIR), $(OBJDIR), $(SRCS:.c=.o))
-DEPS = $(OBJS:.o=.d)
+DEPDIR = deps
 
-CFLAGS = -MP -MMD
-# CFLAGS += -O3 -g3 -fsanitize=address
+SRC = $(SRC_MAIN) $(SRC_OTHER)
+SRCS = $(addprefix $(SRCDIR)/, $(SRC))
+OBJS = $(subst $(SRCDIR), $(OBJDIR), $(SRCS:.c=.o))
+DEPS = $(subst $(SRCDIR), $(DEPDIR), $(SRCS:.c=.d))
+
+CFLAGS = -MP -MMD -MF $(DEPDIR)/$*.d
 CFLAGS += -Wall -Wextra -Werror
 RM = rm -rf
 
 INC = -I./includes/
-
-LIBFT = libft/libft.a
-
 
 ifeq ($(MAKECMDGOALS), debug)
 	CFLAGS += -DDEBUG
@@ -65,20 +56,26 @@ endef
 all : $(NAME)
 
 $(NAME): $(OBJS)
-	@ $(CC) $(CFLAGS) -o $@ $^ -lncurses
+	@ $(CC) $(CFLAGS) -o $@ $^ -lncurses $(INC)
 	@ printf "$(CHECK) $(BLUE)Compiling tetris...%-50.50s\n$(RESET)"
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
+$(DEPS):
+-include $(DEPS)
+
+$(OBJDIR) $(DEPDIR):
+	@ mkdir -p $@
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(DEPDIR)/%.d | $(OBJDIR) $(DEPDIR)
 	@ mkdir -p $(@D)
 	@ $(CC) $(CFLAGS) $(INC) -o $@ -c $<
 	$(call progress)
 
 clean :
-	@ $(RM) $(OBJDIR)
+	@ $(RM) $(OBJDIR) $(DEPDIR)
 	@ echo "$(REMOVE) $(BLUE)Remove tetris object files. $(RESET)"
 
 fclean :
-	@ $(RM) $(OBJDIR) $(NAME)
+	@ $(RM) $(OBJDIR) $(NAME) $(DEPDIR)
 	@ echo "$(REMOVE) $(BLUE)Remove tetris object files and $(NAME). $(RESET)"
 
 re : fclean all
@@ -91,4 +88,3 @@ before : all
 
 .PHONY : all clean fclean re debug address before
 
--include $(DEPS)
