@@ -30,7 +30,8 @@ void	print_title(void)
 
 void	print_table(int situation, t_tetris *tetris, int score)
 {
-	char Buffer[ROWS][COLUMNS] = {0};
+	char Buffer[ROWS][COLUMNS];
+	memset(Buffer, 0, sizeof(char **));
 	if (situation == GAME_ON)
 	{
 		for(int i = 0; i < tetris->mino_size; i++) {

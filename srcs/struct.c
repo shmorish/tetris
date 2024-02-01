@@ -15,7 +15,7 @@ t_tetris *init_struct(void)
 	tetris->current_col = 0;
 	tetris->time_to_execute = 400000;
 	tetris->table = init_table();
-	tetris->tmp_table = init_table();
+	// tetris->tmp_table = init_table();
 	tetris->score = 0;
 	return	tetris;
 }
