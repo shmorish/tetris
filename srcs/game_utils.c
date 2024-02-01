@@ -24,5 +24,5 @@ void	init_game(void)
 void	end_game(t_tetris *tetris)
 {
 	endwin();
-	print_table(GAME_OVER, tetris->table, tetris->score);
+	print_table(GAME_OVER, tetris, tetris->score);
 }

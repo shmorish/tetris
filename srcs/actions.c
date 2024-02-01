@@ -55,9 +55,34 @@ void	move_down(t_tetris *tetris)
 	{
 		tetris->current_row++;
 	}
-	else if (decrease_time > 0)
+	if (decrease_time > 0)
 	{
-		tetris->time_to_execute -= decrease_time;
-		decrease_time--;
+		for(int i = 0; i < tetris->mino_size; i++){
+			for(int j = 0; j < tetris->mino_size; j++)
+			{
+				if(tetris->mino_data[i][j])
+					tetris->table[tetris->current_row + i][tetris->current_col + j] = tetris->mino_data[i][j];
+			}
+		}
+		int sum, count = 0;
+		for(int n = 0; n < ROWS; n++)
+		{
+			sum = 0;
+			for(int m = 0; m < COLUMNS; m++)
+				sum += tetris->table[n][m];
+			if(sum == COLUMNS)
+			{
+				count++;
+				int l, k;
+				for(k = n; k >= 1; k--)
+					for(l = 0; l < COLUMNS; l++)
+						tetris->table[k][l] = tetris->table[k - 1][l];
+				for(l = 0; l < COLUMNS; l++)
+					tetris->table[k][l] = 0;
+				tetris->time_to_execute -= decrease_time;
+				decrease_time--;
+			}
+		}
+		tetris->score += count * 1500;
 	}
 }

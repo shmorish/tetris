@@ -35,9 +35,6 @@ void	free_array(char **str)
 
 void	destroy_struct(t_tetris *tetris)
 {
-	int i;
-
-	i = 0;
 	free_array(tetris->mino_data);
 	free_array(tetris->tmp_mino_data);
 	free_array(tetris->table);
