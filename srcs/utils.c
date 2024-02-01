@@ -34,3 +34,19 @@ void	free_array(char **str)
 	free(str);
 	str = NULL;
 }
+
+char	**table_alloc(char **table)
+{
+	int	i;
+	char	**tmp;
+
+	i = 0;
+	tmp = (char **)xcalloc(sizeof(char *), ROWS + 1);
+	while (i < ROWS)
+	{
+		tmp[i] = memdup(table[i], COLUMNS);
+		i++;
+	}
+	tmp[i] = NULL;
+	return (tmp);
+}

@@ -64,6 +64,7 @@ t_tetris	*dup_mino_data(t_tetris *tetris);
 void		*xcalloc(size_t count, size_t size);
 char		*memdup(const char *src, int size);
 void		free_array(char **str);
+char		**table_alloc(char **table);
 
 // time.c
 void		update_exec_time(void);
