@@ -4,10 +4,15 @@
 # include "define.h"
 
 // actions.c
-bool		can_mino_move(t_tetris *tetris, char **mino_array);
 void		rotate_mino(t_tetris *tetris, t_tetris *tmp);
 void		move_mino(t_tetris *tetris, t_tetris *tmp, int direction);
 void		move_down(t_tetris *tetris, t_tetris *tmp);
+
+// clear_mino.c
+int			clear_mino(t_tetris *tetris);
+
+// can_mino_move.c
+bool		can_mino_move(t_tetris *tetris, char **mino_array);
 
 // do_tetris.c
 void		do_tetris(t_tetris *tetris);

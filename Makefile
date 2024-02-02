@@ -4,6 +4,7 @@ SRC_MAIN = main.c
 
 SRC_OTHER = actions.c \
 	can_mino_move.c \
+	clear_mino.c \
 	do_tetris.c \
 	game_utils.c \
 	mino.c \
