@@ -20,8 +20,8 @@
 
 # define SCORE_PER_BLOCK 100
 
-# define GAME_OVER 0
-# define GAME_ON 1
+# define GAME_OVER false
+# define GAME_ON true
 
 # define MAP_EMPTY '.'
 # define MAP_FULL '#'

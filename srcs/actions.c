@@ -64,18 +64,14 @@ static void	generate_new_mino(t_tetris *tetris)
 void	move_down(t_tetris *tetris, t_tetris *tmp)
 {
 	tmp->current_row++;
-	if (can_mino_move(tmp, tmp->mino_data))
-	{
+	if (can_mino_move(tmp, tmp->mino_data) == true)
 		tetris->current_row++;
-	}
 	else
 	{
 		update_table(tetris);
 		tetris->score += clear_mino(tetris);
 		generate_new_mino(tetris);
-		if (!can_mino_move(tetris, tetris->mino_data))
-		{
+		if (can_mino_move(tetris, tetris->mino_data) == false)
 			tetris->game_on = false;
-		}
 	}
 }

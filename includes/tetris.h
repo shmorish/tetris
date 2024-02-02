@@ -41,6 +41,6 @@ char		**table_alloc(char **table);
 
 // time.c
 void		update_exec_time(void);
-int			time_elapses(t_tetris *tetris);
+bool		has_time_elapsed(t_tetris *tetris);
 
 #endif

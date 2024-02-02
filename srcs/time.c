@@ -12,7 +12,7 @@ void update_exec_time(void)
 	gettimeofday(&last_exec_time, NULL);
 }
 
-int time_elapses(t_tetris *tetris)
+bool has_time_elapsed(t_tetris *tetris)
 {
 	struct timeval now;
 

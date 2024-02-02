@@ -36,14 +36,14 @@ static void	input_key(t_tetris *tetris)
 void	do_tetris(t_tetris *tetris)
 {
 	generate_mino(tetris);
-	if (!can_mino_move(tetris, tetris->mino_data))
+	if (can_mino_move(tetris, tetris->mino_data) == false)
 		tetris->game_on = false;
 	print_table(GAME_ON, tetris, tetris->score);
 	update_exec_time();
 	while (tetris->game_on)
 	{
 		input_key(tetris);
-		if (time_elapses(tetris))
+		if (has_time_elapsed(tetris) == true)
 			passed_time(tetris);
 	}
 }

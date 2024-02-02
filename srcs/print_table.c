@@ -1,13 +1,13 @@
 #include "tetris.h"
 
-static int	switch_print(int situation, const char * restrict format, ...)
+static int	switch_print(bool situation, const char * restrict format, ...)
 {
+	int		result;
 	va_list	args;
-	int		result = 0;
 
 	va_start(args, format);
 	if (situation == GAME_ON)
-		vwprintw(stdscr, format, args);
+		result = vwprintw(stdscr, format, args);
 	else if (situation == GAME_OVER)
 		result = vprintf(format, args);
 	else
@@ -35,30 +35,34 @@ static void	print_title(void)
 	switch_print(GAME_ON, "%s\n", GAME_TITLE);
 }
 
-void	print_table(int situation, t_tetris *tetris, int score)
+static void print_table_from_buffer(bool situation, t_tetris *tetris, int score, char buffer[ROWS][COLUMNS])
 {
-	char	Buffer[ROWS][COLUMNS] = {};
-
-	if (situation == GAME_ON)
+	for (int row_i = 0; row_i < ROWS; row_i++)
 	{
-		for(int i = 0; i < tetris->mino_size; i++) {
-			for(int j = 0; j < tetris->mino_size; j++) {
-				if(tetris->mino_data[i][j])
-					Buffer[tetris->current_row + i][tetris->current_col + j] = tetris->mino_data[i][j];
-			}
-		}
-		print_title();
-	}
-	for (int i = 0; i < ROWS; i++) {
-		for (int j = 0; j < COLUMNS; j++) {
-			if (situation == GAME_ON)
-				switch_print(situation, "%c ", (tetris->table[i][j] + Buffer[i][j]) ? MAP_FULL : MAP_EMPTY);
-			else
-				switch_print(situation, "%c ", tetris->table[i][j] ? MAP_FULL : MAP_EMPTY);
-		}
+		for (int col_i = 0; col_i < COLUMNS; col_i++)
+			switch_print(situation, "%c ", (tetris->table[row_i][col_i] + buffer[row_i][col_i]) ? MAP_FULL : MAP_EMPTY);
 		switch_print(situation, "\n");
 	}
 	if (situation == GAME_OVER)
 		switch_print(situation, "\nGame over!\n");
 	switch_print(situation, "\nScore: %d\n", score);
+}
+
+void	print_table(int situation, t_tetris *tetris, int score)
+{
+	char	buffer[ROWS][COLUMNS] = {};
+
+	if (situation == GAME_ON)
+	{
+		for (int height_index = 0; height_index < tetris->mino_size; height_index++)
+		{
+			for (int width_index = 0; width_index < tetris->mino_size; width_index++)
+			{
+				if (tetris->mino_data[height_index][width_index])
+					buffer[tetris->current_row + height_index][tetris->current_col + width_index] = tetris->mino_data[height_index][width_index];
+			}
+		}
+		print_title();
+	}
+	print_table_from_buffer(situation, tetris, score, buffer);
 }
