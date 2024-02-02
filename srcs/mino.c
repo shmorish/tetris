@@ -1,22 +1,23 @@
-# include "tetris.h"
+#include "tetris.h"
 
 typedef struct s_struct
 {
-    char **array;
-    int width;
-}   t_mino;
+	char	**array;
+	int		width;
+}			t_mino;
 
-static const t_mino Tetromino[7] = {
-    {
+static const t_mino Tetromino[7] =
+{
+	{
 		// S mino
 		// green
-        .array = (char *[]) {
-            (char []){0, 1, 1},
-            (char []){1, 1, 0},
-            (char []){0, 0, 0}
-        },
-        .width = 3
-    },
+		.array = (char *[]) {
+			(char []){0, 1, 1},
+			(char []){1, 1, 0},
+			(char []){0, 0, 0}
+		},
+		.width = 3
+	},
 	{
 		// Z mino
 		// red
@@ -79,33 +80,34 @@ static const t_mino Tetromino[7] = {
 	}
 };
 
-char   **mino_alloc(char **mino, int size)
+char	**mino_alloc(char **mino, int size)
 {
-    char **array;
-    int i;
+	char	**array;
+	int		i;
 
 	array = (char **)xcalloc(sizeof(char *), size + 1);
-    i = 0;
-    while (i < size)
-    {
+	i = 0;
+	while (i < size)
+	{
 		array[i] = memdup(mino[i], size);
-        if (!array[i])
-        {
-            perror("strdup");
-            exit(EXIT_FAILURE);
-        }
-        i++;
-    }
-
+		if (!array[i])
+		{
+			perror("strdup");
+			exit(EXIT_FAILURE);
+		}
+		i++;
+	}
 	array[i] = NULL;
-    return (array);
+	return (array);
 }
 
-void    generate_mino(t_tetris *tetris)
+void	generate_mino(t_tetris *tetris)
 {
-	int index = rand() % 7;
-    tetris->mino_size = Tetromino[index].width;
+	int	index;
+
+	index = rand() % 7;
+	tetris->mino_size = Tetromino[index].width;
 	tetris->mino_data = mino_alloc(Tetromino[index].array, tetris->mino_size);
 	tetris->current_row = 0;
-    tetris->current_col = rand() % (COLUMNS - tetris->mino_size + 1);
+	tetris->current_col = rand() % (COLUMNS - tetris->mino_size + 1);
 }

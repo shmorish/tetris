@@ -1,26 +1,19 @@
-# include "tetris.h"
+#include "tetris.h"
 
-static void	passed_time(t_tetris *tetris);
-static void	input_key(t_tetris *tetris);
-
-void do_tetris(t_tetris *tetris)
+static void	passed_time(t_tetris *tetris)
 {
-	generate_mino(tetris);
-	if (!possible_to_move(tetris, tetris->mino_data))
-		tetris->game_on = false;
+	t_tetris	*tmp;
+
+	tmp = dup_mino_data(tetris);
+	move_down(tetris, tmp);
 	print_table(GAME_ON, tetris, tetris->score);
 	update_exec_time();
-	while (tetris->game_on)
-	{
-		input_key(tetris);
-		if (time_elapses(tetris))
-			passed_time(tetris);
-	}
+	destroy_struct(tmp);
 }
 
 static void	input_key(t_tetris *tetris)
 {
-	int key_input;
+	int			key_input;
 	t_tetris	*tmp;
 
 	key_input = getch();
@@ -40,13 +33,17 @@ static void	input_key(t_tetris *tetris)
 	}
 }
 
-static void	passed_time(t_tetris *tetris)
+void	do_tetris(t_tetris *tetris)
 {
-	t_tetris	*tmp;
-
-	tmp = dup_mino_data(tetris);
-	move_down(tetris, tmp);
+	generate_mino(tetris);
+	if (!possible_to_move(tetris, tetris->mino_data))
+		tetris->game_on = false;
 	print_table(GAME_ON, tetris, tetris->score);
 	update_exec_time();
-	destroy_struct(tmp);
+	while (tetris->game_on)
+	{
+		input_key(tetris);
+		if (time_elapses(tetris))
+			passed_time(tetris);
+	}
 }

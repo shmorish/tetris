@@ -1,6 +1,20 @@
 #include "tetris.h"
 
-static char	**init_table(void);
+static char	**init_table(void)
+{
+	int		row_i;
+	char	**table;
+
+	table = (char **)xcalloc(sizeof(char *), ROWS + 1);
+	row_i = 0;
+	while (row_i < ROWS)
+	{
+		table[row_i] = (char *)xcalloc(sizeof(char), COLUMNS + 1);
+		row_i++;
+	}
+	table[row_i] = NULL;
+	return (table);
+}
 
 t_tetris	*init_struct(void)
 {
@@ -41,20 +55,4 @@ t_tetris	*dup_mino_data(t_tetris *tetris)
 	tmp->score = tetris->score;
 	tmp->game_on = tetris->game_on;
 	return (tmp);
-}
-
-static char	**init_table(void)
-{
-	int		i;
-	char	**table;
-
-	table = (char **)xcalloc(sizeof(char *), ROWS + 1);
-	i = 0;
-	while (i < ROWS)
-	{
-		table[i] = (char *)xcalloc(sizeof(char), COLUMNS + 1);
-		i++;
-	}
-	table[i] = NULL;
-	return (table);
 }

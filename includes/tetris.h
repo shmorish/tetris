@@ -10,7 +10,7 @@ void		move_mino(t_tetris *tetris, t_tetris *tmp, int direction);
 void		move_down(t_tetris *tetris, t_tetris *tmp);
 
 // do_tetris.c
-void 		do_tetris(t_tetris *tetris);
+void		do_tetris(t_tetris *tetris);
 
 // game_utils.c
 void		init_game(void);
@@ -24,7 +24,7 @@ char		**mino_alloc(char **mino, int size);
 void		print_table(int situation, t_tetris *tetris, int score);
 
 // struct.c
-t_tetris 	*init_struct(void);
+t_tetris	*init_struct(void);
 void		destroy_struct(t_tetris *tetris);
 t_tetris	*dup_mino_data(t_tetris *tetris);
 

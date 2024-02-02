@@ -1,6 +1,6 @@
 #include "tetris.h"
 
-int main(void)
+int	main(void)
 {
 	t_tetris	*tetris;
 
@@ -9,14 +9,16 @@ int main(void)
 	do_tetris(tetris);
 	end_game(tetris);
 	destroy_struct(tetris);
-	return 0;
+	return (0);
 }
 
 #ifdef DEBUG
 
 __attribute__((destructor)) void end(void)
 {
-	int error_fd = open("error.log", O_WRONLY | O_CREAT | O_APPEND, 0644);
+	int	error_fd;
+
+	error_fd = open("error.log", O_WRONLY | O_CREAT | O_APPEND, 0644);
 	dup2(error_fd, STDOUT_FILENO);
 	system("leaks -q tetris");
 	close(error_fd);

@@ -21,11 +21,17 @@ static int	switch_print(int situation, const char * restrict format, ...)
 
 static void	print_title(void)
 {
-	int	title_len = strlen(GAME_TITLE);
+	int	space_len_until_title;
+	int	space_i;
 
+	space_len_until_title = COLUMNS - strlen(GAME_TITLE) / 2;
+	space_i = 0;
 	clear();
-	for (int i = 0; i < COLUMNS - title_len / 2 - 1; i++)
+	while (space_i < space_len_until_title)
+	{
 		printw(" ");
+		space_i++;
+	}
 	switch_print(GAME_ON, "%s\n", GAME_TITLE);
 }
 

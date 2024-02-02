@@ -1,4 +1,4 @@
-# include "tetris.h"
+#include "tetris.h"
 
 char	*memdup(const char *src, int size)
 {
@@ -11,7 +11,7 @@ char	*memdup(const char *src, int size)
 
 void	*xcalloc(size_t count, size_t size)
 {
-	void *ptr;
+	void	*ptr;
 
 	ptr = calloc(count, size);
 	if (!ptr)
@@ -37,7 +37,7 @@ void	free_array(char **str)
 
 char	**table_alloc(char **table)
 {
-	int	i;
+	int		i;
 	char	**tmp;
 
 	i = 0;
