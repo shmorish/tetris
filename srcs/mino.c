@@ -100,8 +100,7 @@ void	generate_mino(t_tetris *tetris)
 {
 	int	mino_index;
 
-	// mino_index = rand() % 7;
-	mino_index = 2;
+	mino_index = rand() % 7;
 	tetris->mino_size = Tetromino[mino_index].width;
 	tetris->mino_data = mino_alloc(Tetromino[mino_index].array, tetris->mino_size);
 	tetris->current_row = 0;
