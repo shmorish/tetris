@@ -90,11 +90,6 @@ char	**mino_alloc(char **mino, int size)
 	while (i < size)
 	{
 		array[i] = memdup(mino[i], size);
-		if (!array[i])
-		{
-			perror("strdup");
-			exit(EXIT_FAILURE);
-		}
 		i++;
 	}
 	array[i] = NULL;
