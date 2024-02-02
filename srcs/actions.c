@@ -7,25 +7,14 @@ bool	possible_to_move(t_tetris *tetris, char **array)
 	int row = tetris->current_row;
 	int col = tetris->current_col;
 
-	for (int i = 0; i < tetris->mino_size; i++){
-		for (int j = 0; j < tetris->mino_size; j++)
-        {
-            dprintf(2, "col: %d, row: %d\t", col, row);
-            dprintf(2, "i: %d, j: %d\n", i, j);
-            dprintf(2, "start\n");
-			if((col + j < 0 || col + j >= COLUMNS || row + i >= ROWS))
-            {
-                dprintf(2, "end1\n");
-				if(array[i][j]){
-                    dprintf(2, "end2\n");
+	for (int i = 0; i < tetris->mino_size; i++) {
+		for (int j = 0; j < tetris->mino_size; j++) {
+			if((col + j < 0 || col + j >= COLUMNS || row + i >= ROWS)) {
+				if(array[i][j])
 					return false;
-                }
 			}
-			else if(tetris->table[row + i][col + j] && array[i][j]){
-                dprintf(2, "end3\n");
+			else if(tetris->table[row + i][col + j] && array[i][j])
 				return false;
-            }
-            dprintf(2, "end4\n");
 		}
 	}
 	return true;
