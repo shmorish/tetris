@@ -25,7 +25,7 @@ CFLAGS = -MP -MMD -MF $(DEPDIR)/$*.d
 CFLAGS += -Wall -Wextra -Werror
 RM = rm -rf
 
-INC = -I./includes/
+INC = -I includes/
 
 ifeq ($(MAKECMDGOALS), debug)
 	CFLAGS += -DDEBUG
