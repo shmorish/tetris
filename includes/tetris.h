@@ -1,36 +1,41 @@
 #ifndef TETRIS_H
-#define TETRIS_H
+# define TETRIS_H
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <time.h>
-#include <sys/time.h>
-#include <ncurses.h>
-#include <stdbool.h>
+# include "define.h"
 
-#define ROWS 20
-#define COLUMNS 15
+// actions.c
+bool		can_mino_move(t_tetris *tetris, char **mino_array);
+void		rotate_mino(t_tetris *tetris, t_tetris *tmp);
+void		move_mino(t_tetris *tetris, t_tetris *tmp, int direction);
+void		move_down(t_tetris *tetris, t_tetris *tmp);
 
-struct timeval before_now, now;
+// do_tetris.c
+void		do_tetris(t_tetris *tetris);
 
-typedef struct Struct
-{
-    char	**array;
-    int		width;
-	int		row;
-	int		col;
-} Struct;
-
-void print_game(int score, Struct *current, char Table[ROWS][COLUMNS]);
-void print_game_over(int final_score, char Table[ROWS][COLUMNS]);
-
-// alloc.c
-void *xmalloc(size_t size);
-Struct *duplicateStruct(Struct shape);
-void free_array(Struct *shape);
+// game_utils.c
+void		init_game(void);
+void		end_game(t_tetris *tetris);
 
 // mino.c
-Struct *generateTetromino();
-void rotate_Tetromino(Struct *shape);
+void		generate_mino(t_tetris *tetris);
+char		**mino_alloc(char **mino, int size);
+
+// print_table.c
+void		print_table(int situation, t_tetris *tetris, int score);
+
+// struct.c
+t_tetris	*init_struct(void);
+void		destroy_struct(t_tetris *tetris);
+t_tetris	*dup_mino_data(t_tetris *tetris);
+
+// utils.c
+void		*xcalloc(size_t count, size_t size);
+char		*memdup(const char *src, int size);
+void		free_array(char **str);
+char		**table_alloc(char **table);
+
+// time.c
+void		update_exec_time(void);
+int			time_elapses(t_tetris *tetris);
+
 #endif

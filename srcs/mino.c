@@ -1,16 +1,23 @@
 #include "tetris.h"
 
-const Struct Tetromino[7] = {
-    {
+typedef struct s_struct
+{
+	char	**array;
+	int		width;
+}			t_mino;
+
+static const t_mino Tetromino[7] =
+{
+	{
 		// S mino
 		// green
-        .array = (char *[]) {
-            (char []){0, 1, 1},
-            (char []){1, 1, 0},
-            (char []){0, 0, 0}
-        },
-        .width = 3
-    },
+		.array = (char *[]) {
+			(char []){0, 1, 1},
+			(char []){1, 1, 0},
+			(char []){0, 0, 0}
+		},
+		.width = 3
+	},
 	{
 		// Z mino
 		// red
@@ -73,24 +80,34 @@ const Struct Tetromino[7] = {
 	}
 };
 
-Struct *generateTetromino()
+char	**mino_alloc(char **mino, int size)
 {
-	// Struct shape = Tetromino[rand() % 7];
-	Struct shape = Tetromino[6];
-	shape.col = rand() % (COLUMNS - shape.width + 1);
-	shape.row = 0;
-	return duplicateStruct(shape);
+	char	**array;
+	int		i;
+
+	array = (char **)xcalloc(sizeof(char *), size + 1);
+	i = 0;
+	while (i < size)
+	{
+		array[i] = memdup(mino[i], size);
+		if (!array[i])
+		{
+			perror("strdup");
+			exit(EXIT_FAILURE);
+		}
+		i++;
+	}
+	array[i] = NULL;
+	return (array);
 }
 
-void rotate_Tetromino(Struct *shape)
+void	generate_mino(t_tetris *tetris)
 {
-	Struct *temp = duplicateStruct(*shape);
-	int k, width;
-	width = shape->width;
-	for(int i = 0; i < width ; i++){
-		for(int j = 0, k = width - 1; j < width; j++, k--){
-				shape->array[i][j] = temp->array[k][i];
-		}
-	}
-	free_array(temp);
+	int	index;
+
+	index = rand() % 7;
+	tetris->mino_size = Tetromino[index].width;
+	tetris->mino_data = mino_alloc(Tetromino[index].array, tetris->mino_size);
+	tetris->current_row = 0;
+	tetris->current_col = rand() % (COLUMNS - tetris->mino_size + 1);
 }
