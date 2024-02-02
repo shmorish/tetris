@@ -3,6 +3,7 @@ NAME = tetris
 SRC_MAIN = main.c
 
 SRC_OTHER = actions.c \
+	can_mino_move.c \
 	do_tetris.c \
 	game_utils.c \
 	mino.c \

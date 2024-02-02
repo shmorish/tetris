@@ -2,29 +2,6 @@
 
 static int	decrease_time = 1000;
 
-bool	possible_to_move(t_tetris *tetris, char **array)
-{
-	int	row;
-	int	col;
-
-	row = tetris->current_row;
-	col = tetris->current_col;
-	for (int i = 0; i < tetris->mino_size; i++)
-	{
-		for (int j = 0; j < tetris->mino_size; j++)
-		{
-			if ((col + j < 0 || col + j >= COLUMNS || row + i >= ROWS))
-			{
-				if (array[i][j])
-					return (false);
-			}
-			else if (tetris->table[row + i][col + j] && array[i][j])
-				return (false);
-		}
-	}
-	return (true);
-}
-
 static void	rotate(t_tetris *tetris, int size)
 {
 	t_tetris	*tmp;
@@ -45,14 +22,14 @@ static void	rotate(t_tetris *tetris, int size)
 void	rotate_mino(t_tetris *tetris, t_tetris *tmp)
 {
 	rotate(tmp, tetris->mino_size);
-	if (possible_to_move(tmp, tmp->mino_data))
+	if (can_mino_move(tmp, tmp->mino_data))
 		rotate(tetris, tetris->mino_size);
 }
 
 void	move_mino(t_tetris *tetris, t_tetris *tmp, int direction)
 {
 	tmp->current_col += direction;
-	if (possible_to_move(tmp, tmp->mino_data))
+	if (can_mino_move(tmp, tmp->mino_data))
 		tetris->current_col += direction;
 }
 
@@ -130,7 +107,7 @@ static void	generate_new_mino(t_tetris *tetris)
 void	move_down(t_tetris *tetris, t_tetris *tmp)
 {
 	tmp->current_row++;
-	if (possible_to_move(tmp, tmp->mino_data))
+	if (can_mino_move(tmp, tmp->mino_data))
 	{
 		tetris->current_row++;
 	}
@@ -139,7 +116,7 @@ void	move_down(t_tetris *tetris, t_tetris *tmp)
 		lock_mino(tetris);
 		tetris->score += clear_complete_rows(tetris);
 		generate_new_mino(tetris);
-		if (!possible_to_move(tetris, tetris->mino_data))
+		if (!can_mino_move(tetris, tetris->mino_data))
 		{
 			tetris->game_on = false;
 		}
