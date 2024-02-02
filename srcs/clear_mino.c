@@ -4,9 +4,9 @@ static int	decrease_time = 1000;
 
 static bool is_row_complete(t_tetris *tetris, int row)
 {
-	for (int m = 0; m < COLUMNS; m++)
+	for (int col_i = 0; col_i < COLUMNS; col_i++)
 	{
-		if (tetris->table[row][m] == 0)
+		if (tetris->table[row][col_i] == 0)
 			return (false);
 	}
 	return (true);
@@ -14,17 +14,28 @@ static bool is_row_complete(t_tetris *tetris, int row)
 
 static void	remove_row(t_tetris *tetris, int row)
 {
-	for (int l = 0; l < COLUMNS; l++)
+	for (int col_i = 0; col_i < COLUMNS; col_i++)
 	{
-		tetris->table[row][l] = 0;
+		tetris->table[row][col_i] = 0;
 	}
 }
 
-static void	shift_rows_down(t_tetris *tetris, int start_row)
+static void	shift_rows_down(t_tetris *tetris, int empty_row)
 {
-	for (int k = start_row; k >= 1; k--)
-		for (int l = 0; l < COLUMNS; l++)
-			tetris->table[k][l] = tetris->table[k - 1][l];
+	int row_i;
+	int col_i;
+
+	row_i = empty_row;
+	while (row_i > 0)
+	{
+		col_i = 0;
+		while (col_i < COLUMNS)
+		{
+			tetris->table[row_i][col_i] = tetris->table[row_i - 1][col_i];
+			col_i++;
+		}
+		row_i--;
+	}
 }
 
 int	clear_mino(t_tetris *tetris)
@@ -32,20 +43,20 @@ int	clear_mino(t_tetris *tetris)
 	int	clear_row_count;
 
 	clear_row_count = 0;
-	for (int n = 0; n < ROWS; n++)
+	for (int row_i = 0; row_i < ROWS; row_i++)
 	{
-		if (is_row_complete(tetris, n))
+		if (is_row_complete(tetris, row_i))
 		{
 			clear_row_count++;
-			remove_row(tetris, n);
-			shift_rows_down(tetris, n);
+			remove_row(tetris, row_i);
+			shift_rows_down(tetris, row_i);
 			if (decrease_time > 0)
 			{
 				tetris->time_to_execute -= decrease_time;
 				decrease_time--;
 			}
 			// 再検証を行うためにインデックスをデクリメント
-			n--;
+			row_i--;
 		}
 	}
 	return (clear_row_count * SCORE_PER_BLOCK * COLUMNS);
