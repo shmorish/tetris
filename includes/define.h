@@ -18,6 +18,8 @@
 
 # define GAME_TITLE "42 Tetris"
 
+# define SCORE_PER_BLOCK 100
+
 # define GAME_OVER 0
 # define GAME_ON 1
 

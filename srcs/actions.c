@@ -75,14 +75,14 @@ static void	shift_rows_down(t_tetris *tetris, int start_row)
 
 static int	clear_complete_rows(t_tetris *tetris)
 {
-	int	count;
+	int	clear_row_count;
 
-	count = 0;
+	clear_row_count = 0;
 	for (int n = 0; n < ROWS; n++)
 	{
 		if (is_row_complete(tetris, n))
 		{
-			count++;
+			clear_row_count++;
 			remove_row(tetris, n);
 			shift_rows_down(tetris, n);
 			if (decrease_time > 0)
@@ -94,7 +94,7 @@ static int	clear_complete_rows(t_tetris *tetris)
 			n--;
 		}
 	}
-	return (count * 1500);
+	return (clear_row_count * SCORE_PER_BLOCK * ROWS);
 }
 
 static void	generate_new_mino(t_tetris *tetris)
