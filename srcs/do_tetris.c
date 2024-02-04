@@ -1,49 +1,41 @@
 #include "tetris.h"
 
-static void	passed_time(t_tetris *tetris)
+static void	time_elapse_event(t_tetris *tetris)
 {
-	t_tetris	*tmp;
-
-	tmp = dup_mino_data(tetris);
-	move_down(tetris, tmp);
-	print_table(GAME_ON, tetris, tetris->score);
-	update_exec_time();
-	destroy_struct(tmp);
+	if (time_elapsed(tetris))
+	{
+		move_mino_down(tetris);
+		update_exec_time();
+	}
 }
 
-static void	input_key(t_tetris *tetris)
+static void	key_events(t_tetris *tetris)
 {
 	int			key_input;
-	t_tetris	*tmp;
 
 	key_input = getch();
 	if (key_input != ERR)
 	{
-		tmp = dup_mino_data(tetris);
 		if (key_input == W_KEY)
-			rotate_mino(tetris, tmp);
+			rotate_mino(tetris);
 		else if (key_input == S_KEY)
-			move_down(tetris, tmp);
+			move_mino_down(tetris);
 		else if (key_input == A_KEY)
-			move_mino(tetris, tmp, -1);
+			move_mino_left(tetris);
 		else if (key_input == D_KEY)
-			move_mino(tetris, tmp, 1);
-		print_table(GAME_ON, tetris, tetris->score);
-		destroy_struct(tmp);
+			move_mino_right(tetris);
 	}
 }
 
 void	do_tetris(t_tetris *tetris)
 {
 	generate_mino(tetris);
-	if (can_mino_move(tetris, tetris->mino_data) == false)
-		tetris->game_on = false;
-	print_table(GAME_ON, tetris, tetris->score);
-	update_exec_time();
+	if (can_mino_move(tetris) == false)
+		tetris->game_on = GAME_OVER;
 	while (tetris->game_on)
 	{
-		input_key(tetris);
-		if (has_time_elapsed(tetris) == true)
-			passed_time(tetris);
+		print_output_according_to_fps(tetris);
+		key_events(tetris);
+		time_elapse_event(tetris);
 	}
 }

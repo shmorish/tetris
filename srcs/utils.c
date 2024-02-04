@@ -35,7 +35,18 @@ void	free_array(char **str)
 	str = NULL;
 }
 
-char	**table_alloc(char **table)
+char	**init_table(void)
+{
+	char	**table;
+
+	table = (char **)xcalloc(sizeof(char *), ROWS + 1);
+	for (int i = 0; i < ROWS; i++)
+		table[i] = (char *)xcalloc(sizeof(char), COLUMNS + 1);
+	table[ROWS] = NULL;
+	return table;
+}
+
+char	**table_dup(char **table)
 {
 	int		i;
 	char	**tmp;

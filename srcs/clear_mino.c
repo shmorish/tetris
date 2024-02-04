@@ -2,7 +2,7 @@
 
 static int	decrease_time = 1000;
 
-static bool is_row_complete(t_tetris *tetris, int row)
+static bool is_row_complete(const t_tetris *tetris, int row)
 {
 	for (int col_i = 0; col_i < COLUMNS; col_i++)
 	{

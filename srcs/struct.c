@@ -1,21 +1,5 @@
 #include "tetris.h"
 
-static char	**init_table(void)
-{
-	int		row_i;
-	char	**table;
-
-	table = (char **)xcalloc(sizeof(char *), ROWS + 1);
-	row_i = 0;
-	while (row_i < ROWS)
-	{
-		table[row_i] = (char *)xcalloc(sizeof(char), COLUMNS + 1);
-		row_i++;
-	}
-	table[row_i] = NULL;
-	return (table);
-}
-
 t_tetris	*init_struct(void)
 {
 	t_tetris	*tetris;
@@ -25,11 +9,11 @@ t_tetris	*init_struct(void)
 	tetris->mino_size = 0;
 	tetris->current_row = 0;
 	tetris->current_col = 0;
-	tetris->time_to_execute = 400000;
+	tetris->time_to_execute = FIRST_EXEC_TIME;
 	tetris->table = init_table();
 	tetris->score = 0;
-	tetris->game_on = true;
-	return (tetris);
+	tetris->game_on = GAME_ON;
+	return tetris;
 }
 
 void	destroy_struct(t_tetris *tetris)
@@ -40,19 +24,19 @@ void	destroy_struct(t_tetris *tetris)
 	tetris = NULL;
 }
 
-t_tetris	*dup_mino_data(t_tetris *tetris)
+t_tetris	*dup_tetris_struct(t_tetris *tetris)
 {
-	t_tetris	*tmp;
+	t_tetris	*duped_struct;
 
-	tmp = init_struct();
-	tmp->mino_data = mino_alloc(tetris->mino_data, tetris->mino_size);
-	tmp->mino_size = tetris->mino_size;
-	tmp->current_row = tetris->current_row;
-	tmp->current_col = tetris->current_col;
-	tmp->time_to_execute = tetris->time_to_execute;
-	free_array(tmp->table);
-	tmp->table = table_alloc(tetris->table);
-	tmp->score = tetris->score;
-	tmp->game_on = tetris->game_on;
-	return (tmp);
+	duped_struct = init_struct();
+	duped_struct->mino_data = mino_alloc(tetris->mino_data, tetris->mino_size);
+	duped_struct->mino_size = tetris->mino_size;
+	duped_struct->current_row = tetris->current_row;
+	duped_struct->current_col = tetris->current_col;
+	duped_struct->time_to_execute = tetris->time_to_execute;
+	free_array(duped_struct->table);
+	duped_struct->table = table_dup(tetris->table);
+	duped_struct->score = tetris->score;
+	duped_struct->game_on = tetris->game_on;
+	return duped_struct;
 }
