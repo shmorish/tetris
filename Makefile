@@ -5,10 +5,10 @@ SRC_MAIN = main.c
 SRC_OTHER = actions.c \
 	can_mino_move.c \
 	clear_mino.c \
-	do_tetris.c \
-	game_utils.c \
-	mino.c \
+	game_setup.c \
+	generate_mino.c \
 	print_table.c \
+	run_tetris_game.c \
 	struct.c \
 	time.c \
 	utils.c \

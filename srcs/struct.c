@@ -29,7 +29,7 @@ t_tetris	*dup_tetris_struct(t_tetris *tetris)
 	t_tetris	*duped_struct;
 
 	duped_struct = init_struct();
-	duped_struct->mino_data = mino_alloc(tetris->mino_data, tetris->mino_size);
+	duped_struct->mino_data = mino_dup(tetris->mino_data, tetris->mino_size);
 	duped_struct->mino_size = tetris->mino_size;
 	duped_struct->current_row = tetris->current_row;
 	duped_struct->current_col = tetris->current_col;

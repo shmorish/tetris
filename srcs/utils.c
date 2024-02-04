@@ -48,16 +48,30 @@ char	**init_table(void)
 
 char	**table_dup(char **table)
 {
-	int		i;
 	char	**tmp;
 
-	i = 0;
 	tmp = (char **)xcalloc(sizeof(char *), ROWS + 1);
-	while (i < ROWS)
-	{
+	for (int i = 0; i < ROWS; i++)
 		tmp[i] = memdup(table[i], COLUMNS);
-		i++;
-	}
-	tmp[i] = NULL;
+	tmp[ROWS] = NULL;
 	return (tmp);
+}
+
+char	**mino_dup(char **mino, int size)
+{
+	char	**array;
+
+	array = (char **)xcalloc(sizeof(char *), size + 1);
+	for (int i = 0; i < size; i++)
+		array[i] = memdup(mino[i], size);
+	array[size] = NULL;
+	return (array);
+}
+
+void	put_mino_data_to_table(char **table, const char **mino_data, int row, int col, int mino_size)
+{
+    for (int x = 0; x < mino_size; x++)
+        for (int y = 0; y < mino_size; y++)
+            if (mino_data[x][y] != 0)
+                table[row + x][col + y] = mino_data[x][y];
 }

@@ -20,23 +20,13 @@ static void	remove_row(t_tetris *tetris, int row)
 	}
 }
 
-static void	shift_rows_down(t_tetris *tetris, int empty_row)
+static void shift_rows_down(t_tetris *tetris, int empty_row)
 {
-	int row_i;
-	int col_i;
-
-	row_i = empty_row;
-	while (row_i > 0)
-	{
-		col_i = 0;
-		while (col_i < COLUMNS)
-		{
-			tetris->table[row_i][col_i] = tetris->table[row_i - 1][col_i];
-			col_i++;
-		}
-		row_i--;
-	}
+    for (int row = empty_row; row > 0; row--)
+        for (int col = 0; col < COLUMNS; col++)
+            tetris->table[row][col] = tetris->table[row - 1][col];
 }
+
 
 int	clear_mino(t_tetris *tetris)
 {

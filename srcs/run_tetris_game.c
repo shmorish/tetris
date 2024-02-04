@@ -27,7 +27,7 @@ static void	key_events(t_tetris *tetris)
 	}
 }
 
-void	do_tetris(t_tetris *tetris)
+void	run_tetris_game(t_tetris *tetris)
 {
 	generate_mino(tetris);
 	if (can_mino_move(tetris) == false)

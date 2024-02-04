@@ -3,10 +3,10 @@
 typedef struct s_struct
 {
 	char	**array;
-	int		width;
+	int		size;
 }			t_mino;
 
-static const t_mino Tetromino[7] =
+static const t_mino Tetromino[MINO_TYPES] =
 {
 	{
 		// S mino
@@ -16,7 +16,7 @@ static const t_mino Tetromino[7] =
 			(char []){1, 1, 0},
 			(char []){0, 0, 0}
 		},
-		.width = 3
+		.size = 3
 	},
 	{
 		// Z mino
@@ -26,7 +26,7 @@ static const t_mino Tetromino[7] =
 			(char []){0, 1, 1},
 			(char []){0, 0, 0}
 		},
-		.width = 3
+		.size = 3
 	},
 	{
 		// T mino
@@ -36,7 +36,7 @@ static const t_mino Tetromino[7] =
 			(char []){1, 1, 1},
 			(char []){0, 0, 0}
 		},
-		.width = 3
+		.size = 3
 	},
 	{
 		// J mino
@@ -46,7 +46,7 @@ static const t_mino Tetromino[7] =
 			(char []){1, 1, 1},
 			(char []){0, 0, 0}
 		},
-		.width = 3
+		.size = 3
 	},
 	{
 		// L mino
@@ -56,7 +56,7 @@ static const t_mino Tetromino[7] =
 			(char []){1, 1, 1},
 			(char []){0, 0, 0}
 		},
-		.width = 3
+		.size = 3
 	},
 	{
 		// O mino
@@ -65,7 +65,7 @@ static const t_mino Tetromino[7] =
 			(char []){1, 1},
 			(char []){1, 1}
 		},
-		.width = 2
+		.size = 2
 	},
 	{
 		// I mino
@@ -76,33 +76,17 @@ static const t_mino Tetromino[7] =
 			(char []){0, 0, 0, 0},
 			(char []){0, 0, 0, 0}
 		},
-		.width = 4
+		.size = 4
 	}
 };
-
-char	**mino_alloc(char **mino, int size)
-{
-	char	**array;
-	int		i;
-
-	array = (char **)xcalloc(sizeof(char *), size + 1);
-	i = 0;
-	while (i < size)
-	{
-		array[i] = memdup(mino[i], size);
-		i++;
-	}
-	array[i] = NULL;
-	return (array);
-}
 
 void	generate_mino(t_tetris *tetris)
 {
 	int	mino_index;
 
-	mino_index = rand() % 7;
-	tetris->mino_size = Tetromino[mino_index].width;
-	tetris->mino_data = mino_alloc(Tetromino[mino_index].array, tetris->mino_size);
+	mino_index = rand() % MINO_TYPES;
+	tetris->mino_size = Tetromino[mino_index].size;
+	tetris->mino_data = mino_dup(Tetromino[mino_index].array, tetris->mino_size);
 	tetris->current_row = 0;
 	tetris->current_col = rand() % (COLUMNS - tetris->mino_size + 1);
 }

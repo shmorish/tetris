@@ -20,9 +20,11 @@ void update_exec_time(void)
 bool time_elapsed(t_tetris *tetris)
 {
 	struct timeval now;
+	int elapsed_time;
 
 	gettimeofday(&now, NULL);
-	return (get_time(now) - get_time(last_exec_time)) > tetris->time_to_execute;
+	elapsed_time = get_time(now) - get_time(last_exec_time);
+	return (elapsed_time > tetris->time_to_execute);
 }
 
 void	init_time(void)

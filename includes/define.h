@@ -22,6 +22,7 @@
 # define SCORE_PER_BLOCK 100
 
 # define FIRST_EXEC_TIME 400000
+# define MINO_TYPES 7
 
 # define GAME_OVER false
 # define GAME_ON true

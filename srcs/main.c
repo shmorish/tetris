@@ -6,7 +6,7 @@ int	main(void)
 
 	tetris = init_struct();
 	init_game();
-	do_tetris(tetris);
+	run_tetris_game(tetris);
 	end_game(tetris);
 	destroy_struct(tetris);
 	return (0);

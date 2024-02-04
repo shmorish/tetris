@@ -15,8 +15,8 @@ int			clear_mino(t_tetris *tetris);
 // can_mino_move.c
 bool		can_mino_move(const t_tetris *tetris);
 
-// do_tetris.c
-void		do_tetris(t_tetris *tetris);
+// run_tetris_game.c
+void		run_tetris_game(t_tetris *tetris);
 
 // game_utils.c
 void		init_game(void);
@@ -24,7 +24,6 @@ void		end_game(t_tetris *tetris);
 
 // mino.c
 void		generate_mino(t_tetris *tetris);
-char		**mino_alloc(char **mino, int size);
 
 // print_table.c
 void		print_table(bool situation, const t_tetris *tetris, int score);
@@ -38,8 +37,10 @@ t_tetris	*dup_tetris_struct(t_tetris *tetris);
 void		*xcalloc(size_t count, size_t size);
 char		*memdup(const char *src, int size);
 void		free_array(char **str);
+char		**mino_dup(char **mino, int size);
 char		**table_dup(char **table);
 char		**init_table(void);
+void		put_mino_data_to_table(char **table, const char **mino_data, int row, int col, int mino_size);
 
 // time.c
 void		init_time(void);
