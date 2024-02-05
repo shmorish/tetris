@@ -6,7 +6,7 @@
 	curs_set(0) カーソルを非表示
 	timeout(1) getch()の待ち時間を1msに設定
 	keypad(stdscr, TRUE) キーボードからの入力を受け付ける
-	srand(0) 乱数の初期化
+	srand(time(NULL)) 乱数の初期化
 */
 void	init_game(void)
 {
@@ -15,7 +15,7 @@ void	init_game(void)
 	curs_set(0);
 	timeout(1);
 	keypad(stdscr, TRUE);
-	srand(time(0));
+	srand(time(NULL));
 	init_time();
 }
 
