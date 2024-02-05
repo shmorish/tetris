@@ -10,7 +10,6 @@ static const t_mino Tetromino[MINO_TYPES] =
 {
 	{
 		// S mino
-		// green
 		.array = (char *[]) {
 			(char []){0, 1, 1},
 			(char []){1, 1, 0},
@@ -20,7 +19,6 @@ static const t_mino Tetromino[MINO_TYPES] =
 	},
 	{
 		// Z mino
-		// red
 		.array = (char *[]) {
 			(char []){1, 1, 0},
 			(char []){0, 1, 1},
@@ -30,7 +28,6 @@ static const t_mino Tetromino[MINO_TYPES] =
 	},
 	{
 		// T mino
-		// purple
 		.array = (char *[]) {
 			(char []){0, 1, 0},
 			(char []){1, 1, 1},
@@ -40,7 +37,6 @@ static const t_mino Tetromino[MINO_TYPES] =
 	},
 	{
 		// J mino
-		// blue
 		.array = (char *[]) {
 			(char []){1, 0, 0},
 			(char []){1, 1, 1},
@@ -50,7 +46,6 @@ static const t_mino Tetromino[MINO_TYPES] =
 	},
 	{
 		// L mino
-		// orange
 		.array = (char *[]) {
 			(char []){0, 0, 1},
 			(char []){1, 1, 1},
@@ -60,7 +55,6 @@ static const t_mino Tetromino[MINO_TYPES] =
 	},
 	{
 		// O mino
-		// yellow
 		.array = (char *[]) {
 			(char []){1, 1},
 			(char []){1, 1}
@@ -69,7 +63,6 @@ static const t_mino Tetromino[MINO_TYPES] =
 	},
 	{
 		// I mino
-		// cyan
 		.array = (char *[]) {
 			(char []){0, 0, 0, 0},
 			(char []){1, 1, 1, 1},
