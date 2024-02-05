@@ -58,19 +58,19 @@ void	move_mino_right(t_tetris *tetris)
 
 static void	rotate(t_tetris *tetris, int size)
 {
-	t_tetris	*tmp;
+	char		**mino_tmp;
 	int			opposite_index;
 
-	tmp = dup_tetris_struct(tetris);
+	mino_tmp = mino_dup(tetris->mino_data, size);
 	for (int i = 0; i < size; i++)
 	{
 		for (int j = 0; j < size; j++)
 		{
 			opposite_index = size - 1 - j;
-			tetris->mino_data[i][j] = tmp->mino_data[opposite_index][i];
+			tetris->mino_data[i][j] = mino_tmp[opposite_index][i];
 		}
 	}
-	destroy_struct(tmp);
+	free_array(mino_tmp);
 }
 
 static void	generate_new_mino(t_tetris *tetris)

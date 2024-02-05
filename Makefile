@@ -86,7 +86,5 @@ debug : re
 
 address : re
 
-before : all
-
-.PHONY : all clean fclean re debug address before
+.PHONY : all clean fclean re debug address
 
