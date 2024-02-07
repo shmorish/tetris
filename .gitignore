@@ -3,9 +3,11 @@
 
 # Prerequisites
 *.d
+deps/
 
 # Object files
 *.o
+objs/
 *.ko
 *.obj
 *.elf
