@@ -1,20 +1,19 @@
 #include "tetris.h"
 # define MINO_TYPES 7
 
-const t_mino Tetromino[MINO_TYPES] = {
-    {
+const t_mino Tetromino[MINO_TYPES] =
+{
+	{
 		// S mino
-		// green
-        .mino_array = (char *[]) {
-            (char []){0, 1, 1},
-            (char []){1, 1, 0},
-            (char []){0, 0, 0}
-        },
-        .mino_size = 3
-    },
+		.mino_array = (char *[]) {
+			(char []){0, 1, 1},
+			(char []){1, 1, 0},
+			(char []){0, 0, 0}
+		},
+		.mino_size = 3
+	},
 	{
 		// Z mino
-		// red
 		.mino_array = (char *[]) {
 			(char []){1, 1, 0},
 			(char []){0, 1, 1},
@@ -24,7 +23,6 @@ const t_mino Tetromino[MINO_TYPES] = {
 	},
 	{
 		// T mino
-		// purple
 		.mino_array = (char *[]) {
 			(char []){0, 1, 0},
 			(char []){1, 1, 1},
@@ -34,7 +32,6 @@ const t_mino Tetromino[MINO_TYPES] = {
 	},
 	{
 		// J mino
-		// blue
 		.mino_array = (char *[]) {
 			(char []){1, 0, 0},
 			(char []){1, 1, 1},
@@ -44,7 +41,6 @@ const t_mino Tetromino[MINO_TYPES] = {
 	},
 	{
 		// L mino
-		// orange
 		.mino_array = (char *[]) {
 			(char []){0, 0, 1},
 			(char []){1, 1, 1},
@@ -54,7 +50,6 @@ const t_mino Tetromino[MINO_TYPES] = {
 	},
 	{
 		// O mino
-		// yellow
 		.mino_array = (char *[]) {
 			(char []){1, 1},
 			(char []){1, 1}
@@ -63,7 +58,6 @@ const t_mino Tetromino[MINO_TYPES] = {
 	},
 	{
 		// I mino
-		// cyan
 		.mino_array = (char *[]) {
 			(char []){0, 0, 0, 0},
 			(char []){1, 1, 1, 1},
