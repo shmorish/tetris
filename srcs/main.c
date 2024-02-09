@@ -2,18 +2,17 @@
 
 int decrease = 1000;
 
-int isGameActive(t_mino *shape, t_player *player)
+int isGameActive(t_mino *movable_check_mino, t_player *player)
 {
-	char **array = shape->mino_array;
 	int i, j;
-	for (i = 0; i < shape->mino_size; i++){
-		for (j = 0; j < shape->mino_size; j++){
-			if ((shape->current_col + j < 0 || shape->current_col + j >= COLUMNS || shape->current_row + i >= ROWS))
+	for (i = 0; i < movable_check_mino->mino_size; i++){
+		for (j = 0; j < movable_check_mino->mino_size; j++){
+			if ((movable_check_mino->current_col + j < 0 || movable_check_mino->current_col + j >= COLUMNS || movable_check_mino->current_row + i >= ROWS))
 			{
-				if(array[i][j])
+				if(movable_check_mino->mino_array[i][j])
 					return false;
 			}
-			else if (player->table->table_array[shape->current_row + i][shape->current_col + j] && array[i][j])
+			else if (player->table->table_array[movable_check_mino->current_row + i][movable_check_mino->current_col + j] && movable_check_mino->mino_array[i][j])
 				return false;
 		}
 	}
