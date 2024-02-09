@@ -47,10 +47,17 @@ int main() {
 	player = (t_player *)xmalloc(sizeof(t_player));
 	srand(time(0));
 	Struct *current;
+
+	/* init_struct */
+	player->mino->mino_array = NULL;
+	player->mino->mino_size = 0;
+	player->mino->current_row = 0;
+	player->mino->current_col = 0;
 	player->table->time_to_execute = INITIAL_TIME_TO_EXECVE_ms;
+	player->table->table_array = init_table();
 	player->table->score = 0;
 	player->table->is_game_on = true;
-	player->table->table_array = init_table();
+
     int c;
     initscr();
 	gettimeofday(&before_now, NULL);
