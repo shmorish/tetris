@@ -46,7 +46,6 @@ int main() {
 
 	srand(time(0));
 	t_mino *current;
-	// t_mino *current;
 
 	/* init_struct */
 	player = (t_player *)xmalloc(sizeof(t_player));
@@ -63,7 +62,6 @@ int main() {
     initscr();
 	gettimeofday(&before_now, NULL);
 	set_timeout(1);
-	// t_mino *new_shape = generateTetromino();
 	generate_mino(player);
 	current = player->mino;
 	if(!isGameActive(current, player))
@@ -104,9 +102,9 @@ int main() {
 							}
 						}
 						player->table->score += 100*count;
-						t_mino *new_shape = generateTetromino();
+						generate_mino(player);
 						free_array(current);
-						current = new_shape;
+						current = player->mino;
 						if(!isGameActive(current, player))
 							player->table->is_game_on = false;
 					}
@@ -164,9 +162,9 @@ int main() {
 								player->table->time_to_execute -=decrease--;
 							}
 						}
-						t_mino *new_shape = generateTetromino();
+						generate_mino(player);
 						free_array(current);
-						current = new_shape;
+						current = player->mino;
 						if(!isGameActive(current, player))
 							player->table->is_game_on = false;
 					}

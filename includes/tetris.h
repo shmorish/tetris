@@ -49,7 +49,6 @@ t_mino *duplicatet_mino(t_mino shape);
 void free_array(t_mino *shape);
 
 // mino.c
-t_mino *generateTetromino();
 void	generate_mino(t_player *player);
 
 void rotate_Tetromino(t_mino *shape);

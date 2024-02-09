@@ -74,16 +74,6 @@ const t_mino Tetromino[MINO_TYPES] = {
 	}
 };
 
-/* generate_mino();を用いるため不要 */
-t_mino *generateTetromino()
-{
-	// t_mino shape = Tetromino[rand() % MINO_TYPES];
-	t_mino shape = Tetromino[6];
-	shape.current_col = rand() % (COLUMNS - shape.mino_size + 1);
-	shape.current_row = 0;
-	return duplicatet_mino(shape);
-}
-
 char	*memdup(const char *src, int size)
 {
 	char	*dest;
