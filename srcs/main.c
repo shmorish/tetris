@@ -88,14 +88,14 @@ int main()
 									player->table->table_array[current->current_row+i][current->current_col+j] = current->mino_array[i][j];
 							}
 						}
-						int n, m, sum, count=0;
+						int n, m, sum, clear_row_count=0;
 						for(n=0;n<ROWS;n++){
 							sum = 0;
 							for(m=0;m< COLUMNS;m++) {
 								sum += player->table->table_array[n][m];
 							}
 							if(sum==COLUMNS){
-								count++;
+								clear_row_count++;
 								int l, k;
 								for(k = n;k >=1;k--)
 									for(l=0;l<COLUMNS;l++)
@@ -105,7 +105,7 @@ int main()
 								player->table->time_to_execute -=decrease--;
 							}
 						}
-						player->table->score += 100*count;
+						player->table->score += clear_row_count * SCORE_PER_BLOCK * COLUMNS;
 						destruct_mino_struct(current);
 						generate_new_mino(player);
 						current = duplicatet_mino(*player->mino);
@@ -149,14 +149,14 @@ int main()
 									player->table->table_array[current->current_row+i][current->current_col+j] = current->mino_array[i][j];
 							}
 						}
-						int n, m, sum, count=0;
+						int n, m, sum, clear_row_count=0;
 						for(n=0;n<ROWS;n++){
 							sum = 0;
 							for(m=0;m< COLUMNS;m++) {
 								sum += player->table->table_array[n][m];
 							}
 							if(sum==COLUMNS){
-								count++;
+								clear_row_count++;
 								int l, k;
 								for(k = n;k >=1;k--)
 									for(l=0;l<COLUMNS;l++)
@@ -166,6 +166,7 @@ int main()
 								player->table->time_to_execute -=decrease--;
 							}
 						}
+						player->table->score += clear_row_count * SCORE_PER_BLOCK * COLUMNS;
 						destruct_mino_struct(current);
 						generate_new_mino(player);
 						current = duplicatet_mino(*player->mino);

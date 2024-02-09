@@ -12,6 +12,7 @@
 # define ROWS 20
 # define COLUMNS 15
 # define MINO_TYPES 7
+# define SCORE_PER_BLOCK 100
 # define INITIAL_TIME_TO_EXECVE_ms 400000
 # define MAP_EMPTY '.'
 # define MAP_FULL '#'
