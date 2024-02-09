@@ -44,11 +44,11 @@ char	**init_table(void)
 int main() {
 	t_player	*player;
 
-	player = (t_player *)xmalloc(sizeof(t_player));
 	srand(time(0));
 	Struct *current;
 
 	/* init_struct */
+	player = (t_player *)xmalloc(sizeof(t_player));
 	player->mino->mino_array = NULL;
 	player->mino->mino_size = 0;
 	player->mino->current_row = 0;
