@@ -1,6 +1,6 @@
 #include "tetris.h"
 
-void print_game(int score, Struct *current, char Table[ROWS][COLUMNS])
+void print_game(Struct *current, t_player *player)
 {
 	char Buffer[ROWS][COLUMNS] = {0};
 	int i, j;
@@ -17,21 +17,22 @@ void print_game(int score, Struct *current, char Table[ROWS][COLUMNS])
 	printw("%s\n", str);
 	for(i = 0; i < ROWS; i++){
 		for(j = 0; j < COLUMNS; j++){
-			printw("%c ", (Table[i][j] + Buffer[i][j]) ? '#' : '.');
+			printw("%c ", (player->table->table[i][j] + Buffer[i][j]) ? '#' : '.');
 		}
 		printw("\n");
 	}
-	printw("\nScore: %d\n", score);
+	printw("\nScore: %d\n", player->table->score);
 }
 
-void print_game_over(int score, char Table[ROWS][COLUMNS]) {
+void print_game_over(t_player *player)
+{
 	int i, j;
 	for(i = 0; i < ROWS; i++) {
 		for(j = 0; j < COLUMNS; j++) {
-			printf("%c ", Table[i][j] ? '#': '.');
+			printf("%c ", player->table->table[i][j] ? '#': '.');
 		}
 		printf("\n");
 	}
 	printf("\nGame over!\n");
-	printf("\nScore: %d\n", score);
+	printf("\nScore: %d\n", player->table->score);
 }

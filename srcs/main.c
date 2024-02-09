@@ -1,10 +1,10 @@
 #include "tetris.h"
 
-char Table[ROWS][COLUMNS] = {0};
 int decrease = 1000;
 
 
-int isGameActive(Struct *shape){
+int isGameActive(Struct *shape, t_player *player)
+{
 	char **array = shape->array;
 	int i, j;
 	for(i = 0; i < shape->width; i++){
@@ -13,7 +13,7 @@ int isGameActive(Struct *shape){
 				if(array[i][j])
 					return false;
 			}
-			else if(Table[shape->row + i][shape->col + j] && array[i][j])
+			else if(player->table->table[shape->row + i][shape->col + j] && array[i][j])
 				return false;
 		}
 	}
@@ -30,6 +30,17 @@ void set_timeout(int time) {
 	timeout(1);
 }
 
+char	**init_table(void)
+{
+	char	**table;
+
+	table = (char **)xmalloc(sizeof(char *) * (ROWS + 1));
+	for (int i = 0; i < ROWS; i++)
+		table[i] = (char *)xmalloc(sizeof(char) * (COLUMNS + 1));
+	table[ROWS] = NULL;
+	return table;
+}
+
 int main() {
 	t_player	*player;
 
@@ -39,15 +50,16 @@ int main() {
 	player->table->time_to_execute = INITIAL_TIME_TO_EXECVE_ms;
 	player->table->score = 0;
 	player->table->is_game_on = true;
+	player->table->table = init_table();
     int c;
     initscr();
 	gettimeofday(&before_now, NULL);
 	set_timeout(1);
 	Struct *new_shape = generateTetromino();
 	current = new_shape;
-	if(!isGameActive(current))
+	if(!isGameActive(current, player))
 		player->table->is_game_on = false;
-    print_game(player->table->score, current, Table);
+    print_game(current, player);
 	while(player->table->is_game_on)
 	{
 		if ((c = getch()) != ERR) {
@@ -55,30 +67,30 @@ int main() {
 			switch(c){
 				case 's':
 					temp->row++;  //move down
-					if(isGameActive(temp))
+					if(isGameActive(temp, player))
 						current->row++;
 					else {
 						int i, j;
 						for(i = 0; i < current->width ;i++){
 							for(j = 0; j < current->width ; j++){
 								if(current->array[i][j])
-									Table[current->row+i][current->col+j] = current->array[i][j];
+									player->table->table[current->row+i][current->col+j] = current->array[i][j];
 							}
 						}
 						int n, m, sum, count=0;
 						for(n=0;n<ROWS;n++){
 							sum = 0;
 							for(m=0;m< COLUMNS;m++) {
-								sum+=Table[n][m];
+								sum += player->table->table[n][m];
 							}
 							if(sum==COLUMNS){
 								count++;
 								int l, k;
 								for(k = n;k >=1;k--)
 									for(l=0;l<COLUMNS;l++)
-										Table[k][l]=Table[k-1][l];
+										player->table->table[k][l] = player->table->table[k-1][l];
 								for(l=0;l<COLUMNS;l++)
-									Table[k][l]=0;
+									player->table->table[k][l]=0;
 								player->table->time_to_execute -=decrease--;
 							}
 						}
@@ -86,28 +98,28 @@ int main() {
 						Struct *new_shape = generateTetromino();
 						free_array(current);
 						current = new_shape;
-						if(!isGameActive(current))
+						if(!isGameActive(current, player))
 							player->table->is_game_on = false;
 					}
 					break;
 				case 'd': //move right
 					temp->col++;
-					if(isGameActive(temp))
+					if(isGameActive(temp, player))
 						current->col++;
 					break;
 				case 'a': //move left
 					temp->col--;
-					if(isGameActive(temp))
+					if(isGameActive(temp, player))
 						current->col--;
 					break;
 				case 'w': //rotate
 					rotate_Tetromino(temp);
-					if(isGameActive(temp))
+					if(isGameActive(temp, player))
 						rotate_Tetromino(current);
 					break;
 			}
 			free_array(temp);
-			print_game(player->table->score, current, Table);
+			print_game(current, player);
 		}
 		gettimeofday(&now, NULL);
 		if (hasToUpdate(player))
@@ -116,64 +128,64 @@ int main() {
 			switch('s'){
 				case 's':
 					temp->row++;
-					if(isGameActive(temp))
+					if(isGameActive(temp, player))
 						current->row++;
 					else {
 						int i, j;
 						for(i = 0; i < current->width ;i++){
 							for(j = 0; j < current->width ; j++){
 								if(current->array[i][j])
-									Table[current->row+i][current->col+j] = current->array[i][j];
+									player->table->table[current->row+i][current->col+j] = current->array[i][j];
 							}
 						}
 						int n, m, sum, count=0;
 						for(n=0;n<ROWS;n++){
 							sum = 0;
 							for(m=0;m< COLUMNS;m++) {
-								sum+=Table[n][m];
+								sum += player->table->table[n][m];
 							}
 							if(sum==COLUMNS){
 								count++;
 								int l, k;
 								for(k = n;k >=1;k--)
 									for(l=0;l<COLUMNS;l++)
-										Table[k][l]=Table[k-1][l];
+										player->table->table[k][l] = player->table->table[k-1][l];
 								for(l=0;l<COLUMNS;l++)
-									Table[k][l]=0;
+									player->table->table[k][l] = 0;
 								player->table->time_to_execute -=decrease--;
 							}
 						}
 						Struct *new_shape = generateTetromino();
 						free_array(current);
 						current = new_shape;
-						if(!isGameActive(current))
+						if(!isGameActive(current, player))
 							player->table->is_game_on = false;
 					}
 					break;
 				case 'd':
 					temp->col++;
-					if(isGameActive(temp))
+					if(isGameActive(temp, player))
 						current->col++;
 					break;
 				case 'a':
 					temp->col--;
-					if(isGameActive(temp))
+					if(isGameActive(temp, player))
 						current->col--;
 					break;
 				case 'w':
 					rotate_Tetromino(temp);
-					if(isGameActive(temp))
+					if(isGameActive(temp, player))
 						rotate_Tetromino(current);
 					break;
 			}
 			free_array(temp);
-			print_game(player->table->score, current, Table);
+			print_game(current, player);
 			gettimeofday(&before_now, NULL);
 		}
 	}
 	free_array(current);
 	endwin();
-	print_game_over(player->table->score, Table);
+	print_game_over(player);
     return 0;
 }
 

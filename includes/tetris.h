@@ -48,8 +48,8 @@ typedef struct s_player
 	t_table		*table;
 }				t_player;
 
-void print_game(int score, Struct *current, char Table[ROWS][COLUMNS]);
-void print_game_over(int score, char Table[ROWS][COLUMNS]);
+void print_game(Struct *current, t_player *player);
+void print_game_over(t_player *player);
 
 // alloc.c
 void *xmalloc(size_t size);
