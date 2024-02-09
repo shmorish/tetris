@@ -66,7 +66,7 @@ int main()
 
 	gettimeofday(&before_now, NULL);
 	generate_mino(player);
-	current = player->mino;
+	current = duplicatet_mino(*player->mino);
 	if(!isGameActive(current, player))
 		player->table->is_game_on = false;
 	print_game(current, player);
@@ -106,9 +106,9 @@ int main()
 							}
 						}
 						player->table->score += 100*count;
-						generate_new_mino(player);
 						destruct_mino_struct(current);
-						current = player->mino;
+						generate_new_mino(player);
+						current = duplicatet_mino(*player->mino);
 						if(!isGameActive(current, player))
 							player->table->is_game_on = false;
 					}
@@ -166,9 +166,9 @@ int main()
 								player->table->time_to_execute -=decrease--;
 							}
 						}
-						generate_new_mino(player);
 						destruct_mino_struct(current);
-						current = player->mino;
+						generate_new_mino(player);
+						current = duplicatet_mino(*player->mino);
 						if(!isGameActive(current, player))
 							player->table->is_game_on = false;
 					}
