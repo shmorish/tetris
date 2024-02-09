@@ -67,11 +67,18 @@ const t_mino Tetromino[MINO_TYPES] =
 	}
 };
 
+void	destruct_mino_struct(t_mino *mino)
+{
+	free_array(mino->mino_array);
+	free(mino);
+	mino = NULL;
+}
+
 char	*memdup(const char *src, int size)
 {
 	char	*dest;
 
-	dest = (char *)xcalloc(sizeof(char), size + 1);
+	dest = (char *)xmalloc(sizeof(char) * (size + 1));
 	memcpy(dest, src, size);
 	return (dest);
 }
@@ -91,8 +98,6 @@ void	generate_mino(t_player *player)
 {
 	int mino_index;
 
-	if (player->mino->mino_array != NULL)
-		free_array(player->mino);
 	mino_index = rand() % MINO_TYPES;
 	player->mino->mino_size = Tetromino[mino_index].mino_size;
 	player->mino->mino_array = mino_dup(Tetromino[mino_index]);
@@ -100,15 +105,22 @@ void	generate_mino(t_player *player)
 	player->mino->current_col = rand() % (COLUMNS - player->mino->mino_size + 1);
 }
 
+void	generate_new_mino(t_player *player)
+{
+	free_array(player->mino->mino_array);
+	player->mino->mino_array = NULL;
+	generate_mino(player);
+}
+
 void rotate_Tetromino(t_mino *shape)
 {
-	t_mino *temp = duplicatet_mino(*shape);
+	t_mino *tmp = duplicatet_mino(*shape);
 	int k, size;
 	size = shape->mino_size;
 	for(int i = 0; i < size ; i++){
 		for(int j = 0, k = size - 1; j < size; j++, k--){
-				shape->mino_array[i][j] = temp->mino_array[k][i];
+				shape->mino_array[i][j] = tmp->mino_array[k][i];
 		}
 	}
-	free_array(temp);
+	destruct_mino_struct(tmp);
 }

@@ -13,6 +13,8 @@
 # define COLUMNS 15
 # define MINO_TYPES 7
 # define INITIAL_TIME_TO_EXECVE_ms 400000
+# define MAP_EMPTY '.'
+# define MAP_FULL '#'
 
 struct timeval before_now, now;
 
@@ -47,10 +49,12 @@ void			print_game_over(t_player *player);
 // alloc.c
 void			*xmalloc(size_t size);
 t_mino			*duplicatet_mino(t_mino shape);
-void			free_array(t_mino *shape);
+void			free_array(char **str);
+void			destruct_mino_struct(t_mino *mino);
 
 // mino.c
 void			generate_mino(t_player *player);
+void			generate_new_mino(t_player *player);
 void			rotate_Tetromino(t_mino *shape);
 
 #endif

@@ -2,18 +2,18 @@
 
 int decrease = 1000;
 
-
 int isGameActive(t_mino *shape, t_player *player)
 {
 	char **array = shape->mino_array;
 	int i, j;
-	for(i = 0; i < shape->mino_size; i++){
-		for(j = 0; j < shape->mino_size; j++){
-			if((shape->current_col + j < 0 || shape->current_col + j >= COLUMNS || shape->current_row + i >= ROWS)){
+	for (i = 0; i < shape->mino_size; i++){
+		for (j = 0; j < shape->mino_size; j++){
+			if ((shape->current_col + j < 0 || shape->current_col + j >= COLUMNS || shape->current_row + i >= ROWS))
+			{
 				if(array[i][j])
 					return false;
 			}
-			else if(player->table->table_array[shape->current_row + i][shape->current_col + j] && array[i][j])
+			else if (player->table->table_array[shape->current_row + i][shape->current_col + j] && array[i][j])
 				return false;
 		}
 	}
@@ -25,11 +25,6 @@ int hasToUpdate(t_player *player)
 	return ((suseconds_t)(now.tv_sec*1000000 + now.tv_usec) -((suseconds_t)before_now.tv_sec*1000000 + before_now.tv_usec)) > player->table->time_to_execute;
 }
 
-void set_timeout(int time) {
-	time = 1;
-	timeout(1);
-}
-
 char	**init_table(void)
 {
 	char	**table;
@@ -38,17 +33,21 @@ char	**init_table(void)
 	for (int i = 0; i < ROWS; i++)
 		table[i] = (char *)xmalloc(sizeof(char) * (COLUMNS + 1));
 	table[ROWS] = NULL;
+	for (int i = 0; i < ROWS; i++)
+		for (int j = 0; j < COLUMNS; j++)
+			table[i][j] = 0;
 	return table;
 }
 
-int main() {
+int main()
+{
 	t_player	*player;
-
-	srand(time(0));
-	t_mino *current;
+	t_mino		*current;
 
 	/* init_struct */
 	player = (t_player *)xmalloc(sizeof(t_player));
+	player->mino = (t_mino *)xmalloc(sizeof(t_mino));
+	player->table = (t_table *)xmalloc(sizeof(t_table));
 	player->mino->mino_array = NULL;
 	player->mino->mino_size = 0;
 	player->mino->current_row = 0;
@@ -58,23 +57,28 @@ int main() {
 	player->table->score = 0;
 	player->table->is_game_on = true;
 
-    int c;
-    initscr();
+	/* init_game */
+	initscr();
+	timeout(1);
+	srand(time(NULL));
+
+
+
 	gettimeofday(&before_now, NULL);
-	set_timeout(1);
 	generate_mino(player);
 	current = player->mino;
 	if(!isGameActive(current, player))
 		player->table->is_game_on = false;
-    print_game(current, player);
+	print_game(current, player);
+	int c;
 	while(player->table->is_game_on)
 	{
 		if ((c = getch()) != ERR) {
-			t_mino *temp = duplicatet_mino(*current);
+			t_mino *tmp = duplicatet_mino(*current);
 			switch(c){
 				case 's':
-					temp->current_row++;  //move down
-					if(isGameActive(temp, player))
+					tmp->current_row++;  //move down
+					if(isGameActive(tmp, player))
 						current->current_row++;
 					else {
 						int i, j;
@@ -102,40 +106,40 @@ int main() {
 							}
 						}
 						player->table->score += 100*count;
-						generate_mino(player);
-						free_array(current);
+						generate_new_mino(player);
+						destruct_mino_struct(current);
 						current = player->mino;
 						if(!isGameActive(current, player))
 							player->table->is_game_on = false;
 					}
 					break;
 				case 'd': //move right
-					temp->current_col++;
-					if(isGameActive(temp, player))
+					tmp->current_col++;
+					if(isGameActive(tmp, player))
 						current->current_col++;
 					break;
 				case 'a': //move left
-					temp->current_col--;
-					if(isGameActive(temp, player))
+					tmp->current_col--;
+					if(isGameActive(tmp, player))
 						current->current_col--;
 					break;
 				case 'w': //rotate
-					rotate_Tetromino(temp);
-					if(isGameActive(temp, player))
+					rotate_Tetromino(tmp);
+					if(isGameActive(tmp, player))
 						rotate_Tetromino(current);
 					break;
 			}
-			free_array(temp);
+			destruct_mino_struct(tmp);
 			print_game(current, player);
 		}
 		gettimeofday(&now, NULL);
 		if (hasToUpdate(player))
 		{
-			t_mino *temp = duplicatet_mino(*current);
+			t_mino *tmp = duplicatet_mino(*current);
 			switch('s'){
 				case 's':
-					temp->current_row++;
-					if(isGameActive(temp, player))
+					tmp->current_row++;
+					if(isGameActive(tmp, player))
 						current->current_row++;
 					else {
 						int i, j;
@@ -162,35 +166,35 @@ int main() {
 								player->table->time_to_execute -=decrease--;
 							}
 						}
-						generate_mino(player);
-						free_array(current);
+						generate_new_mino(player);
+						destruct_mino_struct(current);
 						current = player->mino;
 						if(!isGameActive(current, player))
 							player->table->is_game_on = false;
 					}
 					break;
 				case 'd':
-					temp->current_col++;
-					if(isGameActive(temp, player))
+					tmp->current_col++;
+					if(isGameActive(tmp, player))
 						current->current_col++;
 					break;
 				case 'a':
-					temp->current_col--;
-					if(isGameActive(temp, player))
+					tmp->current_col--;
+					if(isGameActive(tmp, player))
 						current->current_col--;
 					break;
 				case 'w':
-					rotate_Tetromino(temp);
-					if(isGameActive(temp, player))
+					rotate_Tetromino(tmp);
+					if(isGameActive(tmp, player))
 						rotate_Tetromino(current);
 					break;
 			}
-			free_array(temp);
+			destruct_mino_struct(tmp);
 			print_game(current, player);
 			gettimeofday(&before_now, NULL);
 		}
 	}
-	free_array(current);
+	destruct_mino_struct(current);
 	endwin();
 	print_game_over(player);
     return 0;
