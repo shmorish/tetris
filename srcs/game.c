@@ -5,10 +5,10 @@ void print_game(Struct *current, t_player *player)
 	char Buffer[ROWS][COLUMNS] = {0};
 	int i, j;
 	char str[] = "42 Tetris";
-	for(i = 0; i < current->size; i++){
-		for(j = 0; j < current->size; j++){
-			if(current->array[i][j])
-				Buffer[current->row + i][current->col + j] = current->array[i][j];
+	for(i = 0; i < current->mino_size; i++){
+		for(j = 0; j < current->mino_size; j++){
+			if(current->mino_array[i][j])
+				Buffer[current->current_row + i][current->current_col + j] = current->mino_array[i][j];
 		}
 	}
 	clear();

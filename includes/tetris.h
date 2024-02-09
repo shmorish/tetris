@@ -17,10 +17,10 @@ struct timeval before_now, now;
 
 typedef struct Struct
 {
-    char	**array;
-    int		size;
-	int		row;
-	int		col;
+    char	**mino_array;
+    int		mino_size;
+	int		current_row;
+	int		current_col;
 } Struct;
 
 typedef struct s_mino

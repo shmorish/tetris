@@ -15,28 +15,28 @@ void *xmalloc(size_t size)
 Struct *duplicateStruct(Struct shape)
 {
     Struct *new_shape = (Struct *)xmalloc(sizeof(Struct));
-    char **copyshape = shape.array;
+    char **copyshape = shape.mino_array;
 
-    new_shape->size = shape.size;
-    new_shape->array = (char **)xmalloc(new_shape->size * sizeof(char *));
-    for (int i = 0; i < new_shape->size; i++) {
-        new_shape->array[i] = (char *)xmalloc(new_shape->size * sizeof(char));
-        memcpy(new_shape->array[i], copyshape[i], new_shape->size);
+    new_shape->mino_size = shape.mino_size;
+    new_shape->mino_array = (char **)xmalloc(new_shape->mino_size * sizeof(char *));
+    for (int i = 0; i < new_shape->mino_size; i++) {
+        new_shape->mino_array[i] = (char *)xmalloc(new_shape->mino_size * sizeof(char));
+        memcpy(new_shape->mino_array[i], copyshape[i], new_shape->mino_size);
     }
-	new_shape->row = shape.row;
-	new_shape->col = shape.col;
+	new_shape->current_row = shape.current_row;
+	new_shape->current_col = shape.current_col;
     return new_shape;
 }
 
 void free_array(Struct *shape)
 {
     int i;
-    for(i = 0; i < shape->size; i++){
-		free(shape->array[i]);
-        shape->array[i] = NULL;
+    for(i = 0; i < shape->mino_size; i++){
+		free(shape->mino_array[i]);
+        shape->mino_array[i] = NULL;
     }
-    free(shape->array);
-    shape->array = NULL;
+    free(shape->mino_array);
+    shape->mino_array = NULL;
     free(shape);
     shape = NULL;
 }

@@ -5,15 +5,15 @@ int decrease = 1000;
 
 int isGameActive(Struct *shape, t_player *player)
 {
-	char **array = shape->array;
+	char **array = shape->mino_array;
 	int i, j;
-	for(i = 0; i < shape->size; i++){
-		for(j = 0; j < shape->size; j++){
-			if((shape->col + j < 0 || shape->col + j >= COLUMNS || shape->row + i >= ROWS)){
+	for(i = 0; i < shape->mino_size; i++){
+		for(j = 0; j < shape->mino_size; j++){
+			if((shape->current_col + j < 0 || shape->current_col + j >= COLUMNS || shape->current_row + i >= ROWS)){
 				if(array[i][j])
 					return false;
 			}
-			else if(player->table->table_array[shape->row + i][shape->col + j] && array[i][j])
+			else if(player->table->table_array[shape->current_row + i][shape->current_col + j] && array[i][j])
 				return false;
 		}
 	}
@@ -46,6 +46,7 @@ int main() {
 
 	srand(time(0));
 	Struct *current;
+	// t_mino *current;
 
 	/* init_struct */
 	player = (t_player *)xmalloc(sizeof(t_player));
@@ -62,26 +63,27 @@ int main() {
     initscr();
 	gettimeofday(&before_now, NULL);
 	set_timeout(1);
-	Struct *new_shape = generateTetromino();
-	current = new_shape;
+	// Struct *new_shape = generateTetromino();
+	generate_mino(player);
+	current = player->mino;
 	if(!isGameActive(current, player))
 		player->table->is_game_on = false;
     print_game(current, player);
 	while(player->table->is_game_on)
 	{
 		if ((c = getch()) != ERR) {
-			Struct *temp = duplicateStruct(*current);
+			t_mino *temp = duplicateStruct(*current);
 			switch(c){
 				case 's':
-					temp->row++;  //move down
+					temp->current_row++;  //move down
 					if(isGameActive(temp, player))
-						current->row++;
+						current->current_row++;
 					else {
 						int i, j;
-						for(i = 0; i < current->size ;i++){
-							for(j = 0; j < current->size ; j++){
-								if(current->array[i][j])
-									player->table->table_array[current->row+i][current->col+j] = current->array[i][j];
+						for(i = 0; i < current->mino_size ;i++){
+							for(j = 0; j < current->mino_size ; j++){
+								if(current->mino_array[i][j])
+									player->table->table_array[current->current_row+i][current->current_col+j] = current->mino_array[i][j];
 							}
 						}
 						int n, m, sum, count=0;
@@ -110,14 +112,14 @@ int main() {
 					}
 					break;
 				case 'd': //move right
-					temp->col++;
+					temp->current_col++;
 					if(isGameActive(temp, player))
-						current->col++;
+						current->current_col++;
 					break;
 				case 'a': //move left
-					temp->col--;
+					temp->current_col--;
 					if(isGameActive(temp, player))
-						current->col--;
+						current->current_col--;
 					break;
 				case 'w': //rotate
 					rotate_Tetromino(temp);
@@ -134,15 +136,15 @@ int main() {
 			Struct *temp = duplicateStruct(*current);
 			switch('s'){
 				case 's':
-					temp->row++;
+					temp->current_row++;
 					if(isGameActive(temp, player))
-						current->row++;
+						current->current_row++;
 					else {
 						int i, j;
-						for(i = 0; i < current->size ;i++){
-							for(j = 0; j < current->size ; j++){
-								if(current->array[i][j])
-									player->table->table_array[current->row+i][current->col+j] = current->array[i][j];
+						for(i = 0; i < current->mino_size ;i++){
+							for(j = 0; j < current->mino_size ; j++){
+								if(current->mino_array[i][j])
+									player->table->table_array[current->current_row+i][current->current_col+j] = current->mino_array[i][j];
 							}
 						}
 						int n, m, sum, count=0;
@@ -170,14 +172,14 @@ int main() {
 					}
 					break;
 				case 'd':
-					temp->col++;
+					temp->current_col++;
 					if(isGameActive(temp, player))
-						current->col++;
+						current->current_col++;
 					break;
 				case 'a':
-					temp->col--;
+					temp->current_col--;
 					if(isGameActive(temp, player))
-						current->col--;
+						current->current_col--;
 					break;
 				case 'w':
 					rotate_Tetromino(temp);
