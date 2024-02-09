@@ -1,7 +1,6 @@
 #include "tetris.h"
 
 char Table[ROWS][COLUMNS] = {0};
-suseconds_t timer = 400000;
 int decrease = 1000;
 
 
@@ -21,8 +20,9 @@ int isGameActive(Struct *shape){
 	return true;
 }
 
-int hasToUpdate(){
-	return ((suseconds_t)(now.tv_sec*1000000 + now.tv_usec) -((suseconds_t)before_now.tv_sec*1000000 + before_now.tv_usec)) > timer;
+int hasToUpdate(t_player *player)
+{
+	return ((suseconds_t)(now.tv_sec*1000000 + now.tv_usec) -((suseconds_t)before_now.tv_sec*1000000 + before_now.tv_usec)) > player->table->time_to_execute;
 }
 
 void set_timeout(int time) {
@@ -36,7 +36,8 @@ int main() {
 	player = (t_player *)xmalloc(sizeof(t_player));
 	srand(time(0));
 	Struct *current;
-    player->table->score = 0;
+	player->table->time_to_execute = INITIAL_TIME_TO_EXECVE_ms;
+	player->table->score = 0;
 	player->table->is_game_on = true;
     int c;
     initscr();
@@ -78,7 +79,7 @@ int main() {
 										Table[k][l]=Table[k-1][l];
 								for(l=0;l<COLUMNS;l++)
 									Table[k][l]=0;
-								timer-=decrease--;
+								player->table->time_to_execute -=decrease--;
 							}
 						}
 						player->table->score += 100*count;
@@ -109,7 +110,8 @@ int main() {
 			print_game(player->table->score, current, Table);
 		}
 		gettimeofday(&now, NULL);
-		if (hasToUpdate()) {
+		if (hasToUpdate(player))
+		{
 			Struct *temp = duplicateStruct(*current);
 			switch('s'){
 				case 's':
@@ -138,7 +140,7 @@ int main() {
 										Table[k][l]=Table[k-1][l];
 								for(l=0;l<COLUMNS;l++)
 									Table[k][l]=0;
-								timer-=decrease--;
+								player->table->time_to_execute -=decrease--;
 							}
 						}
 						Struct *new_shape = generateTetromino();

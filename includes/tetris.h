@@ -11,6 +11,7 @@
 
 #define ROWS 20
 #define COLUMNS 15
+#define INITIAL_TIME_TO_EXECVE_ms 400000
 
 struct timeval before_now, now;
 
