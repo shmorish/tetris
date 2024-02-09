@@ -98,6 +98,8 @@ void	generate_mino(t_player *player)
 {
 	int mino_index;
 
+	if (player->mino->mino_array != NULL)
+		free_array(player->mino);
 	mino_index = rand() % MINO_TYPES;
 	player->mino->mino_size = Tetromino[mino_index].mino_size;
 	player->mino->mino_array = mino_dup(Tetromino[mino_index]);
