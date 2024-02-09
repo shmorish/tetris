@@ -37,7 +37,7 @@ int main() {
 	player = (t_player *)xmalloc(sizeof(t_player));
 	srand(time(0));
 	Struct *current;
-    int final = 0;
+    player->table->score = 0;
     int c;
     initscr();
 	gettimeofday(&before_now, NULL);
@@ -47,7 +47,7 @@ int main() {
 	if(!isGameActive(current)){
 		GameOn = false;
 	}
-    print_game(final, current, Table);
+    print_game(player->table->score, current, Table);
 	while(GameOn){
 		if ((c = getch()) != ERR) {
 			Struct *temp = duplicateStruct(*current);
@@ -81,7 +81,7 @@ int main() {
 								timer-=decrease--;
 							}
 						}
-						final += 100*count;
+						player->table->score += 100*count;
 						Struct *new_shape = generateTetromino();
 						free_array(current);
 						current = new_shape;
@@ -107,7 +107,7 @@ int main() {
 					break;
 			}
 			free_array(temp);
-			print_game(final, current, Table);
+			print_game(player->table->score, current, Table);
 		}
 		gettimeofday(&now, NULL);
 		if (hasToUpdate()) {
@@ -167,13 +167,13 @@ int main() {
 					break;
 			}
 			free_array(temp);
-			print_game(final, current, Table);
+			print_game(player->table->score, current, Table);
 			gettimeofday(&before_now, NULL);
 		}
 	}
 	free_array(current);
 	endwin();
-	print_game_over(final, Table);
+	print_game_over(player->table->score, Table);
     return 0;
 }
 

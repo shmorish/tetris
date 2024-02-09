@@ -24,7 +24,7 @@ void print_game(int score, Struct *current, char Table[ROWS][COLUMNS])
 	printw("\nScore: %d\n", score);
 }
 
-void print_game_over(int final_score, char Table[ROWS][COLUMNS]) {
+void print_game_over(int score, char Table[ROWS][COLUMNS]) {
 	int i, j;
 	for(i = 0; i < ROWS; i++) {
 		for(j = 0; j < COLUMNS; j++) {
@@ -33,5 +33,5 @@ void print_game_over(int final_score, char Table[ROWS][COLUMNS]) {
 		printf("\n");
 	}
 	printf("\nGame over!\n");
-	printf("\nScore: %d\n", final_score);
+	printf("\nScore: %d\n", score);
 }
