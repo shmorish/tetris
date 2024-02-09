@@ -36,7 +36,7 @@ typedef struct s_table
 {
 	// table data
 	suseconds_t		time_to_execute;
-	char			**table;
+	char			**table_array;
 	long			score;
 	bool			is_game_on;
 }	t_table;

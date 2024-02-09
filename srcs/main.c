@@ -13,7 +13,7 @@ int isGameActive(Struct *shape, t_player *player)
 				if(array[i][j])
 					return false;
 			}
-			else if(player->table->table[shape->row + i][shape->col + j] && array[i][j])
+			else if(player->table->table_array[shape->row + i][shape->col + j] && array[i][j])
 				return false;
 		}
 	}
@@ -50,7 +50,7 @@ int main() {
 	player->table->time_to_execute = INITIAL_TIME_TO_EXECVE_ms;
 	player->table->score = 0;
 	player->table->is_game_on = true;
-	player->table->table = init_table();
+	player->table->table_array = init_table();
     int c;
     initscr();
 	gettimeofday(&before_now, NULL);
@@ -74,23 +74,23 @@ int main() {
 						for(i = 0; i < current->width ;i++){
 							for(j = 0; j < current->width ; j++){
 								if(current->array[i][j])
-									player->table->table[current->row+i][current->col+j] = current->array[i][j];
+									player->table->table_array[current->row+i][current->col+j] = current->array[i][j];
 							}
 						}
 						int n, m, sum, count=0;
 						for(n=0;n<ROWS;n++){
 							sum = 0;
 							for(m=0;m< COLUMNS;m++) {
-								sum += player->table->table[n][m];
+								sum += player->table->table_array[n][m];
 							}
 							if(sum==COLUMNS){
 								count++;
 								int l, k;
 								for(k = n;k >=1;k--)
 									for(l=0;l<COLUMNS;l++)
-										player->table->table[k][l] = player->table->table[k-1][l];
+										player->table->table_array[k][l] = player->table->table_array[k-1][l];
 								for(l=0;l<COLUMNS;l++)
-									player->table->table[k][l]=0;
+									player->table->table_array[k][l]=0;
 								player->table->time_to_execute -=decrease--;
 							}
 						}
@@ -135,23 +135,23 @@ int main() {
 						for(i = 0; i < current->width ;i++){
 							for(j = 0; j < current->width ; j++){
 								if(current->array[i][j])
-									player->table->table[current->row+i][current->col+j] = current->array[i][j];
+									player->table->table_array[current->row+i][current->col+j] = current->array[i][j];
 							}
 						}
 						int n, m, sum, count=0;
 						for(n=0;n<ROWS;n++){
 							sum = 0;
 							for(m=0;m< COLUMNS;m++) {
-								sum += player->table->table[n][m];
+								sum += player->table->table_array[n][m];
 							}
 							if(sum==COLUMNS){
 								count++;
 								int l, k;
 								for(k = n;k >=1;k--)
 									for(l=0;l<COLUMNS;l++)
-										player->table->table[k][l] = player->table->table[k-1][l];
+										player->table->table_array[k][l] = player->table->table_array[k-1][l];
 								for(l=0;l<COLUMNS;l++)
-									player->table->table[k][l] = 0;
+									player->table->table_array[k][l] = 0;
 								player->table->time_to_execute -=decrease--;
 							}
 						}
