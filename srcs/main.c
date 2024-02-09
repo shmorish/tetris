@@ -32,7 +32,10 @@ void set_timeout(int time) {
 }
 
 int main() {
-    srand(time(0));
+	t_player	*player;
+
+	player = (t_player *)xmalloc(sizeof(t_player));
+	srand(time(0));
 	Struct *current;
     int final = 0;
     int c;
