@@ -1,5 +1,4 @@
 #include "tetris.h"
-# define MINO_TYPES 7
 
 const t_mino Tetromino[MINO_TYPES] =
 {
