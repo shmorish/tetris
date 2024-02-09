@@ -22,6 +22,31 @@ typedef struct Struct
 	int		col;
 } Struct;
 
+typedef struct s_mino
+{
+	// mino data
+	char					**mino_data;
+	int					mino_size;
+	int					current_row;
+	int					current_col;
+}	t_mino;
+
+typedef struct s_table
+{
+	// game data
+	suseconds_t		time_to_execute;
+	char			**table;
+	long			score;
+	bool			game_on;
+}	t_table;
+
+/* ファイルに存在する変数をすべてこの構造体に格納する */
+typedef struct s_player
+{
+	t_mino		*mino_data;
+	t_table		*table_data;
+}				t_player;
+
 void print_game(int score, Struct *current, char Table[ROWS][COLUMNS]);
 void print_game_over(int final_score, char Table[ROWS][COLUMNS]);
 
