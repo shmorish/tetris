@@ -1,7 +1,6 @@
 #include "tetris.h"
 
 char Table[ROWS][COLUMNS] = {0};
-bool GameOn = true;
 suseconds_t timer = 400000;
 int decrease = 1000;
 
@@ -38,17 +37,18 @@ int main() {
 	srand(time(0));
 	Struct *current;
     player->table->score = 0;
+	player->table->is_game_on = true;
     int c;
     initscr();
 	gettimeofday(&before_now, NULL);
 	set_timeout(1);
 	Struct *new_shape = generateTetromino();
 	current = new_shape;
-	if(!isGameActive(current)){
-		GameOn = false;
-	}
+	if(!isGameActive(current))
+		player->table->is_game_on = false;
     print_game(player->table->score, current, Table);
-	while(GameOn){
+	while(player->table->is_game_on)
+	{
 		if ((c = getch()) != ERR) {
 			Struct *temp = duplicateStruct(*current);
 			switch(c){
@@ -85,9 +85,8 @@ int main() {
 						Struct *new_shape = generateTetromino();
 						free_array(current);
 						current = new_shape;
-						if(!isGameActive(current)){
-							GameOn = false;
-						}
+						if(!isGameActive(current))
+							player->table->is_game_on = false;
 					}
 					break;
 				case 'd': //move right
@@ -145,9 +144,8 @@ int main() {
 						Struct *new_shape = generateTetromino();
 						free_array(current);
 						current = new_shape;
-						if(!isGameActive(current)){
-							GameOn = false;
-						}
+						if(!isGameActive(current))
+							player->table->is_game_on = false;
 					}
 					break;
 				case 'd':
