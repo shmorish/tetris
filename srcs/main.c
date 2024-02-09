@@ -42,7 +42,6 @@ char	**init_table(void)
 int main()
 {
 	t_player	*player;
-	t_mino		*current;
 
 	/* init_struct */
 	player = (t_player *)xmalloc(sizeof(t_player));
@@ -66,29 +65,28 @@ int main()
 
 	gettimeofday(&before_now, NULL);
 	generate_mino(player);
-	current = duplicatet_mino(*player->mino);
-	if(!isGameActive(current, player))
+	if(!isGameActive(player->mino, player))
 		player->table->is_game_on = false;
-	print_game(current, player);
+	print_game(player->mino, player);
 	int c;
 	while(player->table->is_game_on)
 	{
 		if ((c = getch()) != ERR)
 		{
-			t_mino *tmp = duplicatet_mino(*current);
+			t_mino *tmp = duplicatet_mino(*player->mino);
 			switch(c)
 			{
 				case 's':
 					tmp->current_row++;  //move down
 					if(isGameActive(tmp, player))
-						current->current_row++;
+						player->mino->current_row++;
 					else
 					{
 						int i, j;
-						for(i = 0; i < current->mino_size ;i++){
-							for(j = 0; j < current->mino_size ; j++){
-								if(current->mino_array[i][j])
-									player->table->table_array[current->current_row+i][current->current_col+j] = current->mino_array[i][j];
+						for(i = 0; i < player->mino->mino_size ;i++){
+							for(j = 0; j < player->mino->mino_size ; j++){
+								if(player->mino->mino_array[i][j])
+									player->table->table_array[player->mino->current_row+i][player->mino->current_col+j] = player->mino->mino_array[i][j];
 							}
 						}
 						int n, m, sum, clear_row_count=0;
@@ -109,50 +107,48 @@ int main()
 							}
 						}
 						player->table->score += clear_row_count * SCORE_PER_BLOCK * COLUMNS;
-						destruct_mino_struct(current);
 						generate_new_mino(player);
-						current = duplicatet_mino(*player->mino);
-						if(!isGameActive(current, player))
+						if(!isGameActive(player->mino, player))
 							player->table->is_game_on = false;
 					}
 					break;
 				case 'd': //move right
 					tmp->current_col++;
 					if(isGameActive(tmp, player))
-						current->current_col++;
+						player->mino->current_col++;
 					break;
 				case 'a': //move left
 					tmp->current_col--;
 					if(isGameActive(tmp, player))
-						current->current_col--;
+						player->mino->current_col--;
 					break;
 				case 'w': //rotate
 					rotate_Tetromino(tmp);
 					if(isGameActive(tmp, player))
-						rotate_Tetromino(current);
+						rotate_Tetromino(player->mino);
 					break;
 			}
 			destruct_mino_struct(tmp);
-			print_game(current, player);
+			print_game(player->mino, player);
 		}
 		gettimeofday(&now, NULL);
 
 		if (hasToUpdate(player))
 		{
-			t_mino *tmp2 = duplicatet_mino(*current);
+			t_mino *tmp2 = duplicatet_mino(*player->mino);
 			switch('s')
 			{
 				case 's':
 					tmp2->current_row++;
 					if(isGameActive(tmp2, player))
-						current->current_row++;
+						player->mino->current_row++;
 					else
 					{
 						int i, j;
-						for(i = 0; i < current->mino_size ;i++){
-							for(j = 0; j < current->mino_size ; j++){
-								if(current->mino_array[i][j])
-									player->table->table_array[current->current_row+i][current->current_col+j] = current->mino_array[i][j];
+						for(i = 0; i < player->mino->mino_size ;i++){
+							for(j = 0; j < player->mino->mino_size ; j++){
+								if(player->mino->mino_array[i][j])
+									player->table->table_array[player->mino->current_row+i][player->mino->current_col+j] = player->mino->mino_array[i][j];
 							}
 						}
 						int n, m, sum, clear_row_count=0;
@@ -173,37 +169,34 @@ int main()
 							}
 						}
 						player->table->score += clear_row_count * SCORE_PER_BLOCK * COLUMNS;
-						destruct_mino_struct(current);
 						generate_new_mino(player);
-						current = duplicatet_mino(*player->mino);
-						if(!isGameActive(current, player))
+						if(!isGameActive(player->mino, player))
 							player->table->is_game_on = false;
 					}
 					break;
 				case 'd':
 					tmp2->current_col++;
 					if(isGameActive(tmp2, player))
-						current->current_col++;
+						player->mino->current_col++;
 					break;
 				case 'a':
 					tmp2->current_col--;
 					if(isGameActive(tmp2, player))
-						current->current_col--;
+						player->mino->current_col--;
 					break;
 				case 'w':
 					rotate_Tetromino(tmp2);
 					if(isGameActive(tmp2, player))
-						rotate_Tetromino(current);
+						rotate_Tetromino(player->mino);
 					break;
 			}
 			destruct_mino_struct(tmp2);
-			print_game(current, player);
+			print_game(player->mino, player);
 			gettimeofday(&before_now, NULL);
 		}
 	}
 
 	/* while文終了後 */
-	destruct_mino_struct(current);
 	endwin();
 	print_game_over(player);
 	destruct_player_struct(player);
