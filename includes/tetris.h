@@ -18,7 +18,7 @@ struct timeval before_now, now;
 typedef struct Struct
 {
     char	**array;
-    int		width;
+    int		size;
 	int		row;
 	int		col;
 } Struct;
@@ -58,5 +58,7 @@ void free_array(Struct *shape);
 
 // mino.c
 Struct *generateTetromino();
+void	generate_mino(t_player *player);
+
 void rotate_Tetromino(Struct *shape);
 #endif

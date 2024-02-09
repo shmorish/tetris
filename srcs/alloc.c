@@ -17,11 +17,11 @@ Struct *duplicateStruct(Struct shape)
     Struct *new_shape = (Struct *)xmalloc(sizeof(Struct));
     char **copyshape = shape.array;
 
-    new_shape->width = shape.width;
-    new_shape->array = (char **)xmalloc(new_shape->width * sizeof(char *));
-    for (int i = 0; i < new_shape->width; i++) {
-        new_shape->array[i] = (char *)xmalloc(new_shape->width * sizeof(char));
-        memcpy(new_shape->array[i], copyshape[i], new_shape->width);
+    new_shape->size = shape.size;
+    new_shape->array = (char **)xmalloc(new_shape->size * sizeof(char *));
+    for (int i = 0; i < new_shape->size; i++) {
+        new_shape->array[i] = (char *)xmalloc(new_shape->size * sizeof(char));
+        memcpy(new_shape->array[i], copyshape[i], new_shape->size);
     }
 	new_shape->row = shape.row;
 	new_shape->col = shape.col;
@@ -31,7 +31,7 @@ Struct *duplicateStruct(Struct shape)
 void free_array(Struct *shape)
 {
     int i;
-    for(i = 0; i < shape->width; i++){
+    for(i = 0; i < shape->size; i++){
 		free(shape->array[i]);
         shape->array[i] = NULL;
     }

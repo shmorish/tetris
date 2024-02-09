@@ -7,8 +7,8 @@ int isGameActive(Struct *shape, t_player *player)
 {
 	char **array = shape->array;
 	int i, j;
-	for(i = 0; i < shape->width; i++){
-		for(j = 0; j < shape->width; j++){
+	for(i = 0; i < shape->size; i++){
+		for(j = 0; j < shape->size; j++){
 			if((shape->col + j < 0 || shape->col + j >= COLUMNS || shape->row + i >= ROWS)){
 				if(array[i][j])
 					return false;
@@ -78,8 +78,8 @@ int main() {
 						current->row++;
 					else {
 						int i, j;
-						for(i = 0; i < current->width ;i++){
-							for(j = 0; j < current->width ; j++){
+						for(i = 0; i < current->size ;i++){
+							for(j = 0; j < current->size ; j++){
 								if(current->array[i][j])
 									player->table->table_array[current->row+i][current->col+j] = current->array[i][j];
 							}
@@ -139,8 +139,8 @@ int main() {
 						current->row++;
 					else {
 						int i, j;
-						for(i = 0; i < current->width ;i++){
-							for(j = 0; j < current->width ; j++){
+						for(i = 0; i < current->size ;i++){
+							for(j = 0; j < current->size ; j++){
 								if(current->array[i][j])
 									player->table->table_array[current->row+i][current->col+j] = current->array[i][j];
 							}
