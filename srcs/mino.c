@@ -113,7 +113,8 @@ void	generate_mino(t_player *player)
 {
 	int mino_index;
 
-	mino_index = rand() % MINO_TYPES;
+	// mino_index = rand() % MINO_TYPES;
+	mino_index = 6;
 	player->mino->mino_size = Tetromino[mino_index].mino_size;
 	player->mino->mino_array = mino_dup(Tetromino[mino_index]);
 	player->mino->current_row = 0;
@@ -127,15 +128,14 @@ void	generate_new_mino(t_player *player)
 	generate_mino(player);
 }
 
-void rotate_Tetromino(t_mino *shape)
+void rotate_Tetromino(t_mino *mino)
 {
-	t_mino *tmp = duplicatet_mino(*shape);
+	t_mino *tmp = duplicate_mino(*mino);
 	int k, size;
-	size = shape->mino_size;
+	size = mino->mino_size;
 	for(int i = 0; i < size ; i++){
-		for(int j = 0, k = size - 1; j < size; j++, k--){
-				shape->mino_array[i][j] = tmp->mino_array[k][i];
-		}
+		for(int j = 0, k = size - 1; j < size; j++, k--)
+				mino->mino_array[i][j] = tmp->mino_array[k][i];
 	}
 	destruct_mino_struct(tmp);
 }

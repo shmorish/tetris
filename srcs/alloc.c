@@ -13,7 +13,7 @@ void	*xmalloc(size_t size)
 	return (p);
 }
 
-t_mino *duplicatet_mino(t_mino mino)
+t_mino *duplicate_mino(t_mino mino)
 {
 	t_mino *new_mino = (t_mino *)xmalloc(sizeof(t_mino));
 

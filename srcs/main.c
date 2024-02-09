@@ -73,7 +73,7 @@ int main()
 	{
 		if ((c = getch()) != ERR)
 		{
-			t_mino *tmp = duplicatet_mino(*player->mino);
+			t_mino *tmp = duplicate_mino(*player->mino);
 			switch(c)
 			{
 				case 's':
@@ -135,7 +135,7 @@ int main()
 
 		if (hasToUpdate(player))
 		{
-			t_mino *tmp2 = duplicatet_mino(*player->mino);
+			t_mino *tmp2 = duplicate_mino(*player->mino);
 			switch('s')
 			{
 				case 's':
