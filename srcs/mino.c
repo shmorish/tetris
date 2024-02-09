@@ -67,6 +67,21 @@ const t_mino Tetromino[MINO_TYPES] =
 	}
 };
 
+void	destruct_player_struct(t_player *player)
+{
+	destruct_table_struct(player->table);
+	destruct_mino_struct(player->mino);
+	free(player);
+	player = NULL;
+}
+
+void	destruct_table_struct(t_table *table)
+{
+	free_array(table->table_array);
+	free(table);
+	table = NULL;
+}
+
 void	destruct_mino_struct(t_mino *mino)
 {
 	free_array(mino->mino_array);

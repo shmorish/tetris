@@ -73,14 +73,17 @@ int main()
 	int c;
 	while(player->table->is_game_on)
 	{
-		if ((c = getch()) != ERR) {
+		if ((c = getch()) != ERR)
+		{
 			t_mino *tmp = duplicatet_mino(*current);
-			switch(c){
+			switch(c)
+			{
 				case 's':
 					tmp->current_row++;  //move down
 					if(isGameActive(tmp, player))
 						current->current_row++;
-					else {
+					else
+					{
 						int i, j;
 						for(i = 0; i < current->mino_size ;i++){
 							for(j = 0; j < current->mino_size ; j++){
@@ -136,12 +139,14 @@ int main()
 		if (hasToUpdate(player))
 		{
 			t_mino *tmp = duplicatet_mino(*current);
-			switch('s'){
+			switch('s')
+			{
 				case 's':
 					tmp->current_row++;
 					if(isGameActive(tmp, player))
 						current->current_row++;
-					else {
+					else
+					{
 						int i, j;
 						for(i = 0; i < current->mino_size ;i++){
 							for(j = 0; j < current->mino_size ; j++){
@@ -198,6 +203,7 @@ int main()
 	destruct_mino_struct(current);
 	endwin();
 	print_game_over(player);
-    return 0;
+	destruct_player_struct(player);
+	return 0;
 }
 

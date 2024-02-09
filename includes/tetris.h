@@ -52,6 +52,8 @@ void			*xmalloc(size_t size);
 t_mino			*duplicatet_mino(t_mino shape);
 void			free_array(char **str);
 void			destruct_mino_struct(t_mino *mino);
+void			destruct_table_struct(t_table *table);
+void			destruct_player_struct(t_player *player);
 
 // mino.c
 void			generate_mino(t_player *player);
