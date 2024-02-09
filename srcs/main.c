@@ -73,12 +73,12 @@ int main()
 	{
 		if ((c = getch()) != ERR)
 		{
-			t_mino *tmp = duplicate_mino(*player->mino);
+			t_mino *movable_check_mino = duplicate_mino(*player->mino);
 			switch(c)
 			{
 				case 's':
-					tmp->current_row++;  //move down
-					if(isGameActive(tmp, player))
+					movable_check_mino->current_row++;  //move down
+					if(isGameActive(movable_check_mino, player))
 						player->mino->current_row++;
 					else
 					{
@@ -113,34 +113,34 @@ int main()
 					}
 					break;
 				case 'd': //move right
-					tmp->current_col++;
-					if(isGameActive(tmp, player))
+					movable_check_mino->current_col++;
+					if(isGameActive(movable_check_mino, player))
 						player->mino->current_col++;
 					break;
 				case 'a': //move left
-					tmp->current_col--;
-					if(isGameActive(tmp, player))
+					movable_check_mino->current_col--;
+					if(isGameActive(movable_check_mino, player))
 						player->mino->current_col--;
 					break;
 				case 'w': //rotate
-					rotate_Tetromino(tmp);
-					if(isGameActive(tmp, player))
+					rotate_Tetromino(movable_check_mino);
+					if(isGameActive(movable_check_mino, player))
 						rotate_Tetromino(player->mino);
 					break;
 			}
-			destruct_mino_struct(tmp);
+			destruct_mino_struct(movable_check_mino);
 			print_game(player->mino, player);
 		}
 		gettimeofday(&now, NULL);
 
 		if (hasToUpdate(player))
 		{
-			t_mino *tmp2 = duplicate_mino(*player->mino);
+			t_mino *movable_check_mino = duplicate_mino(*player->mino);
 			switch('s')
 			{
 				case 's':
-					tmp2->current_row++;
-					if(isGameActive(tmp2, player))
+					movable_check_mino->current_row++;
+					if(isGameActive(movable_check_mino, player))
 						player->mino->current_row++;
 					else
 					{
@@ -175,22 +175,22 @@ int main()
 					}
 					break;
 				case 'd':
-					tmp2->current_col++;
-					if(isGameActive(tmp2, player))
+					movable_check_mino->current_col++;
+					if(isGameActive(movable_check_mino, player))
 						player->mino->current_col++;
 					break;
 				case 'a':
-					tmp2->current_col--;
-					if(isGameActive(tmp2, player))
+					movable_check_mino->current_col--;
+					if(isGameActive(movable_check_mino, player))
 						player->mino->current_col--;
 					break;
 				case 'w':
-					rotate_Tetromino(tmp2);
-					if(isGameActive(tmp2, player))
+					rotate_Tetromino(movable_check_mino);
+					if(isGameActive(movable_check_mino, player))
 						rotate_Tetromino(player->mino);
 					break;
 			}
-			destruct_mino_struct(tmp2);
+			destruct_mino_struct(movable_check_mino);
 			print_game(player->mino, player);
 			gettimeofday(&before_now, NULL);
 		}
