@@ -136,14 +136,15 @@ int main()
 			print_game(current, player);
 		}
 		gettimeofday(&now, NULL);
+
 		if (hasToUpdate(player))
 		{
-			t_mino *tmp = duplicatet_mino(*current);
+			t_mino *tmp2 = duplicatet_mino(*current);
 			switch('s')
 			{
 				case 's':
-					tmp->current_row++;
-					if(isGameActive(tmp, player))
+					tmp2->current_row++;
+					if(isGameActive(tmp2, player))
 						current->current_row++;
 					else
 					{
@@ -180,26 +181,28 @@ int main()
 					}
 					break;
 				case 'd':
-					tmp->current_col++;
-					if(isGameActive(tmp, player))
+					tmp2->current_col++;
+					if(isGameActive(tmp2, player))
 						current->current_col++;
 					break;
 				case 'a':
-					tmp->current_col--;
-					if(isGameActive(tmp, player))
+					tmp2->current_col--;
+					if(isGameActive(tmp2, player))
 						current->current_col--;
 					break;
 				case 'w':
-					rotate_Tetromino(tmp);
-					if(isGameActive(tmp, player))
+					rotate_Tetromino(tmp2);
+					if(isGameActive(tmp2, player))
 						rotate_Tetromino(current);
 					break;
 			}
-			destruct_mino_struct(tmp);
+			destruct_mino_struct(tmp2);
 			print_game(current, player);
 			gettimeofday(&before_now, NULL);
 		}
 	}
+
+	/* while文終了後 */
 	destruct_mino_struct(current);
 	endwin();
 	print_game_over(player);
@@ -207,3 +210,11 @@ int main()
 	return 0;
 }
 
+#ifdef DEBUG
+
+__attribute__((destructor)) void end(void)
+{
+	system("leaks -q tetris > /dev/stderr");
+}
+
+#endif
