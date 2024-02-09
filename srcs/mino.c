@@ -1,7 +1,7 @@
 #include "tetris.h"
 # define MINO_TYPES 7
 
-const Struct Tetromino[MINO_TYPES] = {
+const t_mino Tetromino[MINO_TYPES] = {
     {
 		// S mino
 		// green
@@ -75,13 +75,13 @@ const Struct Tetromino[MINO_TYPES] = {
 };
 
 /* generate_mino();を用いるため不要 */
-Struct *generateTetromino()
+t_mino *generateTetromino()
 {
-	// Struct shape = Tetromino[rand() % MINO_TYPES];
-	Struct shape = Tetromino[6];
+	// t_mino shape = Tetromino[rand() % MINO_TYPES];
+	t_mino shape = Tetromino[6];
 	shape.current_col = rand() % (COLUMNS - shape.mino_size + 1);
 	shape.current_row = 0;
-	return duplicateStruct(shape);
+	return duplicatet_mino(shape);
 }
 
 char	*memdup(const char *src, int size)
@@ -93,7 +93,7 @@ char	*memdup(const char *src, int size)
 	return (dest);
 }
 
-char **mino_dup(Struct src_mino)
+char **mino_dup(t_mino src_mino)
 {
 	char	**dest_mino;
 
@@ -115,9 +115,9 @@ void	generate_mino(t_player *player)
 	player->mino->current_col = rand() % (COLUMNS - player->mino->mino_size + 1);
 }
 
-void rotate_Tetromino(Struct *shape)
+void rotate_Tetromino(t_mino *shape)
 {
-	Struct *temp = duplicateStruct(*shape);
+	t_mino *temp = duplicatet_mino(*shape);
 	int k, size;
 	size = shape->mino_size;
 	for(int i = 0; i < size ; i++){

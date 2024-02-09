@@ -12,9 +12,9 @@ void *xmalloc(size_t size)
 	return p;
 }
 
-Struct *duplicateStruct(Struct shape)
+t_mino *duplicatet_mino(t_mino shape)
 {
-    Struct *new_shape = (Struct *)xmalloc(sizeof(Struct));
+    t_mino *new_shape = (t_mino *)xmalloc(sizeof(t_mino));
     char **copyshape = shape.mino_array;
 
     new_shape->mino_size = shape.mino_size;
@@ -28,7 +28,7 @@ Struct *duplicateStruct(Struct shape)
     return new_shape;
 }
 
-void free_array(Struct *shape)
+void free_array(t_mino *shape)
 {
     int i;
     for(i = 0; i < shape->mino_size; i++){

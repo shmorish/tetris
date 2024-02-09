@@ -15,14 +15,6 @@
 
 struct timeval before_now, now;
 
-typedef struct Struct
-{
-    char	**mino_array;
-    int		mino_size;
-	int		current_row;
-	int		current_col;
-} Struct;
-
 typedef struct s_mino
 {
 	// mino data
@@ -48,17 +40,17 @@ typedef struct s_player
 	t_table		*table;
 }				t_player;
 
-void print_game(Struct *current, t_player *player);
+void print_game(t_mino *current, t_player *player);
 void print_game_over(t_player *player);
 
 // alloc.c
 void *xmalloc(size_t size);
-Struct *duplicateStruct(Struct shape);
-void free_array(Struct *shape);
+t_mino *duplicatet_mino(t_mino shape);
+void free_array(t_mino *shape);
 
 // mino.c
-Struct *generateTetromino();
+t_mino *generateTetromino();
 void	generate_mino(t_player *player);
 
-void rotate_Tetromino(Struct *shape);
+void rotate_Tetromino(t_mino *shape);
 #endif

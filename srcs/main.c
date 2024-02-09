@@ -3,7 +3,7 @@
 int decrease = 1000;
 
 
-int isGameActive(Struct *shape, t_player *player)
+int isGameActive(t_mino *shape, t_player *player)
 {
 	char **array = shape->mino_array;
 	int i, j;
@@ -45,7 +45,7 @@ int main() {
 	t_player	*player;
 
 	srand(time(0));
-	Struct *current;
+	t_mino *current;
 	// t_mino *current;
 
 	/* init_struct */
@@ -63,7 +63,7 @@ int main() {
     initscr();
 	gettimeofday(&before_now, NULL);
 	set_timeout(1);
-	// Struct *new_shape = generateTetromino();
+	// t_mino *new_shape = generateTetromino();
 	generate_mino(player);
 	current = player->mino;
 	if(!isGameActive(current, player))
@@ -72,7 +72,7 @@ int main() {
 	while(player->table->is_game_on)
 	{
 		if ((c = getch()) != ERR) {
-			t_mino *temp = duplicateStruct(*current);
+			t_mino *temp = duplicatet_mino(*current);
 			switch(c){
 				case 's':
 					temp->current_row++;  //move down
@@ -104,7 +104,7 @@ int main() {
 							}
 						}
 						player->table->score += 100*count;
-						Struct *new_shape = generateTetromino();
+						t_mino *new_shape = generateTetromino();
 						free_array(current);
 						current = new_shape;
 						if(!isGameActive(current, player))
@@ -133,7 +133,7 @@ int main() {
 		gettimeofday(&now, NULL);
 		if (hasToUpdate(player))
 		{
-			Struct *temp = duplicateStruct(*current);
+			t_mino *temp = duplicatet_mino(*current);
 			switch('s'){
 				case 's':
 					temp->current_row++;
@@ -164,7 +164,7 @@ int main() {
 								player->table->time_to_execute -=decrease--;
 							}
 						}
-						Struct *new_shape = generateTetromino();
+						t_mino *new_shape = generateTetromino();
 						free_array(current);
 						current = new_shape;
 						if(!isGameActive(current, player))

@@ -1,6 +1,6 @@
 #include "tetris.h"
 
-void print_game(Struct *current, t_player *player)
+void print_game(t_mino *current, t_player *player)
 {
 	char Buffer[ROWS][COLUMNS] = {0};
 	int i, j;
