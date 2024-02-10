@@ -70,6 +70,10 @@ int main()
 	int c;
 	while(player->table->is_game_on)
 	{
+
+		/* key_events();の範囲 */
+		key_events(player);
+
 		if ((c = getch()) != ERR)
 		{
 			t_mino *movable_check_mino = duplicate_mino(*player->mino);
@@ -130,8 +134,9 @@ int main()
 			destruct_mino_struct(movable_check_mino);
 			print_game(player->mino, player);
 		}
-		gettimeofday(&now, NULL);
+		/* key_events();の範囲 */
 
+		gettimeofday(&now, NULL);
 		if (hasToUpdate(player))
 		{
 			t_mino *movable_check_mino = duplicate_mino(*player->mino);

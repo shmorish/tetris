@@ -60,4 +60,7 @@ void			generate_mino(t_player *player);
 void			generate_new_mino(t_player *player);
 void			rotate_Tetromino(t_mino *shape);
 
+// run_tetris_game.c
+void			key_events(t_player *player);
+
 #endif
