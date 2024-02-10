@@ -15,6 +15,26 @@ void	rotate_mino(t_player *player)
 	destroy_struct(movable_check_mino);
 }
 
+void	move_mino_down(t_player *player)
+{
+	t_mino	*movable_check_mino;
+
+	movable_check_mino = duplicate_mino(*player->mino);
+	movable_check_mino->current_row++;
+	if (isGameActive(movable_check_mino, player))
+		player->mino->current_row++;
+	else
+	{
+		put_mino_data_to_table(player->table, (const char **)player->mino->mino_array, \
+			player->mino->current_row, player->mino->current_col, player->mino->mino_size);
+		player->table->score += clear_mino(player);
+		generate_new_mino(player);
+		if (can_mino_move(player) == false)
+			player->table->is_game_on = GAME_OVER;
+	}
+	destroy_struct(movable_check_mino);
+}
+
 void	key_events(t_player *player)
 {
 	int	key_input;
