@@ -63,53 +63,6 @@ int main()
 		print_game(player->mino, player);
 		key_events(player);
 		time_elapse_event(player);
-		/* if (time_elapsed(player->table))
-		{
-			t_mino *movable_check_mino = duplicate_mino(*player->mino);
-			switch('s')
-			{
-				case 's':
-					movable_check_mino->current_row++;
-					if(isGameActive(movable_check_mino, player))
-						player->mino->current_row++;
-					else
-					{
-						int i, j;
-						for(i = 0; i < player->mino->mino_size ;i++){
-							for(j = 0; j < player->mino->mino_size ; j++){
-								if(player->mino->mino_array[i][j])
-									player->table->table_array[player->mino->current_row+i][player->mino->current_col+j] = player->mino->mino_array[i][j];
-							}
-						}
-						int n, m, sum, clear_row_count=0;
-						for(n=0;n<ROWS;n++){
-							sum = 0;
-							for(m=0;m< COLUMNS;m++) {
-								sum += player->table->table_array[n][m];
-							}
-							if(sum==COLUMNS){
-								clear_row_count++;
-								int l, k;
-								for(k = n;k >=1;k--)
-									for(l=0;l<COLUMNS;l++)
-										player->table->table_array[k][l] = player->table->table_array[k-1][l];
-								for(l=0;l<COLUMNS;l++)
-									player->table->table_array[k][l] = 0;
-								player->table->time_to_execute -=time_to_decrease--;
-							}
-						}
-						player->table->score += clear_row_count * SCORE_PER_BLOCK * COLUMNS;
-						generate_new_mino(player);
-						if(!isGameActive(player->mino, player))
-							player->table->is_game_on = false;
-					}
-					break;
-			}
-			destruct_mino_struct(movable_check_mino);
-			print_game(player->mino, player);
-			update_exec_time();
-		}
-		*/
 	}
 
 	/* while文終了後 */
