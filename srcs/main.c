@@ -56,11 +56,7 @@ int main()
 	player->table->is_game_on = true;
 
 	/* init_game */
-	initscr();
-	timeout(1);
-	srand(time(NULL));
-
-
+	init_game();
 
 	gettimeofday(&before_now, NULL);
 	generate_mino(player);
@@ -196,8 +192,7 @@ int main()
 	}
 
 	/* while文終了後 */
-	endwin();
-	print_game_over(player);
+	end_game(player);
 	destruct_player_struct(player);
 	return 0;
 }

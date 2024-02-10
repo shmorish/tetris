@@ -17,6 +17,10 @@
 # define MAP_EMPTY '.'
 # define MAP_FULL '#'
 
+# define GAME_ON true
+# define GAME_OVER false
+
+
 struct timeval before_now, now;
 
 typedef struct s_mino
@@ -54,6 +58,10 @@ void			free_array(char **str);
 void			destruct_mino_struct(t_mino *mino);
 void			destruct_table_struct(t_table *table);
 void			destruct_player_struct(t_player *player);
+
+// game_setup.c
+void			init_game(void);
+void			end_game(t_player *player);
 
 // mino.c
 void			generate_mino(t_player *player);
