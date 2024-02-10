@@ -58,8 +58,6 @@ int main()
 	/* init_game */
 	init_game();
 
-
-
 	gettimeofday(&before_now, NULL);
 	generate_mino(player);
 	if(!isGameActive(player->mino, player))

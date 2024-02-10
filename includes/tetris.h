@@ -16,8 +16,10 @@
 # define INITIAL_TIME_TO_EXECVE_ms 400000
 # define MAP_EMPTY '.'
 # define MAP_FULL '#'
+
 # define GAME_ON true
 # define GAME_OVER false
+
 
 struct timeval before_now, now;
 
