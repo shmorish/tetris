@@ -1,7 +1,5 @@
 #include "tetris.h"
 
-int time_to_decrease = 1000;
-
 int isGameActive(t_mino *movable_check_mino, t_player *player)
 {
 	int i, j;
@@ -57,7 +55,6 @@ int main()
 	if(!isGameActive(player->mino, player))
 		player->table->is_game_on = false;
 	print_game(player->mino, player);
-	int c;
 	while (player->table->is_game_on)
 	{
 		print_game(player->mino, player);
