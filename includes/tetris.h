@@ -70,6 +70,7 @@ void			rotate_Tetromino(t_mino *shape);
 // run_tetris_game.c
 void			key_events(t_player *player);
 int				isGameActive(t_mino *movable_check_mino, t_player *player);
+void			time_elapse_event(t_player *player);
 
 // time.c
 void			init_time(void);

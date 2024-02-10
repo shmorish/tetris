@@ -87,7 +87,7 @@ void	move_mino_down(t_player *player)
 		put_mino_data_to_table(player);
 		player->table->score += clear_mino(player);
 		generate_new_mino(player);
-		if (isGameActive(movable_check_mino, player))
+		if (isGameActive(player->mino, player) == false)
 			player->table->is_game_on = GAME_OVER;
 	}
 	destruct_mino_struct(movable_check_mino);
@@ -130,5 +130,14 @@ void	key_events(t_player *player)
 			move_mino_left(player);
 		else if (key_input == D_KEY)
 			move_mino_right(player);
+	}
+}
+
+void	time_elapse_event(t_player *player)
+{
+	if (time_elapsed(player->table))
+	{
+		move_mino_down(player);
+		update_exec_time();
 	}
 }
