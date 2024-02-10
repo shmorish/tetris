@@ -20,9 +20,6 @@
 # define GAME_ON true
 # define GAME_OVER false
 
-
-struct timeval before_now, now;
-
 typedef struct s_mino
 {
 	// mino data
@@ -67,6 +64,17 @@ void			end_game(t_player *player);
 void			generate_mino(t_player *player);
 void			generate_new_mino(t_player *player);
 void			rotate_Tetromino(t_mino *shape);
+
+// print_utils.c
+typedef	int	(*OutFunc)(const char*, ...);
+typedef enum e_print_type
+{
+	PRINT,
+	PRINTW,
+}				t_print_type;
+int				printfwrapper(const char* format, va_list args);
+int				printwwrapper(const char* format, va_list args);
+int				output(OutFunc outFunc, const char* format, ...);
 
 // time.c
 void			init_time(void);
