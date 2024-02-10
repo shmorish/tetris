@@ -58,12 +58,12 @@ int main()
 		player->table->is_game_on = false;
 	print_game(player->mino, player);
 	int c;
-	while(player->table->is_game_on)
+	while (player->table->is_game_on)
 	{
-		key_events(player);
 		print_game(player->mino, player);
-
-		if (time_elapsed(player->table))
+		key_events(player);
+		time_elapse_event(player);
+		/* if (time_elapsed(player->table))
 		{
 			t_mino *movable_check_mino = duplicate_mino(*player->mino);
 			switch('s')
@@ -109,7 +109,8 @@ int main()
 			print_game(player->mino, player);
 			update_exec_time();
 		}
-	 }
+		*/
+	}
 
 	/* while文終了後 */
 	end_game(player);
