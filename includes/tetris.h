@@ -68,4 +68,9 @@ void			generate_mino(t_player *player);
 void			generate_new_mino(t_player *player);
 void			rotate_Tetromino(t_mino *shape);
 
+// time.c
+void			init_time(void);
+void			update_exec_time(void);
+bool			time_elapsed(t_table *table);
+
 #endif

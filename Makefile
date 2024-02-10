@@ -4,6 +4,7 @@ SRC_MAIN = main.c
 
 SRC_OTHER = \
 		alloc.c \
+		game_setup.c \
 		game.c \
 		mino.c \
 		time.c \
