@@ -20,7 +20,6 @@
 # define GAME_ON true
 # define GAME_OVER false
 
-
 struct timeval before_now, now;
 
 typedef struct s_mino
@@ -70,5 +69,6 @@ void			rotate_Tetromino(t_mino *shape);
 
 // run_tetris_game.c
 void			key_events(t_player *player);
+int				isGameActive(t_mino *movable_check_mino, t_player *player);
 
 #endif

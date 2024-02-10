@@ -1,5 +1,6 @@
 #include "tetris.h"
 
+// 不要．けす
 int decrease = 1000;
 
 int isGameActive(t_mino *movable_check_mino, t_player *player)
