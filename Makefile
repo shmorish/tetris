@@ -9,6 +9,7 @@ SRC_OTHER = \
 		run_tetris_game.c \
 		mino.c \
 		time.c \
+		struct.c \
 
 SRCDIR = srcs
 OBJDIR = objs
