@@ -16,8 +16,7 @@ void	init_game(void)
 	timeout(1);
 	keypad(stdscr, TRUE);
 	srand(time(NULL));
-	// この処理をあとで入れる。 gettimeofdayの初期化
-	// init_time();
+	init_time();
 }
 
 void	end_game(t_player *player)

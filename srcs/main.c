@@ -20,11 +20,6 @@ int isGameActive(t_mino *movable_check_mino, t_player *player)
 	return true;
 }
 
-int hasToUpdate(t_player *player)
-{
-	return ((suseconds_t)(now.tv_sec*1000000 + now.tv_usec) -((suseconds_t)before_now.tv_sec*1000000 + before_now.tv_usec)) > player->table->time_to_execute;
-}
-
 char	**init_table(void)
 {
 	char	**table;
@@ -59,7 +54,6 @@ int main()
 	/* init_game */
 	init_game();
 
-	gettimeofday(&before_now, NULL);
 	generate_mino(player);
 	if(!isGameActive(player->mino, player))
 		player->table->is_game_on = false;
@@ -71,7 +65,7 @@ int main()
 		/* key_events();の範囲 */
 		key_events(player);
 
-		if ((c = getch()) != ERR)
+		/* if ((c = getch()) != ERR)
 		{
 			t_mino *movable_check_mino = duplicate_mino(*player->mino);
 			switch(c)
@@ -130,11 +124,10 @@ int main()
 			}
 			destruct_mino_struct(movable_check_mino);
 			print_game(player->mino, player);
-		}
+		} */
 		/* key_events();の範囲 */
 
-		gettimeofday(&now, NULL);
-		if (hasToUpdate(player))
+		if (time_elapsed(player->table))
 		{
 			t_mino *movable_check_mino = duplicate_mino(*player->mino);
 			switch('s')
@@ -175,25 +168,10 @@ int main()
 							player->table->is_game_on = false;
 					}
 					break;
-				case 'd':
-					movable_check_mino->current_col++;
-					if(isGameActive(movable_check_mino, player))
-						player->mino->current_col++;
-					break;
-				case 'a':
-					movable_check_mino->current_col--;
-					if(isGameActive(movable_check_mino, player))
-						player->mino->current_col--;
-					break;
-				case 'w':
-					rotate_Tetromino(movable_check_mino);
-					if(isGameActive(movable_check_mino, player))
-						rotate_Tetromino(player->mino);
-					break;
 			}
 			destruct_mino_struct(movable_check_mino);
 			print_game(player->mino, player);
-			gettimeofday(&before_now, NULL);
+			update_exec_time();
 		}
 	}
 

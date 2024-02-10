@@ -71,4 +71,9 @@ void			rotate_Tetromino(t_mino *shape);
 void			key_events(t_player *player);
 int				isGameActive(t_mino *movable_check_mino, t_player *player);
 
+// time.c
+void			init_time(void);
+void			update_exec_time(void);
+bool			time_elapsed(t_table *table);
+
 #endif
