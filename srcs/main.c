@@ -162,21 +162,6 @@ int main()
 							player->table->is_game_on = false;
 					}
 					break;
-				case 'd':
-					movable_check_mino->current_col++;
-					if(isGameActive(movable_check_mino, player))
-						player->mino->current_col++;
-					break;
-				case 'a':
-					movable_check_mino->current_col--;
-					if(isGameActive(movable_check_mino, player))
-						player->mino->current_col--;
-					break;
-				case 'w':
-					rotate_Tetromino(movable_check_mino);
-					if(isGameActive(movable_check_mino, player))
-						rotate_Tetromino(player->mino);
-					break;
 			}
 			destruct_mino_struct(movable_check_mino);
 			print_game(player->mino, player);
