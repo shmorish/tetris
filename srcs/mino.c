@@ -1,96 +1,140 @@
 #include "tetris.h"
 
-const Struct Tetromino[7] = {
-    {
+const t_mino Tetromino[MINO_TYPES] =
+{
+	{
 		// S mino
-		// green
-        .array = (char *[]) {
-            (char []){0, 1, 1},
-            (char []){1, 1, 0},
-            (char []){0, 0, 0}
-        },
-        .width = 3
-    },
+		.mino_array = (char *[]) {
+			(char []){0, 1, 1},
+			(char []){1, 1, 0},
+			(char []){0, 0, 0}
+		},
+		.mino_size = 3
+	},
 	{
 		// Z mino
-		// red
-		.array = (char *[]) {
+		.mino_array = (char *[]) {
 			(char []){1, 1, 0},
 			(char []){0, 1, 1},
 			(char []){0, 0, 0}
 		},
-		.width = 3
+		.mino_size = 3
 	},
 	{
 		// T mino
-		// purple
-		.array = (char *[]) {
+		.mino_array = (char *[]) {
 			(char []){0, 1, 0},
 			(char []){1, 1, 1},
 			(char []){0, 0, 0}
 		},
-		.width = 3
+		.mino_size = 3
 	},
 	{
 		// J mino
-		// blue
-		.array = (char *[]) {
+		.mino_array = (char *[]) {
 			(char []){1, 0, 0},
 			(char []){1, 1, 1},
 			(char []){0, 0, 0}
 		},
-		.width = 3
+		.mino_size = 3
 	},
 	{
 		// L mino
-		// orange
-		.array = (char *[]) {
+		.mino_array = (char *[]) {
 			(char []){0, 0, 1},
 			(char []){1, 1, 1},
 			(char []){0, 0, 0}
 		},
-		.width = 3
+		.mino_size = 3
 	},
 	{
 		// O mino
-		// yellow
-		.array = (char *[]) {
+		.mino_array = (char *[]) {
 			(char []){1, 1},
 			(char []){1, 1}
 		},
-		.width = 2
+		.mino_size = 2
 	},
 	{
 		// I mino
-		// cyan
-		.array = (char *[]) {
+		.mino_array = (char *[]) {
 			(char []){0, 0, 0, 0},
 			(char []){1, 1, 1, 1},
 			(char []){0, 0, 0, 0},
 			(char []){0, 0, 0, 0}
 		},
-		.width = 4
+		.mino_size = 4
 	}
 };
 
-Struct *generateTetromino()
+void	destruct_player_struct(t_player *player)
 {
-	// Struct shape = Tetromino[rand() % 7];
-	Struct shape = Tetromino[6];
-	shape.col = rand() % (COLUMNS - shape.width + 1);
-	shape.row = 0;
-	return duplicateStruct(shape);
+	destruct_table_struct(player->table);
+	destruct_mino_struct(player->mino);
+	free(player);
+	player = NULL;
 }
 
-void rotate_Tetromino(Struct *shape)
+void	destruct_table_struct(t_table *table)
 {
-	Struct *temp = duplicateStruct(*shape);
-	int k, width;
-	width = shape->width;
-	for(int i = 0; i < width ; i++){
-		for(int j = 0, k = width - 1; j < width; j++, k--){
-				shape->array[i][j] = temp->array[k][i];
-		}
+	free_array(table->table_array);
+	free(table);
+	table = NULL;
+}
+
+void	destruct_mino_struct(t_mino *mino)
+{
+	free_array(mino->mino_array);
+	free(mino);
+	mino = NULL;
+}
+
+char	*memdup(const char *src, int size)
+{
+	char	*dest;
+
+	dest = (char *)xmalloc(sizeof(char) * (size + 1));
+	memcpy(dest, src, size);
+	return (dest);
+}
+
+char **mino_dup(t_mino src_mino)
+{
+	char	**dest_mino;
+
+	dest_mino = (char **)xmalloc(sizeof(char *) * (src_mino.mino_size + 1));
+	for (int i = 0; i < src_mino.mino_size; i++)
+		dest_mino[i] = memdup(src_mino.mino_array[i], src_mino.mino_size);
+	dest_mino[src_mino.mino_size] = NULL;
+	return (dest_mino);
+}
+
+void	generate_mino(t_player *player)
+{
+	int mino_index;
+
+	mino_index = rand() % MINO_TYPES;
+	player->mino->mino_size = Tetromino[mino_index].mino_size;
+	player->mino->mino_array = mino_dup(Tetromino[mino_index]);
+	player->mino->current_row = 0;
+	player->mino->current_col = rand() % (COLUMNS - player->mino->mino_size + 1);
+}
+
+void	generate_new_mino(t_player *player)
+{
+	free_array(player->mino->mino_array);
+	player->mino->mino_array = NULL;
+	generate_mino(player);
+}
+
+void rotate_Tetromino(t_mino *mino)
+{
+	t_mino *tmp = duplicate_mino(*mino);
+	int k, size;
+	size = mino->mino_size;
+	for(int i = 0; i < size ; i++){
+		for(int j = 0, k = size - 1; j < size; j++, k--)
+				mino->mino_array[i][j] = tmp->mino_array[k][i];
 	}
-	free_array(temp);
+	destruct_mino_struct(tmp);
 }

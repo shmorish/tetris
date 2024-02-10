@@ -1,42 +1,44 @@
 #include "tetris.h"
 
-
-
-void *xmalloc(size_t size)
+void	*xmalloc(size_t size)
 {
-	void *p = malloc(size);
-	if (p == NULL) {
+	void	*p;
+
+	p = malloc(size);
+	if (p == NULL)
+	{
 		fprintf(stderr, "Memory allocation error\n");
 		exit(EXIT_FAILURE);
 	}
-	return p;
+	return (p);
 }
 
-Struct *duplicateStruct(Struct shape)
+t_mino *duplicate_mino(t_mino mino)
 {
-    Struct *new_shape = (Struct *)xmalloc(sizeof(Struct));
-    char **copyshape = shape.array;
+	t_mino *new_mino = (t_mino *)xmalloc(sizeof(t_mino));
 
-    new_shape->width = shape.width;
-    new_shape->array = (char **)xmalloc(new_shape->width * sizeof(char *));
-    for (int i = 0; i < new_shape->width; i++) {
-        new_shape->array[i] = (char *)xmalloc(new_shape->width * sizeof(char));
-        memcpy(new_shape->array[i], copyshape[i], new_shape->width);
-    }
-	new_shape->row = shape.row;
-	new_shape->col = shape.col;
-    return new_shape;
+	new_mino->mino_size = mino.mino_size;
+	new_mino->mino_array = (char **)xmalloc(sizeof(char *) * (new_mino->mino_size + 1));
+	for (int i = 0; i < new_mino->mino_size; i++)
+	{
+		new_mino->mino_array[i] = (char *)xmalloc(sizeof(char) * (new_mino->mino_size + 1));
+		memcpy(new_mino->mino_array[i], mino.mino_array[i], new_mino->mino_size);
+	}
+	new_mino->mino_array[mino.mino_size] = NULL;
+	new_mino->current_row = mino.current_row;
+	new_mino->current_col = mino.current_col;
+	return new_mino;
 }
 
-void free_array(Struct *shape)
+void	free_array(char **array)
 {
-    int i;
-    for(i = 0; i < shape->width; i++){
-		free(shape->array[i]);
-        shape->array[i] = NULL;
-    }
-    free(shape->array);
-    shape->array = NULL;
-    free(shape);
-    shape = NULL;
+	if (array == NULL)
+		return ;
+	for (int i = 0; array[i] != NULL; i++)
+	{
+		free(array[i]);
+		array[i] = NULL;
+	}
+	free(array);
+	array = NULL;
 }
