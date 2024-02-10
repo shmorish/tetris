@@ -4,6 +4,17 @@
 #define S_KEY 's'
 #define D_KEY 'd'
 
+void	rotate_mino(t_player *player)
+{
+	t_mino	*movable_check_mino;
+
+	movable_check_mino = duplicate_mino(*player->mino);
+	rotate_Tetromino(movable_check_mino);
+	if (isGameActive(movable_check_mino, player))
+		rotate_Tetromino(player->mino);
+	destroy_struct(movable_check_mino);
+}
+
 void	key_events(t_player *player)
 {
 	int	key_input;
