@@ -77,4 +77,7 @@ void			init_time(void);
 void			update_exec_time(void);
 bool			time_elapsed(t_table *table);
 
+// struct.c
+t_player	*init_struct(void);
+
 #endif
