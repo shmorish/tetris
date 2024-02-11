@@ -66,9 +66,6 @@ void		end_game(t_player *player);
 void		generate_mino(t_mino *mino);
 void		generate_new_mino(t_mino *mino);
 
-// 
-int 		can_mino_move(t_mino *check_mino, char **table);
-
 // mino_alloc.c
 t_mino		*duplicate_mino(t_mino *mino);
 char		**mino_dup(char **mino_array, int mino_size);
