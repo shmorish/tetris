@@ -3,20 +3,18 @@ NAME = tetris
 SRC_MAIN = main.c
 
 SRC_OTHER = \
-	alloc_utils.c \
-	clear_mino.c \
-	game_setup.c \
-	generate_mino.c \
-	mino.c \
-	mino_alloc.c \
-	mino_movement.c \
-	print_table.c \
-	run_tetris_game.c \
-	struct.c \
-	table_alloc.c \
-	time.c \
-  can_mino_move.c \
-
+	game/game_setup.c \
+  	game/is_game_on.c \
+	game/run_tetris_game.c \
+	mino/clear_mino.c \
+	mino/generate_mino.c \
+	mino/mino_movement.c \
+	mino/mino.c \
+	print/print_table.c \
+	utils/alloc_utils.c \
+	utils/alloc.c \
+	utils/free.c \
+	utils/time.c \
 
 SRCDIR = srcs
 OBJDIR = objs

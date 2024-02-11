@@ -23,7 +23,7 @@ static bool	will_mino_collide_other_mino(const t_mino *mino_checker,
 	return (table_array[row_where_mino_will_mode][col_where_mino_will_mode]);
 }
 
-bool	can_mino_move(const t_mino *mino_checker, char **table_array)
+bool	is_game_on(const t_mino *mino_checker, char **table_array)
 {
 	for (int h_i = 0; h_i < mino_checker->mino_size; h_i++)
 	{

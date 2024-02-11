@@ -13,19 +13,6 @@ void	*xmalloc(size_t size)
 	return (p);
 }
 
-void	free_array(char **array)
-{
-	if (array == NULL)
-		return ;
-	for (int i = 0; array[i] != NULL; i++)
-	{
-		free(array[i]);
-		array[i] = NULL;
-	}
-	free(array);
-	array = NULL;
-}
-
 void	*memdup(const void *src, size_t size)
 {
 	char	*dest;
