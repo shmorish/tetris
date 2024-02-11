@@ -30,10 +30,9 @@ int main()
 	generate_mino(player);
 	if(!isGameActive(player->mino, player))
 		player->table->is_game_on = false;
-	print_game(player->mino, player);
 	while (player->table->is_game_on)
 	{
-		print_game(player->mino, player);
+		print_output_according_to_fps(player);
 		key_events(player);
 		time_elapse_event(player);
 	}

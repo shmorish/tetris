@@ -6,10 +6,11 @@ SRC_OTHER = \
 		alloc.c \
 		game_setup.c \
 		game.c \
-		run_tetris_game.c \
 		mino.c \
-		time.c \
+		print_table.c \
+		run_tetris_game.c \
 		struct.c \
+		time.c \
 
 SRCDIR = srcs
 OBJDIR = objs

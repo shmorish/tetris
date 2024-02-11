@@ -1,6 +1,6 @@
 #include "tetris.h"
 
-static char	**init_table(void)
+char	**init_table(void)
 {
 	char	**table;
 

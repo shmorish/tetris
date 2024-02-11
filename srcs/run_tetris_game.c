@@ -17,12 +17,12 @@ void	rotate_mino(t_player *player)
 	destruct_mino_struct(movable_check_mino);
 }
 
-static void	put_mino_data_to_table(t_player *player)
+void	put_mino_data_to_table(t_mino *mino, char **table)
 {
-	for (int y = 0; y < player->mino->mino_size; y++)
-		for (int x = 0; x < player->mino->mino_size; x++)
-			if (player->mino->mino_array[y][x] != 0)
-				player->table->table_array[player->mino->current_row + y][player->mino->current_col + x] = player->mino->mino_array[y][x];
+	for (int y = 0; y < mino->mino_size; y++)
+		for (int x = 0; x < mino->mino_size; x++)
+			if (mino->mino_array[y][x] != 0)
+				table[mino->current_row + y][mino->current_col + x] = mino->mino_array[y][x];
 }
 
 static bool is_row_complete(const t_player *player, int row)
@@ -84,7 +84,7 @@ void	move_mino_down(t_player *player)
 		player->mino->current_row++;
 	else
 	{
-		put_mino_data_to_table(player);
+		put_mino_data_to_table(player->mino, player->table->table_array);
 		player->table->score += clear_mino(player);
 		generate_new_mino(player);
 		if (isGameActive(player->mino, player) == false)

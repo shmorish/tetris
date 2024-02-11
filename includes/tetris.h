@@ -14,13 +14,14 @@
 # define MINO_TYPES 7
 # define SCORE_PER_BLOCK 100
 # define INITIAL_TIME_TO_EXECVE_ms 400000
+# define FPS 60
 # define MAP_EMPTY '.'
 # define MAP_FULL '#'
 
+# define GAME_TITLE "42 Tetris"
+
 # define GAME_ON true
 # define GAME_OVER false
-
-struct timeval before_now, now;
 
 typedef struct s_mino
 {
@@ -67,17 +68,23 @@ void			generate_mino(t_player *player);
 void			generate_new_mino(t_player *player);
 void			rotate_Tetromino(t_mino *shape);
 
+// print_table.c
+void			print_table(const bool situation, const t_player *player, int score);
+
 // run_tetris_game.c
 void			key_events(t_player *player);
 int				isGameActive(t_mino *movable_check_mino, t_player *player);
 void			time_elapse_event(t_player *player);
+void			put_mino_data_to_table(t_mino *mino, char **table);
 
 // time.c
 void			init_time(void);
 void			update_exec_time(void);
 bool			time_elapsed(t_table *table);
+void			print_output_according_to_fps(const t_player *player);
 
 // struct.c
+char	**init_table(void);
 t_player	*init_struct(void);
 
 #endif
