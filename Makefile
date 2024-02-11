@@ -5,7 +5,6 @@ SRC_MAIN = main.c
 SRC_OTHER = \
 		alloc.c \
 		game_setup.c \
-		game.c \
 		mino.c \
 		print_table.c \
 		run_tetris_game.c \
