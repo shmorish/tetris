@@ -26,8 +26,8 @@ int main()
 	/* init_game */
 	init_game();
 
-	generate_mino(player);
-	if(!can_mino_move(player->mino, player))
+	generate_mino(player->mino);
+	if(!can_mino_move(player->mino, player->table->table_array))
 		player->table->is_game_on = false;
 	while (player->table->is_game_on)
 	{

@@ -61,8 +61,8 @@ void			init_game(void);
 void			end_game(t_player *player);
 
 // mino.c
-void			generate_mino(t_player *player);
-void			generate_new_mino(t_player *player);
+void			generate_mino(t_mino *mino);
+void			generate_new_mino(t_mino *mino);
 void			rotate_Tetromino(t_mino *shape);
 
 // print_table.c
