@@ -129,7 +129,7 @@ void	generate_new_mino(t_player *player)
 
 void rotate_Tetromino(t_mino *mino)
 {
-	t_mino *tmp = duplicate_mino(*mino);
+	t_mino *tmp = duplicate_mino(mino);
 	int k, size;
 	size = mino->mino_size;
 	for(int i = 0; i < size ; i++){

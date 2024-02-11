@@ -53,7 +53,7 @@ void			print_game_over(t_player *player);
 
 // alloc.c
 void			*xmalloc(size_t size);
-t_mino			*duplicate_mino(t_mino shape);
+t_mino			*duplicate_mino(t_mino *shape);
 void			free_array(char **str);
 void			destruct_mino_struct(t_mino *mino);
 void			destruct_table_struct(t_table *table);

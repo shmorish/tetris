@@ -10,7 +10,7 @@ void	rotate_mino(t_player *player)
 {
 	t_mino	*movable_check_mino;
 
-	movable_check_mino = duplicate_mino(*player->mino);
+	movable_check_mino = duplicate_mino(player->mino);
 	rotate_Tetromino(movable_check_mino);
 	if (isGameActive(movable_check_mino, player))
 		rotate_Tetromino(player->mino);
@@ -78,7 +78,7 @@ void	move_mino_down(t_player *player)
 {
 	t_mino	*movable_check_mino;
 
-	movable_check_mino = duplicate_mino(*player->mino);
+	movable_check_mino = duplicate_mino(player->mino);
 	movable_check_mino->current_row++;
 	if (isGameActive(movable_check_mino, player))
 		player->mino->current_row++;
@@ -97,7 +97,7 @@ void	move_mino_left(t_player *player)
 {
 	t_mino	*movable_check_mino;
 
-	movable_check_mino = duplicate_mino(*player->mino);
+	movable_check_mino = duplicate_mino(player->mino);
 	movable_check_mino->current_col--;
 	if (isGameActive(movable_check_mino, player))
 		player->mino->current_col--;
@@ -108,7 +108,7 @@ void	move_mino_right(t_player *player)
 {
 	t_mino	*movable_check_mino;
 
-	movable_check_mino = duplicate_mino(*player->mino);
+	movable_check_mino = duplicate_mino(player->mino);
 	movable_check_mino->current_col++;
 	if (isGameActive(movable_check_mino, player))
 		player->mino->current_col++;
