@@ -43,7 +43,7 @@ static void	time_elapse_event(t_player *player)
 void	run_tetris_game(t_player *player)
 {
 	generate_mino(player->mino);
-	if(!can_mino_move(player->mino, player->table->table_array))
+	if(!is_game_on(player->mino, player->table->table_array))
 		player->table->is_game_on = false;
 	while (player->table->is_game_on)
 	{

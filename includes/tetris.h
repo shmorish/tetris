@@ -92,8 +92,8 @@ void			update_exec_time(void);
 bool			time_elapsed(t_table *table);
 void			print_output_according_to_fps(const t_player *player);
 
-// can_mino_move.c
-bool			can_mino_move(const t_mino *mino_checker, char **table_array);
+// is_game_on.c
+bool			is_game_on(const t_mino *mino_checker, char **table_array);
 
 // struct.c
 t_player	*init_struct(void);

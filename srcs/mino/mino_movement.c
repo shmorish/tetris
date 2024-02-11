@@ -18,7 +18,7 @@ void	rotate_mino(t_player *player)
 
 	mino_checker = duplicate_mino(player->mino);
 	rotate_Tetromino(mino_checker);
-	if (can_mino_move(mino_checker, player->table->table_array))
+	if (is_game_on(mino_checker, player->table->table_array))
 		rotate_Tetromino(player->mino);
 	destruct_mino_struct(mino_checker);
 }
@@ -29,14 +29,14 @@ void	move_mino_down(t_player *player)
 
 	mino_checker = duplicate_mino(player->mino);
 	mino_checker->current_row++;
-	if (can_mino_move(mino_checker, player->table->table_array))
+	if (is_game_on(mino_checker, player->table->table_array))
 		player->mino->current_row++;
 	else
 	{
 		put_mino_data_to_table(player->mino, player->table->table_array);
 		player->table->score += clear_mino(player);
 		generate_new_mino(player->mino);
-		if (!can_mino_move(player->mino, player->table->table_array))
+		if (!is_game_on(player->mino, player->table->table_array))
 			player->table->is_game_on = GAME_OVER;
 	}
 	destruct_mino_struct(mino_checker);
@@ -48,7 +48,7 @@ void	move_mino_left(t_player *player)
 
 	mino_checker = duplicate_mino(player->mino);
 	mino_checker->current_col--;
-	if (can_mino_move(mino_checker, player->table->table_array))
+	if (is_game_on(mino_checker, player->table->table_array))
 		player->mino->current_col--;
 	destruct_mino_struct(mino_checker);
 }
@@ -59,7 +59,7 @@ void	move_mino_right(t_player *player)
 
 	mino_checker = duplicate_mino(player->mino);
 	mino_checker->current_col++;
-	if (can_mino_move(mino_checker, player->table->table_array))
+	if (is_game_on(mino_checker, player->table->table_array))
 		player->mino->current_col++;
 	destruct_mino_struct(mino_checker);
 }
