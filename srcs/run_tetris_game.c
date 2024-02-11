@@ -42,12 +42,6 @@ static void	time_elapse_event(t_player *player)
 
 void	run_tetris_game(t_player *player)
 {
-	/* init_struct */
-	player = init_struct();
-
-	/* init_game */
-	init_game();
-
 	generate_mino(player->mino);
 	if(!can_mino_move(player->mino, player->table->table_array))
 		player->table->is_game_on = false;
