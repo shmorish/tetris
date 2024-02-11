@@ -65,20 +65,17 @@ void			generate_mino(t_player *player);
 void			generate_new_mino(t_player *player);
 void			rotate_Tetromino(t_mino *shape);
 
-// print_utils.c
-typedef	int	(*OutFunc)(const char*, ...);
-typedef enum e_print_type
-{
-	PRINT,
-	PRINTW,
-}				t_print_type;
-int				printfwrapper(const char* format, va_list args);
-int				printwwrapper(const char* format, va_list args);
-int				output(OutFunc outFunc, const char* format, ...);
+// run_tetris_game.c
+void			key_events(t_player *player);
+int				isGameActive(t_mino *movable_check_mino, t_player *player);
+void			time_elapse_event(t_player *player);
 
 // time.c
 void			init_time(void);
 void			update_exec_time(void);
 bool			time_elapsed(t_table *table);
+
+// struct.c
+t_player	*init_struct(void);
 
 #endif

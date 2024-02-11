@@ -7,6 +7,9 @@ SRC_OTHER = \
 		game_setup.c \
 		game.c \
 		mino.c \
+		print_table.c \
+		run_tetris_game.c \
+		struct.c \
 		time.c \
 
 SRCDIR = srcs
