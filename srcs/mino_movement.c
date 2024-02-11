@@ -36,7 +36,7 @@ void	move_mino_down(t_player *player)
 		put_mino_data_to_table(player->mino, player->table->table_array);
 		player->table->score += clear_mino(player);
 		generate_new_mino(player->mino);
-		if (!can_mino_move(player->mino, player->table->table_array))
+		if (can_mino_move(player->mino, player->table->table_array) == false)
 			player->table->is_game_on = GAME_OVER;
 	}
 	destruct_mino_struct(mino_checker);
