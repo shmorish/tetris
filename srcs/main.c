@@ -18,8 +18,6 @@ int can_mino_move(t_mino *check_mino, char **table)
 
 void	run_tetris_game(t_player *player)
 {
-	t_player	*player;
-
 	/* init_struct */
 	player = init_struct();
 
