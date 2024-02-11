@@ -1,16 +1,15 @@
 #include "tetris.h"
 
-int isGameActive(t_mino *movable_check_mino, t_player *player)
+int can_mino_move(t_mino *check_mino, char **table)
 {
-	int i, j;
-	for (i = 0; i < movable_check_mino->mino_size; i++){
-		for (j = 0; j < movable_check_mino->mino_size; j++){
-			if ((movable_check_mino->current_col + j < 0 || movable_check_mino->current_col + j >= COLUMNS || movable_check_mino->current_row + i >= ROWS))
+	for (int i = 0; i < check_mino->mino_size; i++) {
+		for (int j = 0; j < check_mino->mino_size; j++) {
+			if ((check_mino->current_col + j < 0 || check_mino->current_col + j >= COLUMNS || check_mino->current_row + i >= ROWS))
 			{
-				if(movable_check_mino->mino_array[i][j])
+				if(check_mino->mino_array[i][j])
 					return false;
 			}
-			else if (player->table->table_array[movable_check_mino->current_row + i][movable_check_mino->current_col + j] && movable_check_mino->mino_array[i][j])
+			else if (table[check_mino->current_row + i][check_mino->current_col + j] && check_mino->mino_array[i][j])
 				return false;
 		}
 	}
@@ -19,8 +18,14 @@ int isGameActive(t_mino *movable_check_mino, t_player *player)
 
 void	run_tetris_game(t_player *player)
 {
-	generate_mino(player);
-	if (!isGameActive(player->mino, player))
+	/* init_struct */
+	player = init_struct();
+
+	/* init_game */
+	init_game();
+
+	generate_mino(player->mino);
+	if(!can_mino_move(player->mino, player->table->table_array))
 		player->table->is_game_on = false;
 	while (player->table->is_game_on)
 	{

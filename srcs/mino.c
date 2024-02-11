@@ -98,38 +98,38 @@ char	*memdup(const char *src, int size)
 	return (dest);
 }
 
-char **mino_dup(t_mino src_mino)
+static char	**mino_dup(char **mino, int size)
 {
-	char	**dest_mino;
+	char	**array;
 
-	dest_mino = (char **)xmalloc(sizeof(char *) * (src_mino.mino_size + 1));
-	for (int i = 0; i < src_mino.mino_size; i++)
-		dest_mino[i] = memdup(src_mino.mino_array[i], src_mino.mino_size);
-	dest_mino[src_mino.mino_size] = NULL;
-	return (dest_mino);
+	array = (char **)xmalloc(sizeof(char *) * (size + 1));
+	for (int i = 0; i < size; i++)
+		array[i] = memdup(mino[i], size);
+	array[size] = NULL;
+	return (array);
 }
 
-void	generate_mino(t_player *player)
+void	generate_mino(t_mino *mino)
 {
 	int mino_index;
 
 	mino_index = rand() % MINO_TYPES;
-	player->mino->mino_size = Tetromino[mino_index].mino_size;
-	player->mino->mino_array = mino_dup(Tetromino[mino_index]);
-	player->mino->current_row = 0;
-	player->mino->current_col = rand() % (COLUMNS - player->mino->mino_size + 1);
+	mino->mino_size = Tetromino[mino_index].mino_size;
+	mino->mino_array = mino_dup(Tetromino[mino_index].mino_array, mino->mino_size);
+	mino->current_row = 0;
+	mino->current_col = rand() % (COLUMNS - mino->mino_size + 1);
 }
 
-void	generate_new_mino(t_player *player)
+void	generate_new_mino(t_mino *mino)
 {
-	free_array(player->mino->mino_array);
-	player->mino->mino_array = NULL;
-	generate_mino(player);
+	free_array(mino->mino_array);
+	mino->mino_array = NULL;
+	generate_mino(mino);
 }
 
 void rotate_Tetromino(t_mino *mino)
 {
-	t_mino *tmp = duplicate_mino(*mino);
+	t_mino *tmp = duplicate_mino(mino);
 	int k, size;
 	size = mino->mino_size;
 	for(int i = 0; i < size ; i++){

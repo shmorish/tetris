@@ -1,4 +1,5 @@
 #include "tetris.h"
+
 #define W_KEY 'w'
 #define A_KEY 'a'
 #define S_KEY 's'
@@ -10,9 +11,9 @@ void	rotate_mino(t_player *player)
 {
 	t_mino	*movable_check_mino;
 
-	movable_check_mino = duplicate_mino(*player->mino);
+	movable_check_mino = duplicate_mino(player->mino);
 	rotate_Tetromino(movable_check_mino);
-	if (isGameActive(movable_check_mino, player))
+	if (can_mino_move(movable_check_mino, player->table->table_array))
 		rotate_Tetromino(player->mino);
 	destruct_mino_struct(movable_check_mino);
 }
@@ -78,16 +79,16 @@ void	move_mino_down(t_player *player)
 {
 	t_mino	*movable_check_mino;
 
-	movable_check_mino = duplicate_mino(*player->mino);
+	movable_check_mino = duplicate_mino(player->mino);
 	movable_check_mino->current_row++;
-	if (isGameActive(movable_check_mino, player))
+	if (can_mino_move(movable_check_mino, player->table->table_array))
 		player->mino->current_row++;
 	else
 	{
 		put_mino_data_to_table(player->mino, player->table->table_array);
 		player->table->score += clear_mino(player);
-		generate_new_mino(player);
-		if (isGameActive(player->mino, player) == false)
+		generate_new_mino(player->mino);
+		if (!can_mino_move(player->mino, player->table->table_array))
 			player->table->is_game_on = GAME_OVER;
 	}
 	destruct_mino_struct(movable_check_mino);
@@ -97,9 +98,9 @@ void	move_mino_left(t_player *player)
 {
 	t_mino	*movable_check_mino;
 
-	movable_check_mino = duplicate_mino(*player->mino);
+	movable_check_mino = duplicate_mino(player->mino);
 	movable_check_mino->current_col--;
-	if (isGameActive(movable_check_mino, player))
+	if (can_mino_move(movable_check_mino, player->table->table_array))
 		player->mino->current_col--;
 	destruct_mino_struct(movable_check_mino);
 }
@@ -108,9 +109,9 @@ void	move_mino_right(t_player *player)
 {
 	t_mino	*movable_check_mino;
 
-	movable_check_mino = duplicate_mino(*player->mino);
+	movable_check_mino = duplicate_mino(player->mino);
 	movable_check_mino->current_col++;
-	if (isGameActive(movable_check_mino, player))
+	if (can_mino_move(movable_check_mino, player->table->table_array))
 		player->mino->current_col++;
 	destruct_mino_struct(movable_check_mino);
 }
