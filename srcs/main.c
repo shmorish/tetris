@@ -17,18 +17,10 @@ int isGameActive(t_mino *movable_check_mino, t_player *player)
 	return true;
 }
 
-int main()
+void	run_tetris_game(t_player *player)
 {
-	t_player	*player;
-
-	/* init_struct */
-	player = init_struct();
-
-	/* init_game */
-	init_game();
-
 	generate_mino(player);
-	if(!isGameActive(player->mino, player))
+	if (!isGameActive(player->mino, player))
 		player->table->is_game_on = false;
 	while (player->table->is_game_on)
 	{
@@ -36,11 +28,18 @@ int main()
 		key_events(player);
 		time_elapse_event(player);
 	}
+}
 
-	/* while文終了後 */
+int	main(void)
+{
+	t_player	*player;
+
+	player = init_struct();
+	init_game();
+	run_tetris_game(player);
 	end_game(player);
 	destruct_player_struct(player);
-	return 0;
+	return (0);
 }
 
 #ifdef DEBUG
