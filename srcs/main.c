@@ -16,7 +16,7 @@ int can_mino_move(t_mino *check_mino, char **table)
 	return true;
 }
 
-int main()
+void	run_tetris_game(t_player *player)
 {
 	t_player	*player;
 
@@ -35,11 +35,18 @@ int main()
 		key_events(player);
 		time_elapse_event(player);
 	}
+}
 
-	/* while文終了後 */
+int	main(void)
+{
+	t_player	*player;
+
+	player = init_struct();
+	init_game();
+	run_tetris_game(player);
 	end_game(player);
 	destruct_player_struct(player);
-	return 0;
+	return (0);
 }
 
 #ifdef DEBUG
