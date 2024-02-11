@@ -86,6 +86,18 @@ void		print_table(const bool situation, const t_player *player, int score);
 void		put_mino_data_to_table(t_mino *mino, char **table);
 void		run_tetris_game(t_player *player);
 
+void			print_table(const bool situation, const t_player *player,
+					int score);
+
+// time.c
+void			init_time(void);
+void			update_exec_time(void);
+bool			time_elapsed(t_table *table);
+void			print_output_according_to_fps(const t_player *player);
+
+// can_mino_move.c
+bool			can_mino_move(const t_mino *mino_checker, char **table_array);
+
 // struct.c
 t_player	*init_struct(void);
 void		destruct_player_struct(t_player *player);
@@ -100,5 +112,4 @@ void		init_time(void);
 bool		time_elapsed(t_table *table);
 void		update_exec_time(void);
 void		print_output_according_to_fps(const t_player *player);
-
 #endif

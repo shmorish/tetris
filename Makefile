@@ -15,7 +15,7 @@ SRC_OTHER = \
 	struct.c \
 	table_alloc.c \
 	time.c \
-
+  can_mino_move.c \
 
 
 SRCDIR = srcs
