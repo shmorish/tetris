@@ -48,31 +48,43 @@ typedef struct s_player
 	t_table		*table;
 }				t_player;
 
-// alloc.c
-void			*xmalloc(size_t size);
-t_mino			*duplicate_mino(t_mino *shape);
-void			free_array(char **str);
-void			destruct_mino_struct(t_mino *mino);
-void			destruct_table_struct(t_table *table);
-void			destruct_player_struct(t_player *player);
+const t_mino Tetromino[MINO_TYPES];
+
+// alloc_utils.c
+void		*xmalloc(size_t size);
+void		free_array(char **array);
+void		*memdup(const void *src, size_t size);
+
+// clear_mino.c
+int			clear_mino(t_player *player);
 
 // game_setup.c
-void			init_game(void);
-void			end_game(t_player *player);
+void		init_game(void);
+void		end_game(t_player *player);
 
-// mino.c
-void			generate_mino(t_mino *mino);
-void			generate_new_mino(t_mino *mino);
-void			rotate_Tetromino(t_mino *shape);
+// generate_mino.c
+void		generate_mino(t_mino *mino);
+void		generate_new_mino(t_mino *mino);
+
+// mino_alloc.c
+t_mino		*duplicate_mino(t_mino *mino);
+char		**mino_dup(char **mino_array, int mino_size);
+
+// mino_movement.c
+void		rotate_mino(t_player *player);
+void		move_mino_down(t_player *player);
+void		move_mino_left(t_player *player);
+void		move_mino_right(t_player *player);
 
 // print_table.c
-void			print_table(const bool situation, const t_player *player,
-					int score);
+void		print_table(const bool situation, const t_player *player, int score);
 
 // run_tetris_game.c
-void			key_events(t_player *player);
-void			time_elapse_event(t_player *player);
-void			put_mino_data_to_table(t_mino *mino, char **table);
+void		put_mino_data_to_table(t_mino *mino, char **table);
+void		run_tetris_game(t_player *player);
+
+void			print_table(const bool situation, const t_player *player,
+					int score);
 
 // time.c
 void			init_time(void);
@@ -84,7 +96,17 @@ void			print_output_according_to_fps(const t_player *player);
 bool			can_mino_move(const t_mino *mino_checker, char **table_array);
 
 // struct.c
-char			**init_table(void);
-t_player		*init_struct(void);
+t_player	*init_struct(void);
+void		destruct_player_struct(t_player *player);
+void		destruct_mino_struct(t_mino *mino);
+void		destruct_table_struct(t_table *table);
 
+// table_alloc.c
+char		**init_table(void);
+
+// time.c
+void		init_time(void);
+bool		time_elapsed(t_table *table);
+void		update_exec_time(void);
+void		print_output_according_to_fps(const t_player *player);
 #endif

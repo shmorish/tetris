@@ -1,17 +1,4 @@
-#include "tetris.h"
-
-void	*xmalloc(size_t size)
-{
-	void	*p;
-
-	p = malloc(size);
-	if (p == NULL)
-	{
-		fprintf(stderr, "Memory allocation error\n");
-		exit(EXIT_FAILURE);
-	}
-	return (p);
-}
+# include "tetris.h"
 
 t_mino *duplicate_mino(t_mino *mino)
 {
@@ -30,15 +17,13 @@ t_mino *duplicate_mino(t_mino *mino)
 	return new_mino;
 }
 
-void	free_array(char **array)
+char	**mino_dup(char **mino, int size)
 {
-	if (array == NULL)
-		return ;
-	for (int i = 0; array[i] != NULL; i++)
-	{
-		free(array[i]);
-		array[i] = NULL;
-	}
-	free(array);
-	array = NULL;
+	char	**array;
+
+	array = (char **)xmalloc(sizeof(char *) * (size + 1));
+	for (int i = 0; i < size; i++)
+		array[i] = memdup(mino[i], size);
+	array[size] = NULL;
+	return (array);
 }
