@@ -18,7 +18,6 @@
 
 typedef struct s_mino
 {
-	// mino data
 	char		**mino_array;
 	int			mino_size;
 	int			current_row;
@@ -27,7 +26,6 @@ typedef struct s_mino
 
 typedef struct s_table
 {
-	// table data
 	suseconds_t	time_to_execute;
 	char		**table_array;
 	long		score;
