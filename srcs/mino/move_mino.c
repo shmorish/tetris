@@ -1,6 +1,6 @@
 #include "mino.h"
 
-static void rotate_Tetromino(t_mino *mino)
+static void rotate_tetromino(t_mino *mino)
 {
 	t_mino *tmp = duplicate_mino(mino);
 	int k, size;
@@ -17,9 +17,9 @@ void	rotate_mino(t_player *player)
 	t_mino	*mino_checker;
 
 	mino_checker = duplicate_mino(player->mino);
-	rotate_Tetromino(mino_checker);
+	rotate_tetromino(mino_checker);
 	if (is_game_on(mino_checker, player->table->table_array))
-		rotate_Tetromino(player->mino);
+		rotate_tetromino(player->mino);
 	destruct_mino_struct(mino_checker);
 }
 
