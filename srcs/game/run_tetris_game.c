@@ -1,17 +1,4 @@
-#include "tetris.h"
-
-#define W_KEY 'w'
-#define A_KEY 'a'
-#define S_KEY 's'
-#define D_KEY 'd'
-
-void	put_mino_data_to_table(t_mino *mino, char **table)
-{
-	for (int y = 0; y < mino->mino_size; y++)
-		for (int x = 0; x < mino->mino_size; x++)
-			if (mino->mino_array[y][x] != 0)
-				table[mino->current_row + y][mino->current_col + x] = mino->mino_array[y][x];
-}
+#include "game.h"
 
 static void	key_events(t_player *player)
 {

@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "mino.h"
 
 void	generate_mino(t_mino *mino)
 {

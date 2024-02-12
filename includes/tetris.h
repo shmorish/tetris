@@ -3,7 +3,6 @@
 
 # include "game.h"
 # include "mino.h"
-# include "print.h"
 # include "utils.h"
 
 #endif

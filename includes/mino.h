@@ -1,6 +1,7 @@
 #ifndef MINO_H
 # define MINO_H
 
+# include "game.h"
 # include "utils.h"
 
 # define MINO_TYPES 7

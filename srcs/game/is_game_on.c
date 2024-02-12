@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "game.h"
 
 static bool	will_mino_collide_wall(const t_mino *mino_checker, const int height, const int width)
 {

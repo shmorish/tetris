@@ -15,6 +15,9 @@
 # define FPS 60
 # define GAME_ON true
 # define GAME_OVER false
+# define MAP_EMPTY '.'
+# define MAP_FULL '#'
+# define GAME_TITLE "42 Tetris"
 
 typedef struct s_mino
 {
@@ -55,5 +58,12 @@ void			init_time(void);
 bool			time_elapsed(t_table *table);
 void			update_exec_time(void);
 void			print_output_according_to_fps(const t_player *player);
+
+// store.c
+void			store_mino_to_table(t_mino *mino, char **table);
+// print.c
+
+void			print_table(const bool situation, const t_player *player,
+					int score);
 
 #endif

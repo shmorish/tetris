@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "utils.h"
 
 void	free_array(char **array)
 {

@@ -10,9 +10,10 @@ SRC_OTHER = \
 	mino/generate_mino.c \
 	mino/mino_movement.c \
 	mino/mino.c \
-	print/print_table.c \
 	utils/alloc.c \
 	utils/free.c \
+	utils/print.c \
+	utils/store.c \
 	utils/time.c \
 
 SRCDIR = srcs

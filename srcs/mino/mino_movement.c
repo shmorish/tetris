@@ -1,4 +1,4 @@
-# include "tetris.h"
+#include "mino.h"
 
 static void rotate_Tetromino(t_mino *mino)
 {
@@ -33,7 +33,7 @@ void	move_mino_down(t_player *player)
 		player->mino->current_row++;
 	else
 	{
-		put_mino_data_to_table(player->mino, player->table->table_array);
+		store_mino_to_table(player->mino, player->table->table_array);
 		player->table->score += clear_mino(player);
 		generate_new_mino(player->mino);
 		if (is_game_on(player->mino, player->table->table_array) == false)

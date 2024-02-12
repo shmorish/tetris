@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "utils.h"
 
 // Time when the last move down process was executed
 static struct timeval last_exec_time;

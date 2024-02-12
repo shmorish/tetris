@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "mino.h"
 
 const t_mino Tetromino[MINO_TYPES] =
 {

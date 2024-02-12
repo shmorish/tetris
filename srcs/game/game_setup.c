@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "game.h"
 
 /*
 	initscr() スクリーンを初期化

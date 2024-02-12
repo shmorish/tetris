@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "utils.h"
 
 static int	switch_print(const bool situation, const char * restrict format, ...)
 {
@@ -43,7 +43,7 @@ static char	**store_mino(t_mino *mino, int row, int col)
 	char	**empty_map_with_mino;
 
 	empty_map_with_mino = init_table();
-	put_mino_data_to_table(mino, empty_map_with_mino);
+	store_mino_to_table(mino, empty_map_with_mino);
 	return (empty_map_with_mino);
 }
 
