@@ -1,6 +1,8 @@
 #include "mino.h"
+#define INITIAL_TIME_TO_DECREASE 10000
+#define ADDEND_TIME_TO_DECREASE 1000
 
-static int	time_to_decrease = 1000;
+static int	time_to_decrease = INITIAL_TIME_TO_DECREASE;
 
 static bool	is_row_complete(const t_player *player, int row)
 {
@@ -15,17 +17,14 @@ static bool	is_row_complete(const t_player *player, int row)
 static void	remove_row(t_player *player, int row)
 {
 	for (int col_i = 0; col_i < COLUMNS; col_i++)
-	{
 		player->table->table_array[row][col_i] = 0;
-	}
 }
 
 static void	shift_rows_down(t_player *player, int empty_row)
 {
 	for (int row = empty_row; row > 0; row--)
 		for (int col = 0; col < COLUMNS; col++)
-			player->table->table_array[row][col] = player->table->table_array[row
-				- 1][col];
+			player->table->table_array[row][col] = player->table->table_array[row - 1][col];
 }
 
 int	clear_mino(t_player *player)
@@ -43,7 +42,7 @@ int	clear_mino(t_player *player)
 			if (time_to_decrease > 0)
 			{
 				player->table->time_to_execute -= time_to_decrease;
-				time_to_decrease--;
+				time_to_decrease += ADDEND_TIME_TO_DECREASE;
 			}
 			// 再検証を行うためにインデックスをデクリメント
 			row_i--;
