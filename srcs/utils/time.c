@@ -1,4 +1,5 @@
-#include "tetris.h"
+#include "utils.h"
+#define SEC2USEC 1000000
 
 // Time when the last move down process was executed
 static struct timeval last_exec_time;
@@ -7,10 +8,7 @@ static struct timeval last_frame_time;
 
 static suseconds_t get_time(struct timeval time)
 {
-	// 1sec = 1000000usec
-	int sec2usec = 1000000;
-
-	return (time.tv_sec * sec2usec + time.tv_usec);
+	return (time.tv_sec * SEC2USEC + time.tv_usec);
 }
 
 void	init_time(void)
@@ -37,10 +35,9 @@ void update_exec_time(void)
 void print_output_according_to_fps(const t_player *player)
 {
 	struct timeval now;
-	int sec2usec = 1000000; // 1sec = 1000000usec
 	int time_to_next_frame;
 
-	time_to_next_frame = sec2usec / FPS;
+	time_to_next_frame = 1 * SEC2USEC / FPS;
 	gettimeofday(&now, NULL);
 	if ((get_time(now) - get_time(last_frame_time)) > time_to_next_frame)
 	{
