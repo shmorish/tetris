@@ -8,7 +8,7 @@ int	main(void)
 	init_game();
 	run_tetris_game(player);
 	end_game(player);
-	destruct_player_struct(player);
+	free_player_struct(player);
 	return (0);
 }
 

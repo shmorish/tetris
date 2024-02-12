@@ -13,24 +13,24 @@ void	free_array(char **array)
 	array = NULL;
 }
 
-void	destruct_table_struct(t_table *table)
+void	free_table_struct(t_table *table)
 {
 	free_array(table->table_array);
 	free(table);
 	table = NULL;
 }
 
-void	destruct_mino_struct(t_mino *mino)
+void	free_mino_struct(t_mino *mino)
 {
 	free_array(mino->mino_array);
 	free(mino);
 	mino = NULL;
 }
 
-void	destruct_player_struct(t_player *player)
+void	free_player_struct(t_player *player)
 {
-	destruct_table_struct(player->table);
-	destruct_mino_struct(player->mino);
+	free_table_struct(player->table);
+	free_mino_struct(player->mino);
 	free(player);
 	player = NULL;
 }
