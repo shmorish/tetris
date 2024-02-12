@@ -3,10 +3,12 @@
 
 # include "mino.h"
 # include "utils.h"
+
 # define W_KEY 'w'
 # define A_KEY 'a'
 # define S_KEY 's'
 # define D_KEY 'd'
+
 // game_setup.c
 void	init_game(void);
 void	end_game(t_player *player);
