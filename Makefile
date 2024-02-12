@@ -22,7 +22,7 @@ SRC = $(SRC_MAIN) $(SRC_OTHER)
 SRCS = $(addprefix $(SRCDIR)/, $(SRC))
 OBJS = $(subst $(SRCDIR), $(OBJDIR), $(SRCS:.c=.o))
 
-# CFLAGS += -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 
 INC = -I includes/

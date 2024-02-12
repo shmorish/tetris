@@ -6,7 +6,6 @@
 
 # define MINO_TYPES 7
 # define SCORE_PER_BLOCK 100
-const t_mino	Tetromino[MINO_TYPES];
 
 // clear_mino.c
 int				clear_mino(t_player *player);

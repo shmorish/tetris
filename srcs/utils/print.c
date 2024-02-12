@@ -38,7 +38,7 @@ static void print_table_with_falling_mino(const bool situation, const char **tab
 	switch_print(situation, "\nScore: %lu\n", score);
 }
 
-static char	**store_mino(t_mino *mino, int row, int col)
+static char	**store_mino(t_mino *mino)
 {
 	char	**empty_map_with_mino;
 
@@ -50,12 +50,10 @@ static char	**store_mino(t_mino *mino, int row, int col)
 void	print_table(const bool situation, const t_player *player, int score)
 {
 	char	**empty_map_with_mino;
-	t_mino	*mino = player->mino;
-	t_table	*table = player->table;
 
-	empty_map_with_mino = store_mino(mino, mino->current_row, mino->current_col);
+	empty_map_with_mino = store_mino(player->mino);
 	if (situation == GAME_ON)
 		print_title();
-	print_table_with_falling_mino(situation, (const char **)table->table_array, score, empty_map_with_mino);
+	print_table_with_falling_mino(situation, (const char **)player->table->table_array, score, empty_map_with_mino);
 	free_array(empty_map_with_mino);
 }

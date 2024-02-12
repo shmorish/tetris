@@ -1,13 +1,14 @@
 #include "mino.h"
 
-static void rotate_tetromino(t_mino *mino)
+static void	rotate_tetromino(t_mino *mino)
 {
-	t_mino *tmp = duplicate_mino(mino);
-	int k, size;
-	size = mino->mino_size;
-	for(int i = 0; i < size ; i++){
-		for(int j = 0, k = size - 1; j < size; j++, k--)
-				mino->mino_array[i][j] = tmp->mino_array[k][i];
+	t_mino	*tmp;
+
+	tmp = duplicate_mino(mino);
+	for (int h_i = 0; h_i < mino->mino_size; h_i++)
+	{
+		for (int w_i = 0, opposite_h_i = mino->mino_size - 1; w_i < mino->mino_size; w_i++, opposite_h_i--)
+			mino->mino_array[h_i][w_i] = tmp->mino_array[opposite_h_i][h_i];
 	}
 	destruct_mino_struct(tmp);
 }
