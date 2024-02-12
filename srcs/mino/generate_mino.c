@@ -74,13 +74,24 @@ static const t_mino Tetromino[MINO_TYPES] =
 	}
 };
 
+static char	**dup_mino_from_Tetromino(char **mino, int size)
+{
+	char	**array;
+
+	array = (char **)xmalloc(sizeof(char *) * (size + 1));
+	for (int i = 0; i < size; i++)
+		array[i] = memdup(mino[i], size);
+	array[size] = NULL;
+	return (array);
+}
+
 void	generate_mino(t_mino *mino)
 {
 	int mino_index;
 
 	mino_index = rand() % MINO_TYPES;
 	mino->mino_size = Tetromino[mino_index].mino_size;
-	mino->mino_array = mino_dup(Tetromino[mino_index].mino_array, mino->mino_size);
+	mino->mino_array = dup_mino_from_Tetromino(Tetromino[mino_index].mino_array, mino->mino_size);
 	mino->current_row = 0;
 	mino->current_col = rand() % (COLUMNS - mino->mino_size + 1);
 }

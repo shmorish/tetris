@@ -42,10 +42,11 @@ typedef struct s_player
 }				t_player;
 
 // alloc.c
+void			*xmalloc(size_t size);
+void			*memdup(const void *src, size_t size);
 t_player		*init_struct(void);
 char			**init_table(void);
 t_mino			*duplicate_mino(t_mino *mino);
-char			**mino_dup(char **mino_array, int mino_size);
 
 // free.h
 void			free_array(char **array);
@@ -63,6 +64,7 @@ void			print_output_according_to_fps(const t_player *player);
 void			store_mino_to_table(t_mino *mino, char **table);
 
 // print.c
-void			print_table(const bool situation, const t_player *player, int score);
+void			print_table(const bool situation, const t_player *player,
+					int score);
 
 #endif
