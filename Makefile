@@ -3,13 +3,12 @@ NAME = tetris
 SRC_MAIN = main.c
 
 SRC_OTHER = \
-	game/game_setup.c \
 	game/is_game_on.c \
 	game/run_tetris_game.c \
+	game/setup_game.c \
 	mino/clear_mino.c \
 	mino/generate_mino.c \
-	mino/mino_movement.c \
-	mino/mino.c \
+	mino/move_mino.c \
 	utils/alloc.c \
 	utils/free.c \
 	utils/print.c \
