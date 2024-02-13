@@ -50,9 +50,9 @@ t_mino			*duplicate_mino(t_mino *mino);
 
 // free.h
 void			free_array(char **array);
-void			free_player_struct(t_player *player);
-void			free_mino_struct(t_mino *mino);
-void			free_table_struct(t_table *table);
+void			free_player(t_player *player);
+void			free_mino(t_mino *mino);
+void			free_table(t_table *table);
 
 // time.c
 void			init_time(void);
