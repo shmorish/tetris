@@ -87,9 +87,8 @@ static char	**dup_mino_from_Tetromino(char **mino, int size)
 
 void	generate_mino(t_mino *mino)
 {
-	int mino_index;
+	const int mino_index = rand() % MINO_TYPES;
 
-	mino_index = rand() % MINO_TYPES;
 	mino->mino_size = Tetromino[mino_index].mino_size;
 	mino->mino_array = dup_mino_from_Tetromino(Tetromino[mino_index].mino_array, mino->mino_size);
 	mino->current_row = 0;

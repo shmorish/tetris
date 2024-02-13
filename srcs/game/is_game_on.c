@@ -2,24 +2,19 @@
 
 static bool	will_mino_collide_wall(const t_mino *mino_checker, const int height, const int width)
 {
-	bool	collide_left_wall;
-	bool	collide_right_wall;
-	bool	collide_floor;
+	const bool	collide_left_wall = mino_checker->current_col + width < 0;
+	const bool	collide_right_wall = mino_checker->current_col + width >= COLUMNS;
+	const bool	collide_floor = mino_checker->current_row + height >= ROWS;
 
-	collide_left_wall = mino_checker->current_col + width < 0;
-	collide_right_wall = mino_checker->current_col + width >= COLUMNS;
-	collide_floor = mino_checker->current_row + height >= ROWS;
 	return (collide_left_wall || collide_right_wall || collide_floor);
 }
 
 static bool	will_mino_collide_other_mino(const t_mino *mino_checker,
 		char **table_array, const int height, const int width)
 {
-	int	row_where_mino_will_mode;
-	int	col_where_mino_will_mode;
+	const int	row_where_mino_will_mode = mino_checker->current_row + height;
+	const int	col_where_mino_will_mode = mino_checker->current_col + width;
 
-	row_where_mino_will_mode = mino_checker->current_row + height;
-	col_where_mino_will_mode = mino_checker->current_col + width;
 	return (table_array[row_where_mino_will_mode][col_where_mino_will_mode]);
 }
 

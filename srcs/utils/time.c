@@ -36,9 +36,8 @@ void update_exec_time(void)
 void render_table(const t_player *player)
 {
 	struct timeval now;
-	int time_to_next_frame;
+	const int time_to_next_frame = 1 * SEC2USEC / FPS;
 
-	time_to_next_frame = 1 * SEC2USEC / FPS;
 	gettimeofday(&now, NULL);
 	if ((get_time(now) - get_time(last_frame_time)) > time_to_next_frame)
 	{
