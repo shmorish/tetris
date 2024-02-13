@@ -32,7 +32,6 @@ typedef struct s_table
 	suseconds_t	time_to_execute;
 	char		**table_array;
 	long		score;
-	bool		is_game_on;
 }				t_table;
 
 typedef struct s_player

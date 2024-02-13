@@ -36,7 +36,6 @@ t_player	*init_player(void)
 	player->table->time_to_execute = INITIAL_TIME_TO_EXECVE_ms;
 	player->table->table_array = init_table();
 	player->table->score = 0;
-	player->table->is_game_on = GAME_ON;
 	return (player);
 }
 
