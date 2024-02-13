@@ -8,7 +8,6 @@ int	main(void)
 	init_game();
 	run_game(player);
 	end_game(player);
-	free_player_struct(player);
 	return (0);
 }
 

@@ -23,4 +23,5 @@ void	end_game(t_player *player)
 {
 	endwin();
 	print_table(GAME_OVER, player, player->table->score);
+	free_player_struct(player);
 }
