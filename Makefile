@@ -4,6 +4,7 @@ SRC_MAIN = main.c
 
 SRC_OTHER = \
 	game/is_game_on.c \
+	game/key_events.c \
 	game/run_game.c \
 	game/setup_game.c \
 	mino/clear_mino.c \
