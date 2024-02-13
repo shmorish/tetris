@@ -22,7 +22,7 @@ void	*memdup(const void *src, size_t size)
 	return (dest);
 }
 
-t_player	*init_struct(void)
+t_player	*init_player(void)
 {
 	t_player	*player;
 
@@ -36,7 +36,6 @@ t_player	*init_struct(void)
 	player->table->time_to_execute = INITIAL_TIME_TO_EXECVE_ms;
 	player->table->table_array = init_table();
 	player->table->score = 0;
-	player->table->is_game_on = GAME_ON;
 	return (player);
 }
 
@@ -48,9 +47,9 @@ char	**init_table(void)
 	for (int i = 0; i < ROWS; i++)
 		table[i] = (char *)xmalloc(sizeof(char) * (COLUMNS + 1));
 	table[ROWS] = NULL;
-	for (int i = 0; i < ROWS; i++)
-		for (int j = 0; j < COLUMNS; j++)
-			table[i][j] = 0;
+	for (int row_i = 0; row_i < ROWS; row_i++)
+		for (int col_i = 0; col_i < COLUMNS; col_i++)
+			table[row_i][col_i] = 0;
 	return (table);
 }
 

@@ -16,7 +16,10 @@ void	end_game(t_player *player);
 // is_game_on.c
 bool	is_game_on(const t_mino *mino_checker, char **table_array);
 
-// run_tetris_game.c
-void	run_tetris_game(t_player *player);
+// run_game.c
+void	run_game(t_player *player);
+
+// key_events.c
+void	key_events(t_player *player);
 
 #endif

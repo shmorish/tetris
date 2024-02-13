@@ -32,7 +32,6 @@ typedef struct s_table
 	suseconds_t	time_to_execute;
 	char		**table_array;
 	long		score;
-	bool		is_game_on;
 }				t_table;
 
 typedef struct s_player
@@ -44,21 +43,21 @@ typedef struct s_player
 // alloc.c
 void			*xmalloc(size_t size);
 void			*memdup(const void *src, size_t size);
-t_player		*init_struct(void);
+t_player		*init_player(void);
 char			**init_table(void);
 t_mino			*duplicate_mino(t_mino *mino);
 
 // free.h
 void			free_array(char **array);
-void			free_player_struct(t_player *player);
-void			free_mino_struct(t_mino *mino);
-void			free_table_struct(t_table *table);
+void			free_player(t_player *player);
+void			free_mino(t_mino *mino);
+void			free_table(t_table *table);
 
 // time.c
 void			init_time(void);
 bool			time_elapsed(t_table *table);
 void			update_exec_time(void);
-void			print_output_according_to_fps(const t_player *player);
+void			render_table(const t_player *player);
 
 // store.c
 void			store_mino_to_table(t_mino *mino, char **table);
