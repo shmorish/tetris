@@ -22,9 +22,9 @@ static void	remove_row(t_player *player, int row)
 
 static void	shift_rows_down(t_player *player, int empty_row)
 {
-	for (int row = empty_row; row > 0; row--)
-		for (int col = 0; col < COLUMNS; col++)
-			player->table->table_array[row][col] = player->table->table_array[row - 1][col];
+	for (int row_i = empty_row; row_i > 0; row_i--)
+		for (int col_i = 0; col_i < COLUMNS; col_i++)
+			player->table->table_array[row_i][col_i] = player->table->table_array[row_i - 1][col_i];
 }
 
 int	clear_mino(t_player *player)

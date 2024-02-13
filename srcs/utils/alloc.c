@@ -48,9 +48,9 @@ char	**init_table(void)
 	for (int i = 0; i < ROWS; i++)
 		table[i] = (char *)xmalloc(sizeof(char) * (COLUMNS + 1));
 	table[ROWS] = NULL;
-	for (int i = 0; i < ROWS; i++)
-		for (int j = 0; j < COLUMNS; j++)
-			table[i][j] = 0;
+	for (int row_i = 0; row_i < ROWS; row_i++)
+		for (int col_i = 0; col_i < COLUMNS; col_i++)
+			table[row_i][col_i] = 0;
 	return (table);
 }
 
