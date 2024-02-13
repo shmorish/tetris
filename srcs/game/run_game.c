@@ -1,5 +1,6 @@
 #include "game.h"
 
+// 一定時間が経過したら落下中のミノを一段下に落とす
 static void	time_elapse_event(t_player *player)
 {
 	if (time_elapsed(player->table))
