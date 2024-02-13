@@ -31,10 +31,10 @@ void	run_game(t_player *player)
 {
 	generate_mino(player->mino);
 	if (is_game_on(player->mino, player->table->table_array) == false)
-		player->table->is_game_on = false;
+		player->table->is_game_on = GAME_OVER;
 	while (player->table->is_game_on == GAME_ON)
 	{
-		print_output_according_to_fps(player);
+		render_table(player);
 		key_events(player);
 		time_elapse_event(player);
 	}

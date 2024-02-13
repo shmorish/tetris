@@ -58,7 +58,7 @@ void			free_table(t_table *table);
 void			init_time(void);
 bool			time_elapsed(t_table *table);
 void			update_exec_time(void);
-void			print_output_according_to_fps(const t_player *player);
+void			render_table(const t_player *player);
 
 // store.c
 void			store_mino_to_table(t_mino *mino, char **table);

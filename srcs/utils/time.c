@@ -32,7 +32,8 @@ void update_exec_time(void)
 	gettimeofday(&last_exec_time, NULL);
 }
 
-void print_output_according_to_fps(const t_player *player)
+// テーブルをFPSごとに描画する
+void render_table(const t_player *player)
 {
 	struct timeval now;
 	int time_to_next_frame;
