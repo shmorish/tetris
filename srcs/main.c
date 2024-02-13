@@ -4,7 +4,7 @@ int	main(void)
 {
 	t_player	*player;
 
-	player = init_struct();
+	player = init_player();
 	init_game();
 	run_game(player);
 	end_game(player);

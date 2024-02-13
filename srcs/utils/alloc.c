@@ -22,7 +22,7 @@ void	*memdup(const void *src, size_t size)
 	return (dest);
 }
 
-t_player	*init_struct(void)
+t_player	*init_player(void)
 {
 	t_player	*player;
 

@@ -44,7 +44,7 @@ typedef struct s_player
 // alloc.c
 void			*xmalloc(size_t size);
 void			*memdup(const void *src, size_t size);
-t_player		*init_struct(void);
+t_player		*init_player(void);
 char			**init_table(void);
 t_mino			*duplicate_mino(t_mino *mino);
 
