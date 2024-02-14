@@ -3,9 +3,11 @@
 
 # Prerequisites
 *.d
+deps/
 
 # Object files
 *.o
+objs/
 *.ko
 *.obj
 *.elf
@@ -46,6 +48,7 @@ tetris
 *.su
 *.idb
 *.pdb
+log
 
 # Kernel Module Compile Results
 *.mod*
