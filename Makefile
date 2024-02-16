@@ -70,7 +70,7 @@ $(OBJDIR) $(DEPDIR):
 	@ mkdir -p $@
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(DEPDIR)/%.d | $(OBJDIR) $(DEPDIR)
-	@ mkdir -p $(@D)
+	@ mkdir -p $(@D) $(subst $(OBJDIR), $(DEPDIR), $(@D))
 	@ $(CC) $(CFLAGS) $(INC) -o $@ -c $<
 	$(call progress)
 
