@@ -18,12 +18,15 @@ SRC_OTHER = \
 
 SRCDIR = srcs
 OBJDIR = objs
+DEPDIR = deps
 
 SRC = $(SRC_MAIN) $(SRC_OTHER)
 SRCS = $(addprefix $(SRCDIR)/, $(SRC))
 OBJS = $(subst $(SRCDIR), $(OBJDIR), $(SRCS:.c=.o))
+DEPS = $(subst $(SRCDIR), $(DEPDIR), $(SRCS:.c=.d))
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -MP -MMD -MF $(DEPDIR)/$*.d
+CFLAGS += -Wall -Wextra -Werror
 RM = rm -rf
 
 INC = -I includes/
@@ -47,11 +50,11 @@ TOTAL_FILES := $(shell echo $(words $(SRCS)))
 CURRENT_FILE = 1
 
 define progress
-	@ printf "$(GENERATE) $(YELLOW)tetris obj file gen Progress: %3d%% (%d/%d)$(RESET)\r" $$(($(CURRENT_FILE)*100/$(TOTAL_FILES))) $(CURRENT_FILE) $(TOTAL_FILES)
-	@ $(eval CURRENT_FILE=$(shell echo $$(($(CURRENT_FILE)+1))))
-	@ if [ $(CURRENT_FILE) -gt $(TOTAL_FILES) ]; then \
-		printf "$(GENERATE) $(YELLOW)Finish Generating TETRIS Object files !%-50.50s\n$(RESET)"; \
-	fi
+    @printf "$(GENERATE) $(YELLOW)tetris obj file gen Progress: %3d%% (%d/%d)$(RESET)\r" $$(($(CURRENT_FILE)*100/$(TOTAL_FILES))) $(CURRENT_FILE) $(TOTAL_FILES)
+    @$(eval CURRENT_FILE=$(shell echo $$(($(CURRENT_FILE)+1))))
+    @if [ $(CURRENT_FILE) -gt $(TOTAL_FILES) ]; then \
+        printf "$(GENERATE) $(YELLOW)Finish Generating TETRIS Object files !%-50.50s\n$(RESET)"; \
+    fi
 endef
 
 all : $(NAME)
@@ -60,21 +63,23 @@ $(NAME): $(OBJS)
 	@ $(CC) $(CFLAGS) -o $@ $^ -lncurses $(INC)
 	@ printf "$(CHECK) $(BLUE)Compiling tetris...%-50.50s\n$(RESET)"
 
+$(DEPS):
+-include $(DEPS)
 
-$(OBJDIR):
+$(OBJDIR) $(DEPDIR):
 	@ mkdir -p $@
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(DEPDIR)/%.d | $(OBJDIR) $(DEPDIR)
 	@ mkdir -p $(@D)
 	@ $(CC) $(CFLAGS) $(INC) -o $@ -c $<
 	$(call progress)
 
 clean :
-	@ $(RM) $(OBJDIR)
+	@ $(RM) $(OBJDIR) $(DEPDIR)
 	@ echo "$(REMOVE) $(BLUE)Remove tetris object files. $(RESET)"
 
 fclean :
-	@ $(RM) $(OBJDIR) $(NAME)
+	@ $(RM) $(OBJDIR) $(NAME) $(DEPDIR)
 	@ echo "$(REMOVE) $(BLUE)Remove tetris object files and $(NAME). $(RESET)"
 
 re : fclean all
