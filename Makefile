@@ -2,17 +2,19 @@ NAME = tetris
 
 SRC_MAIN = main.c
 
-SRC_OTHER = actions.c \
-	can_mino_move.c \
-	clear_mino.c \
-	game_setup.c \
-	generate_mino.c \
-	print_table.c \
-	run_tetris_game.c \
-	struct.c \
-	time.c \
-	utils.c \
-
+SRC_OTHER = \
+	game/is_game_on.c \
+	game/key_events.c \
+	game/run_game.c \
+	game/setup_game.c \
+	mino/clear_mino.c \
+	mino/generate_mino.c \
+	mino/move_mino.c \
+	utils/alloc.c \
+	utils/free.c \
+	utils/print.c \
+	utils/store.c \
+	utils/time.c \
 
 SRCDIR = srcs
 OBJDIR = objs
@@ -68,7 +70,7 @@ $(OBJDIR) $(DEPDIR):
 	@ mkdir -p $@
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(DEPDIR)/%.d | $(OBJDIR) $(DEPDIR)
-	@ mkdir -p $(@D)
+	@ mkdir -p $(@D) $(subst $(OBJDIR), $(DEPDIR), $(@D))
 	@ $(CC) $(CFLAGS) $(INC) -o $@ -c $<
 	$(call progress)
 
@@ -87,4 +89,3 @@ debug : re
 address : re
 
 .PHONY : all clean fclean re debug address
-
