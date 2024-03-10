@@ -33,7 +33,7 @@ make
 
 To execute the program, run:
 
-```C
+```shell
 ./tetris
 ```
 
@@ -51,3 +51,8 @@ The map files are in `map` directory
 
 
 ### Demonstration
+
+
+
+https://github.com/shmorish/tetris/assets/110565242/11afbe06-c672-4dec-9ff0-a4a792cf9938
+
